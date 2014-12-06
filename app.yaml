@@ -1,0 +1,12 @@
+application: pivotal-bolt-786
+version: 11
+runtime: python27
+threadsafe: true
+api_version: 1
+
+builtins:
+- remote_api: on
+
+handlers:
+- url: /quiz
+  static_dir: quiz_builder
