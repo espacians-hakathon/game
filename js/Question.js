@@ -85,7 +85,7 @@ var showNewQuestion = function(stage){
 		container = new createjs.Container();
 		questionText = new createjs.Text("", "bold 75px questionFont" ,"#000");
 		stage.addChild(container);
-		stage.addChild(questionText)
+		stage.addChild(questionText);
 	};
 }
 var container

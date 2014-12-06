@@ -53,8 +53,11 @@ var drawCharacters = function() {
         var image = new createjs.Bitmap("sprites/CharacterPinkGirl.png");
         image.x = player.getColumn() * 100;
         image.y = -50 + mapMargin;
+        player.nameText.x = image.x;
+        player.nameText.y = image.y;
         player.setImage(image);
         stage.addChild(image);
+        stage.addChild(player.nameText);
     }
 };
 
@@ -138,7 +141,12 @@ function handleTick(event) {
         var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50 + mapMargin;
         //console.log(target_y);
         image.y += 10;
-        if (image.y >= target_y) image.y = target_y;
+        player.nameText.y+=10;
+        if (image.y >= target_y)
+        {
+        	player.nameText.y = target_y;
+         image.y = target_y;
+        }
     }
     stage.update();
 }
