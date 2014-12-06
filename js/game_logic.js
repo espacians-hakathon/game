@@ -82,21 +82,22 @@ var swapImage = function(imageObj, imagestring) {
     });
 };
 
-var swapSprite = function(imageObj, imagestring) {
+var swapSprite = function(imageObj, imagestring,z) {
     console.log(imageObj);
     var originalX = imageObj.sprite.x,
         originalY = imageObj.sprite.y;
     var image = getImageFactory(imagestring);
     image.x = originalX;
     image.y = originalY;
-
+	stage.setChildIndex(imageObj.sprite, z)
 createjs.Tween.get(imageObj.sprite).to({y:-1000}, 500, createjs.Ease.getElasticInOut(1000,1000)).call(function() {
 
         stage.removeChild(imageObj.sprite);
         imageObj.sprite = image;
         image.y = -1000;
-        stage.addChild(imageObj.sprite);
-
+        stage.addChild(image);
+        stage.setChildIndex(image, z)
+        imageObj.setType(imagestring);
 
 createjs.Tween.get(image).to({y:originalY}, 500, createjs.Ease.getElasticInOut(100,5000));
     });
