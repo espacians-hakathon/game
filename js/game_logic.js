@@ -41,10 +41,10 @@ var drawTileBlock = function(image_type, x, y) {
     block.y = y * 85 + mapMargin;
     stage.addChild(block);
 };
-
+var grid;
 var drawMap = function() {
     stage.canvas.width = window.innerWidth;
-    var grid = new Grid(stage);
+    grid = new Grid(stage);
     _(map).each(function(row, i) {
 		grid.addColumn(row)
     });
