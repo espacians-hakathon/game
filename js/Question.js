@@ -105,6 +105,11 @@ function nextQuestion(){
 		var bounds = text.getBounds();
 		text.x = (stage.canvas.width / 4 * (i + 1)) - bounds.width;
 		text.y = 120;
+
+		var hit = new createjs.Shape();
+		hit.graphics.beginFill("#000").drawRect(0, 0, text.getMeasuredWidth(), text.getMeasuredHeight());
+		text.hitArea = hit;
+
 		container.addChild(text);
 		text.addEventListener("click", handleClick);
 		function handleClick(event) {
