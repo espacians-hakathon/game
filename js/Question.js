@@ -18,7 +18,10 @@ function Question() {
 var questionText,
     answersContainer,
     questions,
-    questionIndex=1;
+    questionIndex=1,
+    bounds={width:0,height:0};
+    bounds.width=0;
+    bounds.height=0;
 var initQuestions = function(stage) {
     questions = JSON.parse(localStorage.getItem("questions"));
     console.log(questions);
@@ -34,14 +37,19 @@ function nextQuestion() {
     questionText.text = q.question;
     questionText.x = stage.canvas.width / 2 - questionText.getBounds().width / 2;
     answersContainer.removeAllChildren();
+    bounds.width=0;
+    bounds.height=0;
     //console.log(q.answers.size());
     for (i = 1; i <= 4; i++) {
         var answer = q.answers[i];
         console.log(q.correct);
-        var text = new createjs.Text(answer, "bold 75px answerFont", "#000");
-        var bounds = text.getBounds();
-        text.x = i * 200 + 200;
+        var text = new createjs.Text(answer, "bold 55px answerFont", "#000");
+         if (i==1)   bounds = text.getBounds();
+        console.log(bounds.width);
+        text.x = i*200 + bounds.width;
         text.y = 120;
+        bounds = text.getBounds();
+
 
         var hit = new createjs.Shape();
         hit.graphics.beginFill("#000").drawRect(0, 0, text.getMeasuredWidth(), text.getMeasuredHeight());
