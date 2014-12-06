@@ -10,11 +10,7 @@ function getImageFactory(image_type) {
     }
 }
 
-
-// var canvas = document.getElementById('game');
 var stage = new createjs.Stage("game");
-// var context = canvas.getContext('2d')//.fillRect(4,4,5,60);
-var tileSize = 30;
 var mapMargin = 150; // Margin to push map to view sky
 var map = [
     ["g", "s", "b", "b", "b", "b", "b", "b"],
@@ -136,6 +132,7 @@ var init = function() {
     drawMap();
     drawCharacters();
     swapImage(players[1], "boy");
+    showNewQuestion(stage);
 };
 
 createjs.Ticker.addEventListener("tick", handleTick);
@@ -152,9 +149,9 @@ function handleTick(event) {
     stage.update();
 }
 
-init();
-
 var advanceOneStep = function(player) {
     var character = players[player];
     character.setTargetBlock(character.getTargetBlock() + 1);
 };
+
+init();
