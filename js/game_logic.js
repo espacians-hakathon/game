@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 function Character (name,column) {
     this.name = name;
     this.column = column;
