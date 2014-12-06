@@ -1,6 +1,7 @@
 var blockSize = getImageFactory("1");
-var players = [new Character("Ahmed", 0), new Character("Mohamed", 1)];
+var players = [new Character("Ahmed", 0), new Character("Mohamed", 1), new Character("Basayel", 3)];
 var grid;
+
 function getImageFactory(image_type) {
     switch (image_type) {
         case "boy":
@@ -42,7 +43,7 @@ var drawMap = function() {
     stage.canvas.width = window.innerWidth;
     grid = new Grid(stage);
     _(map).each(function(row, i) {
-        grid.addColumn(row)
+        grid.addColumn(row);
     });
 };
 
@@ -53,8 +54,8 @@ var drawCharacters = function() {
         var image = new createjs.Bitmap("sprites/CharacterPinkGirl.png");
         image.x = player.getColumn() * 100;
         image.y = -50 + mapMargin;
-        player.nameText.x = image.x;
-        player.nameText.y = image.y;
+        player.nameText.x = image.x + player.nameText.getBounds().width / 4;
+        player.nameText.y = image.y + player.nameText.getBounds().height;
         player.setImage(image);
         stage.addChild(image);
         stage.addChild(player.nameText);
@@ -85,16 +86,18 @@ var swapImage = function(imageObj, imagestring) {
     });
 };
 
-var swapSprite = function(imageObj, imagestring,z) {
-  console.log(imageObj);
+var swapSprite = function(imageObj, imagestring, z) {
+    console.log(imageObj);
     var originalX = imageObj.sprite.x,
         originalY = imageObj.sprite.y;
     var image = getBlockFactory(imagestring);
     image.x = originalX;
     image.y = originalY;
 
-createjs.Tween.get(imageObj.sprite).to({y:-1000}, 500, createjs.Ease.getElasticInOut(1000,1000)).call(function() {
-		console.log("removing");
+    createjs.Tween.get(imageObj.sprite).to({
+        y: -1000
+    }, 500, createjs.Ease.getElasticInOut(1000, 1000)).call(function() {
+        console.log("removing");
         stage.removeChild(imageObj.sprite);
         imageObj.sprite = image;
         image.y = -1000;
@@ -102,7 +105,9 @@ createjs.Tween.get(imageObj.sprite).to({y:-1000}, 500, createjs.Ease.getElasticI
         stage.setChildIndex(imageObj.sprite, z);
 
 
-createjs.Tween.get(image).to({y:originalY}, 500, createjs.Ease.getElasticInOut(100,5000));
+        createjs.Tween.get(image).to({
+            y: originalY
+        }, 500, createjs.Ease.getElasticInOut(100, 5000));
     });
 
 };
@@ -129,8 +134,9 @@ var init = function() {
     drawMap();
     drawCharacters();
     swapImage(players[1], "boy");
+    swapImage(players[0], "boy");
     showNewQuestion(stage);
-    nextQuestion()
+    nextQuestion();
 };
 
 createjs.Ticker.addEventListener("tick", handleTick);
@@ -142,11 +148,10 @@ function handleTick(event) {
         var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50 + mapMargin;
         //console.log(target_y);
         image.y += 10;
-        player.nameText.y+=10;
-        if (image.y >= target_y)
-        {
-        	player.nameText.y = target_y;
-        	image.y = target_y;
+        player.nameText.y = player.nameText.y + 10 + player.nameText.getBounds().height*2;
+        if (image.y >= target_y) {
+            player.nameText.y = target_y + player.nameText.getBounds().height*2;
+            image.y = target_y;
         }
     }
     stage.update();
