@@ -3,8 +3,6 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title> - jsFiddle demo by firebase</title>  
-  <!-- <script type="text/javascript" src="/js/lib/dummy.js"></script>
-  <link rel="stylesheet" type="text/css" href="/css/result-light.css">  -->
   <script type="text/javascript" src="https://cdn.firebase.com/js/client/1.1.1/firebase.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -18,7 +16,7 @@
     }
   </style>
   
-  <script type="text/javascript">//<![CDATA[ 
+  <script type="text/javascript">
   window.onload=function(){
     (function (jQuery, Firebase, Path) {
       "use strict";
@@ -29,20 +27,16 @@
         '#/': {
           form: 'frmProfile',
           controller: 'profile',
-          authRequired: true // must be logged in to get here
+          authRequired: true 
         },
           '#/logout': {
           form: 'frmLogout',
           controller: 'logout'
         },
-        //   '#/register': {
-        //   form: 'frmRegister',
-        //   controller: 'register'
-        // },
           '#/profile': {
           form: 'frmProfile',
           controller: 'profile',
-          authRequired: true // must be logged in to get here
+          authRequired: true 
         },
       };
 
@@ -55,67 +49,6 @@
       function routeTo(route) {
         window.location.href = '#/' + route;
       }
-
-      // Handle third party login providers
-      // returns a promise
-      // function thirdPartyLogin(provider) {
-      //   var deferred = $.Deferred();
-      //   rootRef.authWithOAuthPopup(provider, function (err, user) {
-      //     if (err) {
-      //       deferred.reject(err);
-      //     }
-
-      //     if (user) {
-      //       deferred.resolve(user);
-      //     }
-      //   });
-
-      //   return deferred.promise();
-      // };
-
-      // Handle Email/Password login
-      // returns a promise
-      // function authWithPassword(userObj) {
-      //   var deferred = $.Deferred();
-      //   console.log(userObj);
-      //   rootRef.authWithPassword(userObj, function onAuth(err, user) {
-      //     if (err) {
-      //       deferred.reject(err);
-      //     }
-
-      //     if (user) {
-      //       deferred.resolve(user);
-      //     }
-
-      //   });
-
-      //   return deferred.promise();
-      // }
-
-      // create a user but not login
-      // returns a promsie
-      // function createUser(userObj) {
-      //   var deferred = $.Deferred();
-      //   rootRef.createUser(userObj, function (err) {
-      //     if (!err) {
-      //         deferred.resolve();
-      //     } else {
-      //         deferred.reject(err);
-      //     }
-
-      //   });
-
-      //   return deferred.promise();
-      // }
-
-      // Create a user and then login in
-      // returns a promise
-      // function createUserAndLogin(userObj) {
-      //   return createUser(userObj)
-      //       .then(function () {
-      //       return authWithPassword(userObj);
-      //   });
-      // }
 
       // authenticate anonymously
       // returns a promise
@@ -141,7 +74,6 @@
       function handleAuthResponse(promise, route) {
         $.when(promise)
             .then(function (authData) {
-
             // route
             routeTo(route);
 
@@ -171,58 +103,11 @@
       /// Controllers
       ////////////////////////////////////////
 
-      // controllers.login = function (form) {
-
-      //   // Form submission for logging in
-      //   form.on('submit', function (e) {
-
-      //     var userAndPass = $(this).serializeObject();
-      //     var loginPromise = authWithPassword(userAndPass);
-      //     e.preventDefault();
-
-      //     handleAuthResponse(loginPromise, 'profile');
-
-      //   });
-
-      //   // Social buttons
-      //   form.children('.bt-social').on('click', function (e) {
-
-      //     var $currentButton = $(this);
-      //     var provider = $currentButton.data('provider');
-      //     var socialLoginPromise;
-      //     e.preventDefault();
-
-      //     socialLoginPromise = thirdPartyLogin(provider);
-      //     handleAuthResponse(socialLoginPromise, 'profile');
-
-      //   });
-
-      //   form.children('#btAnon').on('click', function (e) {
-      //     e.preventDefault();
-      //     handleAuthResponse(authAnonymously(), 'profile');
-      //   });
-
-      // };
-
       // logout immediately when the controller is invoked
       controllers.logout = function (form) {
         $('#txtTitle').text('')
         rootRef.unauth();
       };
-
-      // controllers.register = function (form) {
-      //   // Form submission for registering
-      //   form.on('submit', function (e) {
-
-      //     var userAndPass = $(this).serializeObject();
-      //     var loginPromise = createUserAndLogin(userAndPass);
-      //     e.preventDefault();
-
-      //     handleAuthResponse(loginPromise, 'profile');
-
-      //   });
-
-      // };
 
       controllers.profile = function (form) {
         // Check the current user
@@ -238,7 +123,7 @@
 
         // Load user info
         userRef = rootRef.child('Students').child(user.uid);
-        userRef.once('value', function (snap) {
+        userRef.on('value', function (snap) {
           var user = snap.val();
           if (!user) {
               return;
@@ -268,9 +153,6 @@
         });
 
       };
-
-      /// Routing
-      ////////////////////////////////////////
 
       // Handle transitions between routes
       function transitionRoute(path) {
@@ -359,7 +241,7 @@
       });
 
     }(window.jQuery, window.Firebase, window.Path))
-  }//]]>  
+  }
 
   </script>
 
