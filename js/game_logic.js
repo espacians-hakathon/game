@@ -46,7 +46,7 @@ var drawMap = function() {
     stage.canvas.width = window.innerWidth;
     grid = new Grid(stage);
     _(map).each(function(row, i) {
-		grid.addColumn(row)
+        grid.addColumn(row)
     });
 };
 
@@ -62,19 +62,56 @@ var drawCharacters = function() {
     }
 };
 
-var swapImage = function(imageObj,imagestring)
-{
-	var originalX = imageObj.image.x,originalY =imageObj.image.y;
-	var image = getImageFactory(imagestring);
-	image.x = originalX; image.y = originalY;
+var swapImage = function(imageObj, imagestring) {
+    console.log(imageObj);
+    var originalX = imageObj.image.x,
+        originalY = imageObj.image.y;
+    var image = getImageFactory(imagestring);
+    image.x = originalX;
+    image.y = originalY;
 
-	createjs.Tween.get(imageObj.image).to({alpha: 0},2000).call(function(){
-		imageObj.image = image;
-		imageObj.image.alpha=0;
-		stage.addChild(imageObj.image);
+    createjs.Tween.get(imageObj.image).to({
+        alpha: 0.5
+    }, 500).call(function() {
 
-		createjs.Tween.get(imageObj.image).to({alpha:255},2000);
-	});
+        stage.removeChild(imageObj.image);
+        imageObj.image = image;
+        imageObj.image.alpha = 0.5;
+        stage.addChild(imageObj.image);
+
+
+        createjs.Tween.get(image).to({
+            alpha: 1
+        }, 500);
+    });
+};
+
+var swapSprite = function(imageObj, imagestring) {
+    console.log(imageObj);
+    var originalX = imageObj.sprite.x,
+        originalY = imageObj.sprite.y;
+    var image = getImageFactory(imagestring);
+    image.x = originalX;
+    image.y = originalY;
+
+    // createjs.Tween.get(imageObj.sprite).to({
+    //     alpha: 0.9
+    // }, 500).call(function() {
+
+    //     stage.removeChild(imageObj.sprite);
+    //     imageObj.sprite = image;
+    //     imageObj.sprite.alpha = 0.9;
+    //     stage.addChild(imageObj.sprite);
+
+
+    //     createjs.Tween.get(image).to({
+    //         alpha: 1
+    //     }, 1000);
+    // });
+
+createjs.Tween.get(imageObj.sprite).to({y:-1000}, 500, Ease.linear);
+
+
 };
 
 
@@ -98,7 +135,7 @@ var init = function() {
     drawGradient();
     drawMap();
     drawCharacters();
-    swapImage(players[1],"boy");
+    swapImage(players[1], "boy");
 };
 
 createjs.Ticker.addEventListener("tick", handleTick);
@@ -108,7 +145,7 @@ function handleTick(event) {
         var player = players[i];
         var image = player.getImage();
         var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50 + mapMargin;
-		//console.log(target_y);
+        //console.log(target_y);
         image.y += 10;
         if (image.y >= target_y) image.y = target_y;
     }

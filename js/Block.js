@@ -21,8 +21,8 @@ Block.prototype.setType = function(type) {
     this.setSprite(type);
 };
 Block.prototype.setSprite = function(type) {
-    var x = this.x
-    var y = this.y
+    var x = this.x;
+    var y = this.y;
     this.sprite = getBlockFactory(type);
     this.sprite.x = x;
     this.sprite.y = y;

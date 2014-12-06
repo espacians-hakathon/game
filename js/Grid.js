@@ -11,7 +11,7 @@ Grid.prototype.addColumn = function(path) {
 		var block = new Block(path[i], this.columnsCount * 100, i * 85 + mapMargin);
 		blocks_column.push(block);
 		this.stage.addChild(block.getSprite());
-	};
+	}
 	this.blocks.push(blocks_column);
 	return ++this.columnsCount;
 };
@@ -28,4 +28,5 @@ Grid.prototype.setBlock = function(col,row,type) {
 	block.setType(type);
 	this.stage.addChild(block.getSprite());
 	this.stage.setChildIndex(block.getSprite(), z)
+// 	swapSprite(this.getBlock(col,row),type);
 };
