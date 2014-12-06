@@ -4,7 +4,7 @@
     <button type="button" class="btn btn-link remove_question_button" question_id="<%= qid%>">Remove</button>
   <% } %>
   </h3>
-  <input required style="width: 50%" type="text" name="questions[<%= qid %>][Question]" class="input-block-level" placeholder="Where is Egypt?">
+  <input required style="width: 50%" type="text" name="questions[<%= qid %>][Question]" class="input-block-level" placeholder="Where is Egypt?" />
   <input type="hidden" name="questions[<%= qid %>][ID]" class="input-block-level" value="<%= qid %>" />
   <select style="width: 113px;" name="questions[<%= qid %>][Level]" class="form-control">
     <option value="1">Easy</option>
@@ -13,8 +13,8 @@
   </select>
   <% for(i in [0,1,2,3] ) { %>
     <div class="radio">
-      <input checked type="radio" value="<%= i %>" name="questions[<%= qid %>][Answers][Correct]">
-      <input required style="width: 40%" type="text" name="questions[<%= qid %>][Answers][<%= i %>]" class="input-block-level" placeholder="Option <%= parseInt(i)+1  %>">
+      <input checked type="radio" value="<%= i %>" name="questions[<%= qid %>][Answers][Correct]" />
+      <input required style="width: 40%" type="text" name="questions[<%= qid %>][Answers][<%= i %>]" class="input-block-level" placeholder="Option <%= parseInt(i)+1  %>" />
     </div>
   <% } %>
 </legend>
