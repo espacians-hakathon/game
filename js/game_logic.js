@@ -127,6 +127,7 @@ var init = function() {
     drawCharacters();
     swapImage(players[1], "boy");
     showNewQuestion(stage);
+    nextQuestion()
 };
 
 createjs.Ticker.addEventListener("tick", handleTick);
