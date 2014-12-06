@@ -161,6 +161,17 @@ var advanceOneStep = function(player,block) {
     var character = players[player];
     grid.setBlock(character.getColumn(),character.getRow(),block);
     character.setTargetBlock(character.getTargetBlock() + 1);
+    answer = true;
+    if(block == "g"){
+        answer = true
+    }else if(block == "s"){
+        answer = false
+    }else{
+        answer = "notyet"
+    }
+    Session.updateUserAnswer(character.getRow(), answer, function(error){
+        console.log(error);
+    });
 };
 
 init();
