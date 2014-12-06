@@ -14,6 +14,7 @@ var Session = {
         // Attach an asynchronous callback to read the data at our posts reference
         dataRef.on("value", function(snapshot) {
           questions=snapshot.val();
+          localStorage.setItem("questions",JSON.stringify(questions));
             console.log(questions);
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
