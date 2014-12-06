@@ -6,6 +6,8 @@
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
     <script src="js/createjs.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 </head>
 <style>
 @font-face {
@@ -29,6 +31,24 @@
 </style>
 
 <body>
+    <header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <a href="#" class="navbar-brand">School Game</a>
+            </div>
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+                <ul class="nav navbar-nav">
+                    <li> <a href"#" id="userName"></a>
+                    </li>
+                    <li> <a href="./student_view.html#/logout" id="logout">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
     <canvas id="game" width="1024" height="1024"></canvas>
     <script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
     <script src="js/Character.js"></script>
@@ -37,6 +57,18 @@
     <script src="js/Question.js"></script>
     <script src="js/game_logic.js"></script>
     <script src="quiz_builder/js/models/session.js"></script>
+    
+    <script type="text/javascript">
+        $(function () {
+            var uuid = localStorage.getItem('currentUUID');
+            var name = localStorage.getItem('currentName');
+            if (uuid && name){
+                $('#userName').text('Welcome! '+ name);
+            }else{
+                window.location.href = "student_view.html";
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -9,12 +9,8 @@ var Session = {
   },
   updateUserAnswer: function(pathId, blockType, callback){
     var myDataRef = new Firebase(this.dataRef+'/'+this.id+'/Students');
-    // var user = myDataRef.getAuth();
-    // console.log('................');
-    // console.log(user.uid);
-    // console.log('................');
-    // var questionRef = myDataRef.child(user.uid).child("Path").child(pathId);
-    var questionRef = myDataRef.child("22").child("Path").child(pathId);
+    userUUID = localStorage.getItem('currentUUID');
+    var questionRef = myDataRef.child(userUUID).child("Path").child(pathId);
     answer = true;
     if(blockType == "g"){
         answer = true
@@ -28,18 +24,7 @@ var Session = {
   },
   createUser: function(userUuid, userObj, callback){
     var myDataRef = new Firebase(this.dataRef+'/'+this.id+'/Students');
-    // var user = myDataRef.getAuth();
-    // console.log('................');
-    // console.log(user.uid);
-    // console.log('................');
     var userRef = myDataRef.child(userUuid)
-    // var userRef = myDataRef.child("22")
-    userRef.set(userObj, function onComplete() {
-      showAlert({
-        title: 'Successfully saved!',
-        detail: 'You are still logged in',
-        className: 'alert-success'
-      });
-    }); 
+    userRef.set(userObj, callback); 
   }
 }

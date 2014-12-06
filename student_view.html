@@ -106,7 +106,9 @@
 
       // logout immediately when the controller is invoked
       controllers.logout = function (form) {
-        $('#txtTitle').text('')
+        $('#txtTitle').text('');
+        localStorage.setItem('currentUUID', '');
+        localStorage.setItem('currentName', '');
         rootRef.unauth();
       };
 
@@ -124,7 +126,7 @@
 
         // Load user info
         userRef = rootRef.child('Students').child(user.uid);
-        userRef.on('value', function (snap) {
+        userRef.once('value', function (snap) {
           var user = snap.val();
           if (!user) {
               return;
@@ -134,20 +136,19 @@
           form.find('#txtName').val(user.name);
           form.find('#txtID').val(user.id);
           $('#txtTitle').text('Welcome! '+ user.name)
+          localStorage.setItem('currentUUID', user.uid);
+          localStorage.setItem('currentName', user.name);
         });
 
         // Save user's info to Firebase
         form.on('submit', function (e) {
           e.preventDefault();
           var userInfo = $(this).serializeObject();
+          localStorage.setItem('currentUUID', user.uid);
+          localStorage.setItem('currentName', userInfo.Name);
+          localStorage.setItem('currentId', userInfo.ID);
           Session.createUser(user.uid, userInfo, function onComplete() {
-            // show the message if write is successful
-            showAlert({
-                title: 'Successfully saved!',
-                detail: 'You are still logged in',
-                className: 'alert-success'
-            });
-
+            window.location.href = "test_tiles.html";
           });
 
           
@@ -252,21 +253,20 @@
   <header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
     <div class="container">
         <div class="navbar-header">
-            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse"> <span class="sr-only">Toggle navigation</span>
+            <!-- <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse"> <span class="sr-only">Toggle navigation</span> -->
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
 
-            </button> <a href="#" class="navbar-brand">Firebase login</a>
+            <!-- </button>  -->
+            <a href="#" class="navbar-brand">School Game</a>
 
         </div>
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
                 <li> <a href="#/">Login</a>
-
                 </li>
                 <li> <a href="#/logout">Logout</a>
-
                 </li>
                <!--  <li> <a href="#/register">Register</a>
 
@@ -332,11 +332,11 @@
         <br>
         <div class="form-group">
             <label for="txtID">ID</label>
-            <input type="text" class="form-control" id="txtID" placeholder="ID" name="id">
+            <input type="text" class="form-control" id="txtID" placeholder="ID" name="ID">
         </div>
         <div class="form-group">
             <label for="txtName">Name</label>
-            <input type="text" class="form-control" id="txtName" placeholder="Name" name="name">
+            <input type="text" class="form-control" id="txtName" placeholder="Name" name="Name">
         </div>
         <button type="submit" class="btn btn-primary">Start</button>
     </form>
