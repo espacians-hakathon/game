@@ -14,22 +14,22 @@ function getImageFactory(image_type) {
 var stage = new createjs.Stage("game");
 var mapTopMargin = 150; // Margin to push map to view sky
 var map = [
-    ["g", "s", "b", "b", "b", "b", "b", "b"],
-    ["g", "s", "g", "g", "s", "b", "b", "b"],
-    ["g", "s", "b", "b", "b", "b", "b", "b"],
-    ["g", "s", "g", "g", "s", "b", "b", "b"],
-    ["g", "s", "b", "b", "b", "b", "b", "b"],
-    ["g", "s", "g", "g", "s", "b", "b", "b"],
-    ["g", "s", "b", "b", "b", "b", "b", "b"],
-    ["g", "s", "g", "g", "s", "b", "b", "b"],
-    ["g", "s", "b", "b", "b", "b", "b", "b"],
-    ["g", "s", "g", "g", "s", "b", "b", "b"],
-    ["g", "s", "b", "b", "b", "b", "b", "b"],
-    ["g", "s", "g", "g", "s", "b", "b", "b"],
-    ["g", "s", "b", "b", "b", "b", "b", "b"],
-    ["g", "s", "g", "g", "s", "b", "b", "b"],
-    ["g", "s", "b", "b", "b", "b", "b", "b"],
-    ["g", "s", "g", "g", "s", "b", "b", "b"],
+    ["b", "s", "b", "b", "b", "b", "b", "b"],
+    ["b", "s", "b", "b", "s", "b", "b", "b"],
+    ["b", "s", "b", "b", "b", "b", "b", "b"],
+    ["b", "s", "b", "b", "s", "b", "b", "b"],
+    ["b", "s", "b", "b", "b", "b", "b", "b"],
+    ["b", "s", "b", "b", "s", "b", "b", "b"],
+    ["b", "s", "b", "b", "b", "b", "b", "b"],
+    ["b", "s", "b", "b", "s", "b", "b", "b"],
+    ["b", "s", "b", "b", "b", "b", "b", "b"],
+    ["b", "s", "b", "b", "s", "b", "b", "b"],
+    ["b", "s", "b", "b", "b", "b", "b", "b"],
+    ["b", "s", "b", "b", "s", "b", "b", "b"],
+    ["b", "s", "b", "b", "b", "b", "b", "b"],
+    ["b", "s", "b", "b", "s", "b", "b", "b"],
+    ["b", "s", "b", "b", "b", "b", "b", "b"],
+    ["b", "s", "b", "b", "s", "b", "b", "b"],
 ];
 
 var drawMap = function() {
@@ -51,7 +51,7 @@ var drawCharacters = function() {
 var drawGradient = function() {
     var canvas = document.getElementById('game');
     var context = new createjs.Rectangle(0, 0, canvas.width, canvas.height);
-    var graphicsShape = new createjs.Graphics().beginLinearGradientFill(["rgba(25,225,255,1)", "rgba(255,255,255,1)"], [0, 1], 0, 0, 0, 130).drawRoundRect(0, 0, window.innerWidth, canvas.height, 5);
+    var graphicsShape = new createjs.Graphics().beginLinearGradientFill(["rgba(25,225,255,1)", "rgba(255,255,255,1)"], [0.4, 1], 0, 0, 0, 130).drawRoundRect(0, 0, window.innerWidth, canvas.height, 5);
     var g = new createjs.Graphics();
     g.setStrokeStyle(1);
     g.beginStroke(createjs.Graphics.getRGB(0, 0, 0));

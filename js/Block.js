@@ -1,13 +1,13 @@
 function getBlockFactory(image_type) {
     switch (image_type) {
         case "g":
-            return new createjs.Bitmap("sprites/GrassBlock.png");
+            return new createjs.Bitmap("sprites/GreenGrassBlock.png");
         case "s":
             return new createjs.Bitmap("sprites/DirtBlock.png");
         case "b":
-            return new createjs.Bitmap("sprites/BrownBlock.png");
+            return new createjs.Bitmap("sprites/GrassBlock.png");
         default:
-            return new createjs.Bitmap("sprites/BrownBlock.png");
+            return new createjs.Bitmap("sprites/GrassBlock.png");
     }
 }
 function Block (type,x,y) {
