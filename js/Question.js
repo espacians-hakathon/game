@@ -84,6 +84,7 @@ var showNewQuestion = function(stage){
 	img.onload = function () {
 		container = new createjs.Container();
 		questionText = new createjs.Text("", "bold 75px questionFont" ,"#000");
+		questionText.y = 20
 		stage.addChild(container);
 		stage.addChild(questionText)
 	};
@@ -96,10 +97,11 @@ function changeQuestion(newText){
 function nextQuestion(){
 	var q = new Question();
 	questionText.text = q.question
+	questionText.x = stage.canvas.width /2 - questionText.getBounds().width /2
 	container.removeAllChildren();
 	for (i = 0; i < q.answers.length; i++) {
 		var answer = q.answers[i]
-		var text = new createjs.Text(answer, "bold 75px Arial" ,"#000");
+		var text = new createjs.Text(answer, "bold 75px answerFont" ,"#000");
 		var bounds = text.getBounds();
 		text.x = (stage.canvas.width / 4 * (i + 1)) - bounds.width;
 		text.y = 120;
