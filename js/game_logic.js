@@ -1,6 +1,6 @@
 var blockSize = getImageFactory("1");
 var players = [new Character("Ahmed", 0), new Character("Mohamed", 1)];
-
+var grid;
 function getImageFactory(image_type) {
     switch (image_type) {
         case "boy":
@@ -41,7 +41,7 @@ var drawTileBlock = function(image_type, x, y) {
     block.y = y * 85 + mapMargin;
     stage.addChild(block);
 };
-var grid;
+
 var drawMap = function() {
     stage.canvas.width = window.innerWidth;
     grid = new Grid(stage);
@@ -69,22 +69,13 @@ var swapImage = function(imageObj,imagestring)
 	image.x = originalX; image.y = originalY;
 
 	createjs.Tween.get(imageObj.image).to({alpha: 0},2000).call(function(){
-
 		imageObj.image = image;
-			imageObj.image.alpha=0;
-	stage.addChild(imageObj.image);
+		imageObj.image.alpha=0;
+		stage.addChild(imageObj.image);
 
-
-	createjs.Tween.get(imageObj.image).to({alpha:255},2000);
+		createjs.Tween.get(imageObj.image).to({alpha:255},2000);
 	});
-
-	
-	
-
-
-
 };
-
 
 
 var drawGradient = function() {
@@ -104,7 +95,6 @@ var drawGradient = function() {
 };
 
 var init = function() {
-
     drawGradient();
     drawMap();
     drawCharacters();
@@ -114,7 +104,6 @@ var init = function() {
 createjs.Ticker.addEventListener("tick", handleTick);
 
 function handleTick(event) {
-	
     for (var i = players.length - 1; i >= 0; i--) {
         var player = players[i];
         var image = player.getImage();
@@ -131,5 +120,4 @@ init();
 var advanceOneStep = function(player) {
     var character = players[player];
     character.setTargetBlock(character.getTargetBlock() + 1);
-
 };
