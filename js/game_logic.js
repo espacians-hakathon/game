@@ -3,14 +3,8 @@ var players = [new Character("Ahmed", 0), new Character("Mohamed", 1)];
 
 function getImageFactory(image_type) {
     switch (image_type) {
-        case "g":
-            return new createjs.Bitmap("sprites/GrassBlock.png");
         case "boy":
             return new createjs.Bitmap("sprites/CharacterBoy.png");
-        case "s":
-            return new createjs.Bitmap("sprites/DirtBlock.png");
-        case "b":
-            return new createjs.Bitmap("sprites/BrownBlock.png");
         default:
             return new createjs.Bitmap("sprites/BrownBlock.png");
     }
@@ -47,10 +41,9 @@ var drawTileBlock = function(image_type, x, y) {
 
 var drawMap = function() {
     stage.canvas.width = window.innerWidth;
+    var grid = new Grid(stage);
     _(map).each(function(row, i) {
-        _(row).each(function(tile, j) {
-            self.drawTileBlock(tile, i, j); //draw a rectangle at j,i
-        });
+		grid.addColumn(row)
     });
 };
 
