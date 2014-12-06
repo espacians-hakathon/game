@@ -4,94 +4,10 @@
 	<title>Test Tiles</title>
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+	<script src="js/createjs.min.js"></script>
 </head>
 <body>
 <canvas id="game" width="800" height="800"></canvas>
-<script type="text/javascript">
-var grass_img = new Image;
-grass_img.src = "sprites/GrassBlock.png";
-
-var dirt_img = new Image;
-dirt_img.src = "sprites/DirtBlock.png";
-
-var brown_img = new Image;
-brown_img.src = "sprites/BrownBlock.png";
-
-var girl_1 = new Image;
-girl_1.src = "sprites/CharacterPinkGirl.png";
-
-function getImageFactory(image_type){
-	switch(image_type) {
-    case "g":
-        return grass_img;
-        break;
-    case "s":
-        return dirt_img;
-        break;
-    case "b":
-    		return brown_img;
-    		break;
-    default:
-        return brown_img;
-	}
-}
-
-
-var canvas = document.getElementById('game');
-var context = canvas.getContext('2d')//.fillRect(4,4,5,60);
-var tileSize = 30;
-var map = [
-					["g","s","b","b","b","b","b","b"],
-					["g","s","g","g","s","b","b","b"],
-					["g","s","b","b","b","b","b","b"],
-					["g","s","g","g","s","b","b","b"],
-					["g","s","b","b","b","b","b","b"],
-					["g","s","g","g","s","b","b","b"],
-					["g","s","b","b","b","b","b","b"],
-					["g","s","g","g","s","b","b","b"],
-					["g","s","b","b","b","b","b","b"],
-					["g","s","g","g","s","b","b","b"],
-					["g","s","b","b","b","b","b","b"],
-					["g","s","g","g","s","b","b","b"],
-					["g","s","b","b","b","b","b","b"],
-					["g","s","g","g","s","b","b","b"],
-					["g","s","b","b","b","b","b","b"],
-					["g","s","g","g","s","b","b","b"],
-];
-
-var drawTileBlock = function(image_type, x, y){
-  drawTile(getImageFactory(image_type), x, y);
-};
-
-
-var drawTile = function (image, x, y){
-  context.drawImage(
-    image,
-    x* 101, y *85
-  );
-};
-
-
-var drawMap = function(){
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  context.fillStyle = "rgba(255,0,0,0.6)";
-
-  _(map).each(function(row,i){
-    _(row).each(function(tile,j){
-        self.drawTileBlock(tile,i,j); //draw a rectangle at j,i
-    });
-  });
-};
-
-
-var drawCharacters = function(){
-	drawTile(girl_1,0, 0.5);
-}
-
-grass_img.onload = function(){
-	drawMap();
-	drawCharacters();
-};
-</script>
+<script src="js/game_logic.js"></script>
 </body>
 </html>
