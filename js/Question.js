@@ -42,8 +42,12 @@ function nextQuestion(){
 		container.addChild(text);
 		text.addEventListener("click", handleClick);
 		function handleClick(event) {
-		    advanceOneStep(1);
-		    nextQuestion();
+			if (q.answers[0] == event.target.text){
+			    advanceOneStep(1,"g");
+			}else{
+				advanceOneStep(1,"s");
+			}
+			nextQuestion();
 		}
 	}
 

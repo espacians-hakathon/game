@@ -146,15 +146,15 @@ function handleTick(event) {
         if (image.y >= target_y)
         {
         	player.nameText.y = target_y;
-         image.y = target_y;
+        	image.y = target_y;
         }
     }
     stage.update();
 }
 
-var advanceOneStep = function(player) {
+var advanceOneStep = function(player,block) {
     var character = players[player];
-    grid.setBlock(character.getColumn(),character.getRow(),"g");
+    grid.setBlock(character.getColumn(),character.getRow(),block);
     character.setTargetBlock(character.getTargetBlock() + 1);
 };
 
