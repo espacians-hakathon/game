@@ -10,12 +10,10 @@ function getBlockFactory(image_type) {
             return new createjs.Bitmap("sprites/BrownBlock.png");
     }
 }
-function Block (type,x,y,z) {
+function Block (type,x,y) {
     this.type = type;
     this.x = x;
     this.y = y;
-    this.image = this.getSprite();
-    // this.z = z;
     this.setSprite(type);
 }
 Block.prototype.setType = function(type) {
@@ -31,8 +29,4 @@ Block.prototype.setSprite = function(type) {
 };
 Block.prototype.getSprite = function() {
     return this.sprite;
-};
-
-Block.prototype.getImage = function() {
-    return this.image;
 };

@@ -1,6 +1,6 @@
 var blockSize = getImageFactory("1");
 var players = [new Character("Ahmed", 0), new Character("Mohamed", 1)];
-
+var grid;
 function getImageFactory(image_type) {
     switch (image_type) {
         case "boy":
@@ -10,11 +10,7 @@ function getImageFactory(image_type) {
     }
 }
 
-
-// var canvas = document.getElementById('game');
 var stage = new createjs.Stage("game");
-// var context = canvas.getContext('2d')//.fillRect(4,4,5,60);
-var tileSize = 30;
 var mapMargin = 150; // Margin to push map to view sky
 var map = [
     ["g", "s", "b", "b", "b", "b", "b", "b"],
@@ -41,7 +37,7 @@ var drawTileBlock = function(image_type, x, y) {
     block.y = y * 85 + mapMargin;
     stage.addChild(block);
 };
-var grid;
+
 var drawMap = function() {
     stage.canvas.width = window.innerWidth;
     grid = new Grid(stage);
@@ -84,12 +80,6 @@ var swapImage = function(imageObj, imagestring) {
             alpha: 1
         }, 500);
     });
-
-
-
-
-
-
 };
 
 var swapSprite = function(imageObj, imagestring) {
@@ -115,7 +105,6 @@ createjs.Tween.get(image).to({y:originalY}, 500, createjs.Ease.getElasticInOut(1
 };
 
 
-
 var drawGradient = function() {
     var canvas = document.getElementById('game');
     var context = new createjs.Rectangle(0, 0, canvas.width, canvas.height);
@@ -133,17 +122,16 @@ var drawGradient = function() {
 };
 
 var init = function() {
-
     drawGradient();
     drawMap();
     drawCharacters();
     swapImage(players[1], "boy");
+    showNewQuestion(stage);
 };
 
 createjs.Ticker.addEventListener("tick", handleTick);
 
 function handleTick(event) {
-
     for (var i = players.length - 1; i >= 0; i--) {
         var player = players[i];
         var image = player.getImage();
@@ -155,10 +143,9 @@ function handleTick(event) {
     stage.update();
 }
 
-init();
-
 var advanceOneStep = function(player) {
     var character = players[player];
     character.setTargetBlock(character.getTargetBlock() + 1);
-
 };
+
+init();
