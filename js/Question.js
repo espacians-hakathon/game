@@ -9,25 +9,20 @@ function Question () {
 }
 
 var questionText;
-var showNewQuestion = function(stage){
-
-	container = new createjs.Container();
+var answersContainer;
+var initQuestions = function(stage){
+	answersContainer = new createjs.Container();
 	questionText = new createjs.Text("", "bold 75px questionFont" ,"#000");
 	questionText.y = 20;
-	stage.addChild(container);
+	stage.addChild(answersContainer);
 	stage.addChild(questionText);
-
 };
-var container;
-function changeQuestion(newText){
-	questionText.text = newText;
-}
 
 function nextQuestion(){
 	var q = new Question();
 	questionText.text = q.question;
 	questionText.x = stage.canvas.width /2 - questionText.getBounds().width /2;
-	container.removeAllChildren();
+	answersContainer.removeAllChildren();
 	for (i = 0; i < q.answers.length; i++) {
 		var answer = q.answers[i];
 		var text = new createjs.Text(answer, "bold 75px answerFont" ,"#000");
@@ -39,7 +34,7 @@ function nextQuestion(){
 		hit.graphics.beginFill("#000").drawRect(0, 0, text.getMeasuredWidth(), text.getMeasuredHeight());
 		text.hitArea = hit;
 
-		container.addChild(text);
+		answersContainer.addChild(text);
 		text.addEventListener("click", handleClick);
 		function handleClick(event) {
 			if (q.answers[0] == event.target.text){
@@ -50,6 +45,4 @@ function nextQuestion(){
 			nextQuestion();
 		}
 	}
-
-
 }
