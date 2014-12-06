@@ -32,7 +32,7 @@ function nextQuestion(){
 		var answer = q.answers[i];
 		var text = new createjs.Text(answer, "bold 75px answerFont" ,"#000");
 		var bounds = text.getBounds();
-		text.x = (stage.canvas.width / 4 * (i + 1)) - bounds.width;
+		text.x = i * 200 + 200;
 		text.y = 120;
 
 		var hit = new createjs.Shape();
@@ -42,8 +42,12 @@ function nextQuestion(){
 		container.addChild(text);
 		text.addEventListener("click", handleClick);
 		function handleClick(event) {
-		    advanceOneStep(1);
-		    nextQuestion();
+			if (q.answers[0] == event.target.text){
+			    advanceOneStep(1,"g");
+			}else{
+				advanceOneStep(1,"s");
+			}
+			nextQuestion();
 		}
 	}
 

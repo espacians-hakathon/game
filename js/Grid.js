@@ -1,5 +1,3 @@
-var mapMargin = 150;
-
 function Grid (stage) {
     this.blocks = [];
     this.columnsCount = 0;

@@ -1,6 +1,6 @@
 function Character (name,column) {
     this.name = name;
-    this.nameText = new createjs.Text(name, "bold 25px answerFont" ,"#000");
+    this.nameText = new createjs.Text(name, "bold 15px pixelFont" ,"#000");
     this.column = column;
     this.row = 0;
     this.targetBlock = this.row;
