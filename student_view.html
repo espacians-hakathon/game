@@ -224,6 +224,7 @@
         rootRef.onAuth(function globalOnAuth(authData) {
           
           if (authData) {
+            Session.fetchSessionQuestions();
               showAlert({
                   title: 'Logged in!',
                   detail: 'Using ' + authData.provider,
