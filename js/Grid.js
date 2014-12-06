@@ -22,22 +22,22 @@ Grid.prototype.setBlock = function(col,row,type) {
 	swapSprite(block, type, z);
 };
 
-var swapSprite = function(imageObj, imagestring, z) {
-    var originalX = imageObj.sprite.x,
-        originalY = imageObj.sprite.y;
-    var image = getBlockFactory(imagestring);
+var swapSprite = function(block, type, z) {
+    var originalX = block.sprite.x,
+        originalY = block.sprite.y;
+    var image = getBlockFactory(type);
     image.x = originalX;
     image.y = originalY;
 
-    createjs.Tween.get(imageObj.sprite).to({
+    createjs.Tween.get(block.sprite).to({
         y: -1000
     }, 500, createjs.Ease.getElasticInOut(1000, 1000)).call(function() {
         console.log("removing");
-        stage.removeChild(imageObj.sprite);
-        imageObj.sprite = image;
+        stage.removeChild(block.sprite);
+        block.sprite = image;
         image.y = -1000;
-        stage.addChild(imageObj.sprite);
-        stage.setChildIndex(imageObj.sprite, z);
+        stage.addChild(block.sprite);
+        stage.setChildIndex(block.sprite, z);
 
         createjs.Tween.get(image).to({
             y: originalY
