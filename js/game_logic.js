@@ -89,9 +89,9 @@ function handleTick(event) {
     stage.update();
 }
 
-var advanceOneStep = function(player,block) {
+var advanceOneStep = function(player, block_type) {
     var character = players[player];
-    grid.setBlock(character.getColumn(),character.getRow(),block);
+    grid.setBlock(character.getColumn(),character.getRow(),block_type);
     character.setTargetBlock(character.getTargetBlock() + 1);
 };
 
