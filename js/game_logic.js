@@ -43,14 +43,7 @@ var drawMap = function() {
 var drawCharacters = function() {
     for (var i = players.length - 1; i >= 0; i--) {
         var player = players[i];
-        console.log(player);
-        var image = new createjs.Bitmap("sprites/CharacterPinkGirl.png");
-        image.x = player.getColumn() * 100;
-        image.y = -50 + mapTopMargin;
-        player.nameText.x = image.x + player.nameText.getBounds().width / 4;
-        player.nameText.y = image.y + player.nameText.getBounds().height;
-        player.setImage(image);
-        stage.addChild(image);
+        stage.addChild(player.image);
         stage.addChild(player.nameText);
     }
 };
@@ -87,7 +80,7 @@ function handleTick(event) {
         var image = player.getImage();
         var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50 + mapTopMargin;
         image.y += 10;
-        player.nameText.y = player.nameText.y + 10 + player.nameText.getBounds().height*2;
+        player.nameText.y += 10 ;
         if (image.y >= target_y) {
             player.nameText.y = target_y + player.nameText.getBounds().height*2;
             image.y = target_y;

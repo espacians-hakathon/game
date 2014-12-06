@@ -13,9 +13,6 @@ Grid.prototype.addColumn = function(path) {
 	this.blocks.push(blocks_column);
 	return ++this.columnsCount;
 };
-Grid.prototype.setColumn = function(n,path) {
-	this.blocks[n - 1] = path;
-};
 Grid.prototype.getBlock = function(col,row) {
 	return this.blocks[col][row];
 };
