@@ -18,6 +18,8 @@ dirt_img.src = "sprites/DirtBlock.png";
 var brown_img = new Image;
 brown_img.src = "sprites/BrownBlock.png";
 
+var girl_1 = new Image;
+girl_1.src = "sprites/CharacterPinkGirl.png";
 
 function getImageFactory(image_type){
 	switch(image_type) {
@@ -51,21 +53,28 @@ var draw = function(){
   _(map).each(function(row,i){
     _(row).each(function(tile,j){
       // if(tile !== 0){ //if tile is not walkable
-        self.drawTile(tile,i,j); //draw a rectangle at j,i
+        self.drawTileBlock(tile,i,j); //draw a rectangle at j,i
       // }
     });
   });
 };
 
-var drawTile = function(image_type, x, y){
+var drawTileBlock = function(image_type, x, y){
+  drawTile(getImageFactory(image_type), x, y);
+};
+
+
+var drawTile = function (image, x, y){
+	console.log(image);
   context.drawImage(
-    getImageFactory(image_type),
+    image,
     x* 100, y *80
   );
-}
+};
 grass_img.onload = function(){
 	draw();
-}
+	drawTile(girl_1,0, 0.5);
+};
 </script>
 </body>
 </html>
