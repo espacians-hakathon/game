@@ -1,5 +1,5 @@
 var blockSize = getImageFactory("1");
-var players = [new Character("Ahmed", 0), new Character("Mohamed", 1)];
+var players = [new Character("Ahmed", 0), new Character("Mohamed", 1), new Character("Basayel", 3)];
 var grid;
 function getImageFactory(image_type) {
     switch (image_type) {
@@ -42,7 +42,7 @@ var drawMap = function() {
     stage.canvas.width = window.innerWidth;
     grid = new Grid(stage);
     _(map).each(function(row, i) {
-        grid.addColumn(row)
+        grid.addColumn(row);
     });
 };
 
@@ -53,7 +53,7 @@ var drawCharacters = function() {
         var image = new createjs.Bitmap("sprites/CharacterPinkGirl.png");
         image.x = player.getColumn() * 100;
         image.y = -50 + mapMargin;
-        player.nameText.x = image.x;
+        player.nameText.x = image.x+player.nameText.getBounds().width/4;
         player.nameText.y = image.y;
         player.setImage(image);
         stage.addChild(image);
@@ -129,8 +129,9 @@ var init = function() {
     drawMap();
     drawCharacters();
     swapImage(players[1], "boy");
+    swapImage(players[0], "boy");
     showNewQuestion(stage);
-    nextQuestion()
+    nextQuestion();
 };
 
 createjs.Ticker.addEventListener("tick", handleTick);
