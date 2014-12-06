@@ -93,15 +93,7 @@ var advanceOneStep = function(player, block_type) {
     var character = players[player];
     grid.setBlock(character.getColumn(),character.getRow(),block_type);
     character.setTargetBlock(character.getTargetBlock() + 1);
-    answer = true;
-    if(block == "g"){
-        answer = true
-    }else if(block == "s"){
-        answer = false
-    }else{
-        answer = "notyet"
-    }
-    Session.updateUserAnswer(character.getRow(), answer, function(error){
+    Session.updateUserAnswer(character.getRow(), block_type, function(error){
         console.log(error);
     });
 };
