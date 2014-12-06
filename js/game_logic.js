@@ -75,18 +75,24 @@ var swapImage = function(imageObj,imagestring)
 	var image = getImageFactory(imagestring);
 	image.x = originalX; image.y = originalY;
 
-	createjs.Tween.get(imageObj.image).to({alpha: 0},2000);
+	createjs.Tween.get(imageObj.image).to({alpha: 0},2000).call(function(){
 
-	
-	imageObj.image = image;
+		imageObj.image = image;
+			imageObj.image.alpha=0;
 	stage.addChild(imageObj.image);
-	imageObj.image.alpha=0;
+
 
 	createjs.Tween.get(imageObj.image).to({alpha:255},2000);
+	});
+
+	
+	
 
 
 
 };
+
+
 
 var drawGradient = function() {
     var canvas = document.getElementById('game');
