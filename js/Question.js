@@ -83,7 +83,7 @@ var showNewQuestion = function(stage){
 
 	img.onload = function () {
 		container = new createjs.Container();
-		questionText = new createjs.Text("", "bold 75px Arial" ,"#000");
+		questionText = new createjs.Text("", "bold 75px questionFont" ,"#000");
 		stage.addChild(container);
 		stage.addChild(questionText)
 	};
