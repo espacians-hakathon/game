@@ -32,7 +32,7 @@ function nextQuestion(){
 		var answer = q.answers[i];
 		var text = new createjs.Text(answer, "bold 75px answerFont" ,"#000");
 		var bounds = text.getBounds();
-		text.x = (stage.canvas.width / 4 * (i + 1)) - bounds.width;
+		text.x = i * 200 + 200;
 		text.y = 120;
 
 		var hit = new createjs.Shape();
