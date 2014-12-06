@@ -9,9 +9,7 @@ Grid.prototype.addColumn = function(path) {
 	blocks_column =[];
 	for (var i = 0;i < path.length; i++) {
 		console.log(i)
-		var block = new Block(path[i], this.columnsCount * 100, i * 85 + mapMargin );
-		block.getSprite().x = this.columnsCount * 100;
-	    block.getSprite().y = i * 85 + mapMargin;
+		var block = new Block(path[i], this.columnsCount * 100, i * 85 + mapMargin, i );
 		blocks_column.push(block);
 		this.stage.addChild(block.getSprite());
 	};
@@ -25,8 +23,9 @@ Grid.prototype.getBlock = function(col,row) {
 	return this.blocks[col][row];
 };
 Grid.prototype.setBlock = function(col,row,type) {
-	this.stage.removeChild(block.getSprite());
-	var block =  this.blocks[col][row];
+	this.stage.removeChild(this.getBlock(col,row).getSprite());
+	var block =  this.getBlock(col,row);
 	block.setType(type);
 	stage.addChild(block.getSprite());
+	// stage.setChildIndex(block.getSprite())
 };
