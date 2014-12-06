@@ -1,3 +1,9 @@
+function Question () {
+	var a = Math.floor((Math.random() * 10) + 1);
+	var b = Math.floor((Math.random() * 10) + 1);
+	this.question = a + " + " + b;
+}
+
 var questionText;
 var showNewQuestion = function(stage){
 	var img = new Image();
@@ -73,7 +79,7 @@ var showNewQuestion = function(stage){
 
 	img.onload = function () {
 		ss = new createjs.SpriteSheet(data);
-		questionText = new createjs.BitmapText("Question one ,\n Who are you ?!", ss);
+		questionText = new createjs.Text("", "bold 75px Arial" ,"#000");
 		stage.addChild(questionText);
 	};
 }
@@ -81,3 +87,33 @@ var ss
 function changeQuestion(newText){
 	questionText.text = newText
 }
+
+function nextQuestion(){
+	var q = new Question();
+	questionText.text = q.question
+
+	a_1_Text = new createjs.BitmapText("Mohammed", ss);
+	var bounds = a_1_Text.getBounds();
+	a_1_Text.x = stage.canvas.width / 4 * 2 - bounds.width;
+	a_1_Text.y = 150;
+	stage.addChild(a_1_Text);
+
+	a_2_Text = new createjs.BitmapText("Ahmed", ss);
+	var bounds = a_2_Text.getBounds();
+	a_2_Text.x = stage.canvas.width / 4 * 3 - bounds.width;
+	a_2_Text.y = 150;
+	stage.addChild(a_2_Text);
+
+	a_2_Text.addEventListener("click", handleClick);
+	function handleClick(event) {
+	    advanceOneStep(1)
+	    nextQuestion()
+	}
+}
+
+
+ var helper = new createjs.ButtonHelper(myInstance, "out", "over", "down", false, myInstance, "hit");
+ myInstance.addEventListener("click", handleClick);
+ function handleClick(event) {
+     // Click Happened.
+ }
