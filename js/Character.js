@@ -5,9 +5,11 @@ function Character (name,column) {
     this.targetBlock = this.row;
 }
 Character.prototype.setImage = function(image) {
+    console.log("Changing image");
     this.image = image;
 };
-Character.prototype.getImage = function(image) {
+
+Character.prototype.getImage = function() {
     return this.image;
 };
 Character.prototype.getColumn = function(image) {

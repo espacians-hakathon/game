@@ -1,10 +1,12 @@
 var blockSize = getImageFactory("1");
-var players = [new Character("Ahmed",0),new Character("Mohamed",1)];
+var players = [new Character("Ahmed", 0), new Character("Mohamed", 1)];
 
 function getImageFactory(image_type) {
     switch (image_type) {
         case "g":
             return new createjs.Bitmap("sprites/GrassBlock.png");
+        case "boy":
+            return new createjs.Bitmap("sprites/CharacterBoy.png");
         case "s":
             return new createjs.Bitmap("sprites/DirtBlock.png");
         case "b":
@@ -36,15 +38,15 @@ var map = [
     ["g", "s", "g", "g", "s", "b", "b", "b"],
 ];
 
-var drawTileBlock = function(image_type, x, y){
-	var block = getImageFactory(image_type);
-	block.x = x * 100;
-	block.y = y * 85 + mapMargin;
-	stage.addChild(block);
+var drawTileBlock = function(image_type, x, y) {
+    var block = getImageFactory(image_type);
+    block.x = x * 100;
+    block.y = y * 85 + mapMargin;
+    stage.addChild(block);
 };
 
 var drawMap = function() {
-	 stage.canvas.width = window.innerWidth;
+    stage.canvas.width = window.innerWidth;
     _(map).each(function(row, i) {
         _(row).each(function(tile, j) {
             self.drawTileBlock(tile, i, j); //draw a rectangle at j,i
@@ -52,16 +54,27 @@ var drawMap = function() {
     });
 };
 
-var drawCharacters = function(){
-	for (var i = players.length - 1; i >= 0; i--) {
-		var player = players[i];
-		console.log(player);
-		var image = new createjs.Bitmap("sprites/CharacterPinkGirl.png");
-		image.x = player.getColumn() * 100;
-		image.y = -50 + mapMargin;
-		player.setImage(image);
-		stage.addChild(image);
-	}
+var drawCharacters = function() {
+    for (var i = players.length - 1; i >= 0; i--) {
+        var player = players[i];
+        console.log(player);
+        var image = new createjs.Bitmap("sprites/CharacterPinkGirl.png");
+        image.x = player.getColumn() * 100;
+        image.y = -50 + mapMargin;
+        player.setImage(image);
+        stage.addChild(image);
+    }
+};
+
+var swapImage = function(imageObj,imagestring)
+{
+	var originalX = imageObj.image.x,originalY =imageObj.image.y;
+	var image = getImageFactory(imagestring);
+	image.x = originalX; image.y = originalY;
+
+	stage.removeChild(imageObj.image);
+	imageObj.image = image;
+	stage.addChild(imageObj.image);
 };
 
 var drawGradient = function() {
@@ -167,22 +180,23 @@ var init = function() {
 };
 
 createjs.Ticker.addEventListener("tick", handleTick);
-function handleTick(event) {
- 	for (var i = players.length - 1; i >= 0; i--) {
- 		var player = players[i];
- 		var image =  player.getImage();
- 		var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50 + mapMargin;
 
- 		var image = player.getImage();
- 		image.y += 10;
- 		if(image.y >=target_y ) image.y = target_y;
- 	}
-     stage.update();
+function handleTick(event) {
+    for (var i = players.length - 1; i >= 0; i--) {
+        var player = players[i];
+        var image = player.getImage();
+        var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50 + mapMargin;
+
+        var image = player.getImage();
+        image.y += 10;
+        if (image.y >= target_y) image.y = target_y;
+    }
+    stage.update();
 }
 
 init();
 
-var advanceOneStep = function(player){
-	var character = players[player];
-	character.setTargetBlock(character.getTargetBlock() + 1);
+var advanceOneStep = function(player) {
+    var character = players[player];
+    character.setTargetBlock(character.getTargetBlock() + 1);
 };
