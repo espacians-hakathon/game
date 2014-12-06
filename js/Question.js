@@ -1,7 +1,11 @@
+function rnd(){
+	return Math.floor((Math.random() * 10) + 1);
+}
 function Question () {
 	var a = Math.floor((Math.random() * 10) + 1);
 	var b = Math.floor((Math.random() * 10) + 1);
 	this.question = a + " + " + b;
+	this.answers = [a+b,rnd()+rnd(),rnd()+rnd(),rnd()+rnd()]
 }
 
 var questionText;
@@ -78,12 +82,13 @@ var showNewQuestion = function(stage){
 	};
 
 	img.onload = function () {
-		ss = new createjs.SpriteSheet(data);
+		container = new createjs.Container();
 		questionText = new createjs.Text("", "bold 75px Arial" ,"#000");
-		stage.addChild(questionText);
+		stage.addChild(container);
+		stage.addChild(questionText)
 	};
 }
-var ss
+var container
 function changeQuestion(newText){
 	questionText.text = newText
 }
@@ -91,24 +96,22 @@ function changeQuestion(newText){
 function nextQuestion(){
 	var q = new Question();
 	questionText.text = q.question
+	container.removeAllChildren();
+	for (i = 0; i < q.answers.length; i++) {
+		var answer = q.answers[i]
+		var text = new createjs.Text(answer, "bold 75px Arial" ,"#000");
+		var bounds = text.getBounds();
+		text.x = (stage.canvas.width / 4 * (i + 1)) - bounds.width;
+		text.y = 120;
+		container.addChild(text);
+		text.addEventListener("click", handleClick);
+		function handleClick(event) {
+		    advanceOneStep(1)
+		    nextQuestion()
+		}
+	};
 
-	a_1_Text = new createjs.BitmapText("Mohammed", ss);
-	var bounds = a_1_Text.getBounds();
-	a_1_Text.x = stage.canvas.width / 4 * 2 - bounds.width;
-	a_1_Text.y = 150;
-	stage.addChild(a_1_Text);
 
-	a_2_Text = new createjs.BitmapText("Ahmed", ss);
-	var bounds = a_2_Text.getBounds();
-	a_2_Text.x = stage.canvas.width / 4 * 3 - bounds.width;
-	a_2_Text.y = 150;
-	stage.addChild(a_2_Text);
-
-	a_2_Text.addEventListener("click", handleClick);
-	function handleClick(event) {
-	    advanceOneStep(1)
-	    nextQuestion()
-	}
 }
 
 
