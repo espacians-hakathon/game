@@ -6,7 +6,7 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
 </head>
 <body>
-<canvas id="game" width="800" height="600"></canvas>
+<canvas id="game" width="800" height="800"></canvas>
 <script type="text/javascript">
 
 var grass_img = new Image;
@@ -51,7 +51,7 @@ var draw = function(){
   _(map).each(function(row,i){
     _(row).each(function(tile,j){
       // if(tile !== 0){ //if tile is not walkable
-        self.drawTile(tile,j,i); //draw a rectangle at j,i
+        self.drawTile(tile,i,j); //draw a rectangle at j,i
       // }
     });
   });
