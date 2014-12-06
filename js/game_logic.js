@@ -79,7 +79,6 @@ var swapImage = function(imageObj, imagestring) {
         imageObj.image.alpha = 0.5;
         stage.addChild(imageObj.image);
 
-
         createjs.Tween.get(image).to({
             alpha: 1
         }, 500);
@@ -104,14 +103,11 @@ var swapSprite = function(imageObj, imagestring, z) {
         stage.addChild(imageObj.sprite);
         stage.setChildIndex(imageObj.sprite, z);
 
-
         createjs.Tween.get(image).to({
             y: originalY
         }, 500, createjs.Ease.getElasticInOut(100, 5000));
     });
-
 };
-
 
 var drawGradient = function() {
     var canvas = document.getElementById('game');
@@ -135,7 +131,7 @@ var init = function() {
     drawCharacters();
     swapImage(players[1], "boy");
     swapImage(players[0], "boy");
-    showNewQuestion(stage);
+    initQuestions(stage);
     nextQuestion();
 };
 
@@ -146,7 +142,6 @@ function handleTick(event) {
         var player = players[i];
         var image = player.getImage();
         var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50 + mapMargin;
-        //console.log(target_y);
         image.y += 10;
         player.nameText.y = player.nameText.y + 10 + player.nameText.getBounds().height*2;
         if (image.y >= target_y) {
