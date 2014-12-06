@@ -90,22 +90,16 @@ var swapSprite = function(imageObj, imagestring) {
     image.x = originalX;
     image.y = originalY;
 
-    // createjs.Tween.get(imageObj.sprite).to({
-    //     alpha: 0.9
-    // }, 500).call(function() {
+createjs.Tween.get(imageObj.sprite).to({y:-1000}, 500, createjs.Ease.getElasticInOut(1000,1000)).call(function() {
 
-    //     stage.removeChild(imageObj.sprite);
-    //     imageObj.sprite = image;
-    //     imageObj.sprite.alpha = 0.9;
-    //     stage.addChild(imageObj.sprite);
+        stage.removeChild(imageObj.sprite);
+        imageObj.sprite = image;
+        image.y = -1000;
+        stage.addChild(imageObj.sprite);
 
 
-    //     createjs.Tween.get(image).to({
-    //         alpha: 1
-    //     }, 1000);
-    // });
-
-createjs.Tween.get(imageObj.sprite).to({y:-1000}, 500, Ease.linear);
+createjs.Tween.get(image).to({y:originalY}, 500, createjs.Ease.getElasticInOut(100,5000));
+    });
 
 
 };
