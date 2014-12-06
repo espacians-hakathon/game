@@ -8,6 +8,9 @@
 <body>
 <canvas id="game" width="800" height="600"></canvas>
 <script type="text/javascript">
+var img = new Image;
+img.src = "sprites/GrassBlock.png";
+
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d')//.fillRect(4,4,5,60);
 var tileSize = 30;
@@ -15,22 +18,7 @@ var map = [
 					[3,0,0,0,0,0,2,3],
 					[3,0,0,0,0,0,2,3]
 ];
-// map.push(getTiles());
 
-var getTiles = function(){
-	return [3,0,0,0,0,0,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2];
-}
-  // [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  // [3,0,0,0,0,0,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
-  // [3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
-  // [3,0,0,0,0,0,0,0,2,1,3,0,0,0,0,0,0,0,0,0,0,0,0,2],
-  // [3,0,0,0,0,0,0,0,2,1,1,1,3,0,0,0,0,0,0,0,0,0,0,2],
-  // [3,0,0,0,0,0,0,0,0,0,2,1,1,1,1,3,0,0,0,0,0,0,0,2],
-  // [3,0,0,0,0,0,0,0,0,0,0,0,2,3,0,0,0,0,0,0,0,0,0,2],
-  // [3,0,0,0,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
-  // [3,0,2,1,1,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,1],
-  // [3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,1,1,1],
-  // [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 var draw = function(){
   context.clearRect(0, 0, canvas.width, canvas.height);
   context.fillStyle = "rgba(255,0,0,0.6)";
@@ -44,26 +32,16 @@ var draw = function(){
     });
   });
 };
-// var drawTile = function(x,y){
-//   this.context.fillRect(
-//     x * this.tileSize, y * this.tileSize,
-//     this.tileSize, this.tileSize
-//   );
-// }
 
 var drawTile = function(x, y){
-	var img = new Image;
-	img.src = "sprites/GrassBlock.png";
-	img.onload = function() {
-	    context.drawImage(
-		    img,
-		    x* 100, y *80
-		  );
-	}
+  context.drawImage(
+    img,
+    x* 100, y *80
+  );
 }
-
+img.onload = function(){
 draw();
-
+}
 </script>
 </body>
 </html>
