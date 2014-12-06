@@ -9,7 +9,8 @@
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.0.0/jquery.serialize-object.compiled.js"></script>
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/path.js/0.8.4/path.min.js"></script>
-    
+  <script src="quiz_builder/js/models/session.js"></script>
+
   <style type="text/css">
     form {
       display: none;
@@ -139,9 +140,7 @@
         form.on('submit', function (e) {
           e.preventDefault();
           var userInfo = $(this).serializeObject();
-
-          userRef.set(userInfo, function onComplete() {
-
+          Session.createUser(user.uid, userInfo, function onComplete() {
             // show the message if write is successful
             showAlert({
                 title: 'Successfully saved!',
@@ -150,6 +149,8 @@
             });
 
           });
+
+          
         });
 
       };

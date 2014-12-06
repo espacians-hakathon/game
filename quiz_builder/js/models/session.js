@@ -7,20 +7,39 @@ var Session = {
     obj["Questions"] = quiz_obj["questions"];
     myDataRef.push(obj, callback);
   },
-  updateUserAnswer: function(pathId, block_type, callback){
+  updateUserAnswer: function(pathId, blockType, callback){
     var myDataRef = new Firebase(this.dataRef+'/'+this.id+'/Students');
-    // var user = rootRef.getAuth();
+    // var user = myDataRef.getAuth();
+    // console.log('................');
+    // console.log(user.uid);
+    // console.log('................');
     // var questionRef = myDataRef.child(user.uid).child("Path").child(pathId);
     var questionRef = myDataRef.child("22").child("Path").child(pathId);
     answer = true;
-    if(block_type == "g"){
+    if(blockType == "g"){
         answer = true
-    }else if(block_type == "s"){
+    }else if(blockType == "s"){
         answer = false
     }else{
         answer = "notyet"
     }
     var obj = {"State": answer};
     questionRef.update(obj, callback); 
+  },
+  createUser: function(userUuid, userObj, callback){
+    var myDataRef = new Firebase(this.dataRef+'/'+this.id+'/Students');
+    // var user = myDataRef.getAuth();
+    // console.log('................');
+    // console.log(user.uid);
+    // console.log('................');
+    var userRef = myDataRef.child(userUuid)
+    // var userRef = myDataRef.child("22")
+    userRef.set(userObj, function onComplete() {
+      showAlert({
+        title: 'Successfully saved!',
+        detail: 'You are still logged in',
+        className: 'alert-success'
+      });
+    }); 
   }
 }
