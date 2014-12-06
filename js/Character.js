@@ -12,7 +12,7 @@ Character.prototype.setImage = function(image) {
 Character.prototype.getImage = function() {
     return this.image;
 };
-Character.prototype.getColumn = function(image) {
+Character.prototype.getColumn = function() {
     return this.column;
 };
 Character.prototype.getName = function() {
@@ -29,5 +29,6 @@ Character.prototype.getTargetBlock = function() {
 };
 
 Character.prototype.setTargetBlock = function(_targetBlock) {
+    this.row = _targetBlock;
     this.targetBlock = _targetBlock;
 };

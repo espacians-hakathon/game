@@ -145,6 +145,7 @@ function handleTick(event) {
 
 var advanceOneStep = function(player) {
     var character = players[player];
+    grid.setBlock(character.getColumn(),character.getRow(),"g");
     character.setTargetBlock(character.getTargetBlock() + 1);
 };
 
