@@ -6,7 +6,7 @@ function Grid (stage) {
 Grid.prototype.addColumn = function(path) {
 	blocks_column =[];
 	for (var i = 0;i < path.length; i++) {
-		var block = new Block(path[i], this.columnsCount * 100, i * 85 + mapMargin);
+		var block = new Block(path[i], this.columnsCount * 100, i * 85 + mapTopMargin);
 		blocks_column.push(block);
 		this.stage.addChild(block.getSprite());
 	}
@@ -20,13 +20,30 @@ Grid.prototype.getBlock = function(col,row) {
 	return this.blocks[col][row];
 };
 Grid.prototype.setBlock = function(col,row,type) {
-
-
 	var z = this.stage.getChildIndex(this.getBlock(col,row).getSprite());
 	var block =  this.getBlock(col,row);
-	swapSprite(this.getBlock(col,row),type,z);
+	swapSprite(block, type, z);
+};
 
-	
+var swapSprite = function(imageObj, imagestring, z) {
+    var originalX = imageObj.sprite.x,
+        originalY = imageObj.sprite.y;
+    var image = getBlockFactory(imagestring);
+    image.x = originalX;
+    image.y = originalY;
 
+    createjs.Tween.get(imageObj.sprite).to({
+        y: -1000
+    }, 500, createjs.Ease.getElasticInOut(1000, 1000)).call(function() {
+        console.log("removing");
+        stage.removeChild(imageObj.sprite);
+        imageObj.sprite = image;
+        image.y = -1000;
+        stage.addChild(imageObj.sprite);
+        stage.setChildIndex(imageObj.sprite, z);
 
+        createjs.Tween.get(image).to({
+            y: originalY
+        }, 500, createjs.Ease.getElasticInOut(100, 5000));
+    });
 };

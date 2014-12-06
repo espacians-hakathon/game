@@ -12,7 +12,7 @@ function getImageFactory(image_type) {
 }
 
 var stage = new createjs.Stage("game");
-var mapMargin = 150; // Margin to push map to view sky
+var mapTopMargin = 150; // Margin to push map to view sky
 var map = [
     ["g", "s", "b", "b", "b", "b", "b", "b"],
     ["g", "s", "g", "g", "s", "b", "b", "b"],
@@ -32,13 +32,6 @@ var map = [
     ["g", "s", "g", "g", "s", "b", "b", "b"],
 ];
 
-var drawTileBlock = function(image_type, x, y) {
-    var block = getImageFactory(image_type);
-    block.x = x * 100;
-    block.y = y * 85 + mapMargin;
-    stage.addChild(block);
-};
-
 var drawMap = function() {
     stage.canvas.width = window.innerWidth;
     grid = new Grid(stage);
@@ -53,60 +46,13 @@ var drawCharacters = function() {
         console.log(player);
         var image = new createjs.Bitmap("sprites/CharacterPinkGirl.png");
         image.x = player.getColumn() * 100;
-        image.y = -50 + mapMargin;
+        image.y = -50 + mapTopMargin;
         player.nameText.x = image.x + player.nameText.getBounds().width / 4;
         player.nameText.y = image.y + player.nameText.getBounds().height;
         player.setImage(image);
         stage.addChild(image);
         stage.addChild(player.nameText);
     }
-};
-
-var swapImage = function(imageObj, imagestring) {
-    console.log(imageObj);
-    var originalX = imageObj.image.x,
-        originalY = imageObj.image.y;
-    var image = getImageFactory(imagestring);
-    image.x = originalX;
-    image.y = originalY;
-
-    createjs.Tween.get(imageObj.image).to({
-        alpha: 0.5
-    }, 500).call(function() {
-
-        stage.removeChild(imageObj.image);
-        imageObj.image = image;
-        imageObj.image.alpha = 0.5;
-        stage.addChild(imageObj.image);
-
-        createjs.Tween.get(image).to({
-            alpha: 1
-        }, 500);
-    });
-};
-
-var swapSprite = function(imageObj, imagestring, z) {
-    console.log(imageObj);
-    var originalX = imageObj.sprite.x,
-        originalY = imageObj.sprite.y;
-    var image = getBlockFactory(imagestring);
-    image.x = originalX;
-    image.y = originalY;
-
-    createjs.Tween.get(imageObj.sprite).to({
-        y: -1000
-    }, 500, createjs.Ease.getElasticInOut(1000, 1000)).call(function() {
-        console.log("removing");
-        stage.removeChild(imageObj.sprite);
-        imageObj.sprite = image;
-        image.y = -1000;
-        stage.addChild(imageObj.sprite);
-        stage.setChildIndex(imageObj.sprite, z);
-
-        createjs.Tween.get(image).to({
-            y: originalY
-        }, 500, createjs.Ease.getElasticInOut(100, 5000));
-    });
 };
 
 var drawGradient = function() {
@@ -129,8 +75,6 @@ var init = function() {
     drawGradient();
     drawMap();
     drawCharacters();
-    swapImage(players[1], "boy");
-    swapImage(players[0], "boy");
     initQuestions(stage);
     nextQuestion();
 };
@@ -141,7 +85,7 @@ function handleTick(event) {
     for (var i = players.length - 1; i >= 0; i--) {
         var player = players[i];
         var image = player.getImage();
-        var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50 + mapMargin;
+        var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50 + mapTopMargin;
         image.y += 10;
         player.nameText.y = player.nameText.y + 10 + player.nameText.getBounds().height*2;
         if (image.y >= target_y) {
