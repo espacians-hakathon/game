@@ -7,6 +7,17 @@ var Session = {
     obj["Questions"] = quiz_obj["questions"];
     myDataRef.push(obj, callback);
   },
+  fetchSessionQuestions: function() {
+    var dataRef = new Firebase(this.dataRef + '/' + this.id + '/Questions'),questions;
+    // Attach an asynchronous callback to read the data at our posts reference
+    dataRef.on("value", function(snapshot) {
+      questions=snapshot.val();
+      localStorage.setItem("questions",JSON.stringify(questions));
+        console.log(questions);
+    }, function(errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+  },
   updateUserAnswer: function(pathId, blockType, callback){
     var myDataRef = new Firebase(this.dataRef+'/'+this.id+'/Students');
     userUUID = localStorage.getItem('currentUUID');
