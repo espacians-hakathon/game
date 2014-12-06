@@ -8,7 +8,6 @@
 <body>
 <canvas id="game" width="800" height="800"></canvas>
 <script type="text/javascript">
-
 var grass_img = new Image;
 grass_img.src = "sprites/GrassBlock.png";
 
@@ -43,21 +42,22 @@ var context = canvas.getContext('2d')//.fillRect(4,4,5,60);
 var tileSize = 30;
 var map = [
 					["g","s","b","b","b","b","b","b"],
-					["g","s","g","g","s","b","b","b"]
+					["g","s","g","g","s","b","b","b"],
+					["g","s","b","b","b","b","b","b"],
+					["g","s","g","g","s","b","b","b"],
+					["g","s","b","b","b","b","b","b"],
+					["g","s","g","g","s","b","b","b"],
+					["g","s","b","b","b","b","b","b"],
+					["g","s","g","g","s","b","b","b"],
+					["g","s","b","b","b","b","b","b"],
+					["g","s","g","g","s","b","b","b"],
+					["g","s","b","b","b","b","b","b"],
+					["g","s","g","g","s","b","b","b"],
+					["g","s","b","b","b","b","b","b"],
+					["g","s","g","g","s","b","b","b"],
+					["g","s","b","b","b","b","b","b"],
+					["g","s","g","g","s","b","b","b"],
 ];
-
-var draw = function(){
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  context.fillStyle = "rgba(255,0,0,0.6)";
-
-  _(map).each(function(row,i){
-    _(row).each(function(tile,j){
-      // if(tile !== 0){ //if tile is not walkable
-        self.drawTileBlock(tile,i,j); //draw a rectangle at j,i
-      // }
-    });
-  });
-};
 
 var drawTileBlock = function(image_type, x, y){
   drawTile(getImageFactory(image_type), x, y);
@@ -65,15 +65,32 @@ var drawTileBlock = function(image_type, x, y){
 
 
 var drawTile = function (image, x, y){
-	console.log(image);
   context.drawImage(
     image,
-    x* 100, y *80
+    x* 101, y *85
   );
 };
-grass_img.onload = function(){
-	draw();
+
+
+var drawMap = function(){
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.fillStyle = "rgba(255,0,0,0.6)";
+
+  _(map).each(function(row,i){
+    _(row).each(function(tile,j){
+        self.drawTileBlock(tile,i,j); //draw a rectangle at j,i
+    });
+  });
+};
+
+
+var drawCharacters = function(){
 	drawTile(girl_1,0, 0.5);
+}
+
+grass_img.onload = function(){
+	drawMap();
+	drawCharacters();
 };
 </script>
 </body>
