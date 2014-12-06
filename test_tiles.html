@@ -8,39 +8,63 @@
 <body>
 <canvas id="game" width="800" height="600"></canvas>
 <script type="text/javascript">
-var img = new Image;
-img.src = "sprites/GrassBlock.png";
+
+var grass_img = new Image;
+grass_img.src = "sprites/GrassBlock.png";
+
+var dirt_img = new Image;
+dirt_img.src = "sprites/DirtBlock.png";
+
+var brown_img = new Image;
+brown_img.src = "sprites/BrownBlock.png";
+
+
+function getImageFactory(image_type){
+	switch(image_type) {
+    case "g":
+        return grass_img;
+        break;
+    case "s":
+        return dirt_img;
+        break;
+    case "b":
+    		return brown_img;
+    		break;
+    default:
+        return brown_img;
+	}
+}
+
 
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d')//.fillRect(4,4,5,60);
 var tileSize = 30;
 var map = [
-					[3,0,0,0,0,0,2,3],
-					[3,0,0,0,0,0,2,3]
+					["g","s","b","b","b","b","b","b"],
+					["g","s","g","g","s","b","b","b"]
 ];
 
 var draw = function(){
   context.clearRect(0, 0, canvas.width, canvas.height);
   context.fillStyle = "rgba(255,0,0,0.6)";
 
-
   _(map).each(function(row,i){
     _(row).each(function(tile,j){
       // if(tile !== 0){ //if tile is not walkable
-        self.drawTile(j,i); //draw a rectangle at j,i
+        self.drawTile(tile,j,i); //draw a rectangle at j,i
       // }
     });
   });
 };
 
-var drawTile = function(x, y){
+var drawTile = function(image_type, x, y){
   context.drawImage(
-    img,
+    getImageFactory(image_type),
     x* 100, y *80
   );
 }
-img.onload = function(){
-draw();
+grass_img.onload = function(){
+	draw();
 }
 </script>
 </body>
