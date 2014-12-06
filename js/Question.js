@@ -1,4 +1,4 @@
-var textObject;
+var questionText;
 var showNewQuestion = function(stage){
 	var img = new Image();
 	img.src = "bitmapFont/spritesheet_font.png";
@@ -72,8 +72,12 @@ var showNewQuestion = function(stage){
 	};
 
 	img.onload = function () {
-		var ss = new createjs.SpriteSheet(data);
-		textObject = new createjs.BitmapText("Question one ,\n Who are you ?!", ss);
-		stage.addChild(textObject);
+		ss = new createjs.SpriteSheet(data);
+		questionText = new createjs.BitmapText("Question one ,\n Who are you ?!", ss);
+		stage.addChild(questionText);
 	};
+}
+var ss
+function changeQuestion(newText){
+	questionText.text = newText
 }
