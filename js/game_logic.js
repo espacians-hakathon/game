@@ -74,7 +74,7 @@ var map = [
 var drawTileBlock = function(image_type, x, y){
 	var block = getImageFactory(image_type);
 	block.x = x * 100;
-	block.y = y * 85;
+	block.y = y * 85 + mapMargin;
 	stage.addChild(block)
 }
 
@@ -92,7 +92,7 @@ var drawCharacters = function(){
 		console.log(player)
 		var image = new createjs.Bitmap("sprites/CharacterPinkGirl.png");
 		image.x = player.getColumn() * 100;
-		image.y = -50;
+		image.y = -50 + mapMargin;
 		player.setImage(image)
 		stage.addChild(image)
 	};
@@ -125,7 +125,7 @@ function handleTick(event) {
  	for (var i = players.length - 1; i >= 0; i--) {
  		var player = players[i]
  		var image =  player.getImage()
- 		var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50;
+ 		var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50 + mapMargin;
 
  		var image = player.getImage();
  		image.y += 10;
