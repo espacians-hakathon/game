@@ -98,17 +98,17 @@ var drawGradient = function() {
 };
 
 var formatContainers = function() {
-    characterContainer.x += mapLeftMargin;
-    gridContainer.x += mapLeftMargin;
+    var stageWidth = stage.getBounds().width / 2;
+    gridContainer.x = stageWidth - gridContainer.getBounds().width / 4;
+    characterContainer.x = stageWidth - gridContainer.getBounds().width / 4;
+    answersContainer.x = stageWidth - gridContainer.getBounds().width / 4;
     characterContainer.y += mapTopMargin;
     gridContainer.y += mapTopMargin;
     stage.addChild(characterContainer);
-
 };
 
 var init = function() {
     Session.getCurrentPlayerID();
-    
     drawGradient();
     drawMap();
     drawCharacters();
@@ -116,12 +116,7 @@ var init = function() {
     nextQuestion();
     formatContainers();
 
-
     Session.getCurrentPlayers();
-
-
-    // addCharacter("Hossam", "boy");
-    // addCharacter("Yasmine", "horn");
 };
 
 createjs.Ticker.addEventListener("tick", handleTick);
