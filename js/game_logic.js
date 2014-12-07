@@ -31,28 +31,20 @@ stage.scaleX = 0.75;
 stage.scaleY = 0.75;
 var mapTopMargin = 200; // Margin to push map to view sky
 var mapLeftMargin = 150;
-var map = [
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-    ["b", "b", "b", "b", "end"],
-];
+var map = []
 
 var drawMap = function() {
+    questions = JSON.parse(localStorage.getItem("questions"));
     stage.canvas.width = window.innerWidth;
     grid = new Grid(stage);
+    var path = [];
+    for (var i = questions.length - 2; i >= 0; i--) {
+        path.push("b");
+    };
+    path.push("end")
+    for (var i = 10 - 1; i >= 0; i--) {
+        map.push(path);
+    };
     _(map).each(function(row, i) {
         grid.addColumn(row);
     });
