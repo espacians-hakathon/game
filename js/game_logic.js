@@ -27,6 +27,8 @@ function getImageFactory(image_type) {
 }
 
 var stage = new createjs.Stage("game");
+stage.scaleX = 0.5;
+stage.scaleY = 0.5;
 var mapTopMargin = 200; // Margin to push map to view sky
 var mapLeftMargin = 150;
 var map = [
