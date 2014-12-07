@@ -1,12 +1,6 @@
 var Session = {
     dataRef: 'https://resplendent-torch-8357.firebaseio.com/Sessions',
-    id: 'session12245',
-    createQuiz: function(quiz_obj, callback) {
-        var myDataRef = new Firebase(this.dataRef);
-        var obj = {};
-        obj["Questions"] = quiz_obj["questions"];
-        myDataRef.push(obj, callback);
-    },
+    id: QueryString.session_id || "session12245",
     getCurrentPlayerID: function()
     {
         var myDataRef = new Firebase(this.dataRef + '/' + this.id + '/Students');
@@ -16,17 +10,23 @@ var Session = {
 
         userRef.on("value", function(snapshot) {
            currentPlayerID=snapshot.val().ID;
+           console.log(snapshot.val().currentRow+1);
+           localStorage.setItem("questionIndex",snapshot.val().currentRow+1);
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
     },
     fetchSessionQuestions: function() {
+        console.log(this.dataRef + '/' + this.id + '/Questions');
         var dataRef = new Firebase(this.dataRef + '/' + this.id + '/Questions'),
             questions;
         // Attach an asynchronous callback to read the data at our posts reference
         dataRef.on("value", function(snapshot) {
             questions = snapshot.val();
+            console.log("QUESSHANZ");
+            console.log(questions);
             localStorage.setItem("questions", JSON.stringify(questions));
+            localStorage.setItem("questionIndex",1);
             //console.log(questions);
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
@@ -80,7 +80,7 @@ var Session = {
                   // console.log("p="+p+", p length ");
                   // console.log(players[studentsList[c].ID].Path);
                   // console.log(players[studentsList[c].ID].Path[p].QuestionID-1);
-                
+
                   //if (grid.getBlock(studentsList[c].ID,players[studentsList[c].ID].Path[p].QuestionID-1))
                   var typeOfCurrentBlock =grid.getBlock(studentsList[c].ID,players[studentsList[c].ID].Path[p].QuestionID-1).type;
 
@@ -88,7 +88,7 @@ var Session = {
                   {
                    grid.setBlock(studentsList[c].ID,
                    players[studentsList[c].ID].Path[p].QuestionID-1,
-                   getBlockTypeForAnswer(players[studentsList[c].ID].Path[p].State)); 
+                   getBlockTypeForAnswer(players[studentsList[c].ID].Path[p].State));
                   }
 
                   // console.log(grid.getBlock(studentsList[c].ID,players[studentsList[c].ID].Path[p].QuestionID-1));
@@ -100,10 +100,6 @@ var Session = {
 
             }
 
-
-
-
-           
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
@@ -114,6 +110,7 @@ var Session = {
         var myDataRef = new Firebase(this.dataRef + '/' + this.id + '/Students');
         var userRef = myDataRef.child(userUuid);
         questions = JSON.parse(localStorage.getItem("questions"));
+        console.log(questions);
         path = {};
         $.each(questions, function(k, v) {
             element = {};
@@ -140,7 +137,7 @@ var Session = {
               } else {
                 allRef.update({"StudentCount": studentCount + 1}, callback);
               }
-            });                
+            });
         });
     }
 };
