@@ -3,9 +3,6 @@ function rnd() {
 }
 
 function Question() {
-    var a = Math.floor((Math.random() * 10) + 1);
-    var b = Math.floor((Math.random() * 10) + 1);
-    this.question = a + " + " + b;
     this.question = questions[questionIndex].Question;
     this.answers = questions[questionIndex].Answers;
     delete this.answers['correct'];
