@@ -35,7 +35,7 @@ var swapSprite = function(block, type, z) {
         y: -1000
     }, 500, createjs.Ease.getElasticInOut(1000, 1000)).call(function() {
         console.log("removing");
-        stage.removeChild(block.sprite);
+        gridContainer.removeChild(block.sprite);
         block.sprite = image;
         block.type=type;
         image.y = -1000;
