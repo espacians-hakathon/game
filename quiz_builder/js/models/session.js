@@ -36,6 +36,20 @@ var Session = {
   createUser: function(userUuid, userObj, callback){
     var myDataRef = new Firebase(this.dataRef+'/'+this.id+'/Students');
     var userRef = myDataRef.child(userUuid)
+    questions = JSON.parse(localStorage.getItem("questions"))
+    path = {}
+    $.each(questions, function(k,v){
+      element = {};
+      if(v){
+        element.QuestionID = v.ID;
+        element.State = "notyet";
+        path[k] = element;
+        console.log(v.ID)
+      }
+    });
+    userObj.Path = path;
+    userObj.TotalScore = 0 
+    userObj.currentRow = 0
     userRef.set(userObj, callback); 
   }
 }
