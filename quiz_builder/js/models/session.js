@@ -27,6 +27,7 @@ var Session = {
         dataRef.on("value", function(snapshot) {
             questions = snapshot.val();
             localStorage.setItem("questions", JSON.stringify(questions));
+            localStorage.setItem("questionIndex",1)
             //console.log(questions);
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
