@@ -145,11 +145,11 @@
                 form.on('submit', function(e) {
                     e.preventDefault();
                     var studentCount = 1;
+                    var userInfo = $(this).serializeObject();
+                    var userChar = $( "#charSelect" ).val();
                     rootRef.once('value', function(dataSnapshot) {
                         studentCount = dataSnapshot.val().StudentCount;
                         if (studentCount < 10){
-                            var userInfo = $(this).serializeObject();
-                            var userChar = $( "#charSelect" ).val();
                             localStorage.setItem('currentUUID', user.uid);
                             localStorage.setItem('currentName', userInfo.Name);
                             localStorage.setItem('currentId', userInfo.ID);
