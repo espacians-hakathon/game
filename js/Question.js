@@ -16,6 +16,11 @@ var questionText,
 
 questionIndex = localStorage.getItem("questionIndex");
 if(questionIndex == null) questionIndex=1;
+if(questionIndex == 0)
+{ questionIndex=1;
+localStorage.setItem("questionIndex",questionIndex);}
+
+
 
 var initQuestions = function(stage) {
     questions = JSON.parse(localStorage.getItem("questions"));
@@ -28,12 +33,14 @@ var initQuestions = function(stage) {
 };
 
 function nextQuestion() {
-    localStorage.setItem("questionIndex",questionIndex)
+    localStorage.setItem("questionIndex",questionIndex);
     if (questionIndex >= questions.length) {
         answersContainer.removeAllChildren();
         questionText.text = "Good Luck";
         return;
     }
+    console.log("getting new q");
+    console.log(questionIndex);
     var q = new Question();
     questionText.text = q.question;
     questionText.x = stage.canvas.width / 2 - questionText.getBounds().width / 2;

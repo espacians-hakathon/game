@@ -116,6 +116,7 @@ var formatContainers = function() {
 
 var init = function() {
     Session.getCurrentPlayerID();
+    Session.fetchSessionQuestions();
     drawGradient();
     drawMap();
     drawCharacters();

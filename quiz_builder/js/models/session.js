@@ -16,6 +16,8 @@ var Session = {
 
         userRef.on("value", function(snapshot) {
            currentPlayerID=snapshot.val().ID;
+           console.log(snapshot.val().currentRow+1);
+           localStorage.setItem("questionIndex",snapshot.val().currentRow+1);
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
