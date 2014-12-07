@@ -34,8 +34,8 @@ function nextQuestion() {
     localStorage.setItem("questionIndex", questionIndex);
     if (questionIndex >= questions.length) {
         answersContainer.removeAllChildren();
-        questionText.text = "Good Luck";
-        if (typeof players[currentPlayerID] !== "undefined") players[currentPlayerID].jump()
+        questionText.text = "Good Luck, you scored " + currentPlayerSCORE + " points!";
+        if (typeof players[currentPlayerID] !== "undefined") players[currentPlayerID].jump();
         return;
     }
     var q = new Question();
