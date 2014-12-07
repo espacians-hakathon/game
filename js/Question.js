@@ -69,6 +69,7 @@ function nextQuestion() {
             if (q.answers[q.correct] == event.target.text) {
                 blockType = "g";
                 currentPlayerSCORE += 10;
+                //console.log("CURRNETSCORE: "+currentPlayerSCORE);
             } else {
                 blockType = "s";
             }
