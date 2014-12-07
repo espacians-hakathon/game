@@ -5,8 +5,8 @@ function rnd() {
 function Question() {
     this.question = questions[questionIndex].Question;
     this.answers = questions[questionIndex].Answers;
-    delete this.answers['correct'];
     this.correct= questions[questionIndex].Answers['correct'];
+    delete this.answers['correct'];
     questionIndex++;
 }
 
