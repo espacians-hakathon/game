@@ -86,7 +86,7 @@ var Session = {
 
 
     },
-    createUser: function(userUuid, userObj, callback) {
+    createUser: function(userUuid,userChar, userObj, callback) {
         var myDataRef = new Firebase(this.dataRef + '/' + this.id + '/Students');
         var userRef = myDataRef.child(userUuid);
         questions = JSON.parse(localStorage.getItem("questions"));
@@ -101,7 +101,7 @@ var Session = {
             }
         });
         userObj.Path = path;
-        userObj.Character = 'girl';
+        userObj.Character = userChar;
         userObj.TotalScore = 0;
         userObj.currentRow = 0;
         userRef.set(userObj, callback);
