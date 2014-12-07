@@ -9,9 +9,6 @@ function Character (name, column,img) {
     this.image.setTransform(column * 100,-50 );
     this.nameText.x = this.image.x + this.nameText.getBounds().width / 4;
     this.nameText.y = this.image.y + this.nameText.getBounds().height * 2;
-    // this.nameTextStroke.x = this.nameText.x;
-    // this.nameTextStroke.y = this.nameText.y;
-
 }
 
 Character.prototype.getImage = function() {
