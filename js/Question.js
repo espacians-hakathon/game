@@ -7,7 +7,6 @@ function Question() {
     this.answers = questions[questionIndex].Answers;
     this.correct= questions[questionIndex].Answers['correct'];
     delete this.answers['correct'];
-    questionIndex++;
 }
 
 var questionText,
@@ -25,6 +24,11 @@ var initQuestions = function(stage) {
 };
 
 function nextQuestion() {
+    if (questionIndex >= questions.length) {
+        answersContainer.removeAllChildren();
+        questionText.text = "Good Luck";
+        return;
+    }
     var q = new Question();
     questionText.text = q.question;
     questionText.x = stage.canvas.width / 2 - questionText.getBounds().width / 2;
@@ -61,4 +65,5 @@ function nextQuestion() {
             nextQuestion();
         }
     }
+    questionIndex++;
 }
