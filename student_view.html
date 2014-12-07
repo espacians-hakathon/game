@@ -143,13 +143,21 @@
                 // Save user's info to Firebase
                 form.on('submit', function(e) {
                     e.preventDefault();
-                    var userInfo = $(this).serializeObject();
-                    var userChar = $( "#charSelect" ).val();
-                    localStorage.setItem('currentUUID', user.uid);
-                    localStorage.setItem('currentName', userInfo.Name);
-                    localStorage.setItem('currentId', userInfo.ID);
-                    Session.createUser(user.uid,userChar, userInfo, function onComplete() {
-                        window.location.href = "test_tiles.html";
+                    var studentCount = 1;
+                    rootRef.once('value', function(dataSnapshot) {
+                        studentCount = dataSnapshot.val().StudentCount;
+                        if (studentCount < 10){
+                            var userInfo = $(this).serializeObject();
+                            var userChar = $( "#charSelect" ).val();
+                            localStorage.setItem('currentUUID', user.uid);
+                            localStorage.setItem('currentName', userInfo.Name);
+                            localStorage.setItem('currentId', userInfo.ID);
+                            Session.createUser(user.uid,userChar, userInfo, function onComplete() {
+                                window.location.href = "test_tiles.html";
+                            });
+                        }else{
+                            $('#container').html("<div>No place is available at this session. Request a new session from your teacher.</div>");
+                        }
                     });
 
 
