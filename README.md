@@ -26,6 +26,15 @@ Here provide couple screenshots of your project. You can use a tool like https:/
 ![Koding](https://koding.com/a/site.landing/images/slideshow/2x/ss-terminal.png "Koding")
 ![Koding](https://koding.com/a/site.landing/images/slideshow/2x/ss-ide.png "Koding")
 
+## Demo
+Play around with SchoolFarm with a random team here:
+http://uskk3bd5229a.she7ta.koding.io/game/student_view.html
+
+View scores and adminstrate the teacher console here:
+http://uskk3bd5229a.she7ta.koding.io/game/teacher_view.html
+
+Create your own quiz and share with friends:
+http://uskk3bd5229a.she7ta.koding.io/game/quiz_builder/index.html
 ## APIs, tools and open source libraries used
 
 * [HTML5](http://www.w3schools.com/html/html5_intro.asp)
