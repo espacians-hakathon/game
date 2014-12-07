@@ -151,7 +151,7 @@
                         studentCount = dataSnapshot.val().StudentCount;
                         if (studentCount < 10){
                             localStorage.setItem('currentUUID', user.uid);
-                            localStorage.setItem('currentName', userInfo.Na);
+                            localStorage.setItem('currentName', userInfo.Name);
                             localStorage.setItem('currentId', userInfo.ID);
                             Session.createUser(user.uid,userChar, userInfo, function onComplete() {
                                 window.location.href = "test_tiles.html?session_id="+Session.id;
