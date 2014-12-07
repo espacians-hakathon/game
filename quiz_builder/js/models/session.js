@@ -21,6 +21,7 @@ var Session = {
   updateUserAnswer: function(pathId, blockType, callback){
     var myDataRef = new Firebase(this.dataRef+'/'+this.id+'/Students');
     userUUID = localStorage.getItem('currentUUID');
+    var userRef = myDataRef.child(userUUID);
     var questionRef = myDataRef.child(userUUID).child("Path").child(pathId);
     answer = true;
     if(blockType == "g"){
@@ -30,8 +31,11 @@ var Session = {
     }else{
         answer = "notyet";
     }
+
     var obj = {"State": answer};
     questionRef.update(obj, callback); 
+    var currentRow = pathId+1;
+    userRef.update({"currentRow":currentRow},callback);
   },
   createUser: function(userUuid, userObj, callback){
     var myDataRef = new Firebase(this.dataRef+'/'+this.id+'/Students');
@@ -48,8 +52,8 @@ var Session = {
       }
     });
     userObj.Path = path;
-    userObj.TotalScore = 0 
-    userObj.currentRow = 0
+    userObj.TotalScore = 0;
+    userObj.currentRow = 1;
     userRef.set(userObj, callback); 
   }
-}
+};

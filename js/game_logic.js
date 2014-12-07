@@ -1,5 +1,5 @@
 var blockSize = getImageFactory("1");
-var players = [new Character("Ahmed", 0,'boy'), new Character("Mohamed", 1,'boy'), new Character("Basayel", 3,'girl')];
+var players = [new Character("Ahmed", 0,'boy'), new Character("Mohamed", 1,'boy'), new Character("Basayel", 2,'girl')];
 var grid;
 var gridContainer = new createjs.Container();
 var characterContainer = new createjs.Container();
@@ -63,6 +63,18 @@ var drawCharacters = function() {
     }
 };
 
+var addCharacter = function (name,img)
+{
+
+	var character = new Character(name,players.length,img);
+	players.push(character);
+	characterContainer.addChild(character.image);
+    characterContainer.addChild(character.nameText);
+
+
+
+};
+
 var drawGradient = function() {
     var canvas = document.getElementById('game');
     var context = new createjs.Rectangle(0, 0, canvas.width, canvas.height);
@@ -92,6 +104,9 @@ var init = function() {
 
     characterContainer.y+= mapTopMargin;
     gridContainer.y+= mapTopMargin;
+
+    addCharacter("Hossam","boy");
+    addCharacter("Yasmine","horn");
 };
 
 createjs.Ticker.addEventListener("tick", handleTick);
