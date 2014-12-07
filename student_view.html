@@ -23,7 +23,7 @@
         (function(jQuery, Firebase, Path) {
             "use strict";
             // the main firebase reference
-            var rootRef = new Firebase('https://resplendent-torch-8357.firebaseio.com/Sessions/'+Session.id);
+            var rootRef = new Firebase('https://resplendent-torch-8357.firebaseio.com/Sessions/' + Session.id);
             // pair our routes to our form elements and controller
             var routeMap = {
                 '#/': {
@@ -146,22 +146,39 @@
                     e.preventDefault();
                     var studentCount = 1;
                     var userInfo = $(this).serializeObject();
-                    var userChar = $( "#charSelect" ).val();
+                    var userChar = $("#charSelect").val();
                     rootRef.once('value', function(dataSnapshot) {
                         studentCount = dataSnapshot.val().StudentCount;
-                        if (studentCount < 10){
+                        if (studentCount < 10) {
                             localStorage.setItem('currentUUID', user.uid);
                             localStorage.setItem('currentName', userInfo.Name);
                             localStorage.setItem('currentId', userInfo.ID);
-                            Session.createUser(user.uid,userChar, userInfo, function onComplete() {
-                                window.location.href = "test_tiles.html?session_id="+Session.id;
+                            Session.createUser(user.uid, userChar, userInfo, function onComplete() {
+                                window.location.href = "test_tiles.html?session_id=" + Session.id;
                             });
                         }else{
-                            showAlert({
-                                title: 'Class completed!',
-                                detail: 'No place is available at this session. Request a new session from your teacher.',
-                                className: 'alert-info'
-                            });
+                            if (Session.id == 'session12245') {
+                              console.log("RESERING");
+                              console.log(userRef);
+                                rootRef.update({
+                                    "Students": {},
+                                    "StudentCount": 0
+                                });
+                                localStorage.setItem('currentUUID', user.uid);
+                                localStorage.setItem('currentName', userInfo.Name);
+                                localStorage.setItem('currentId', userInfo.ID);
+                                Session.createUser(user.uid, userChar, userInfo, function onComplete() {
+                                    window.location.href = "test_tiles.html?session_id=" + Session.id;
+                                });
+
+                            }
+                            else {
+                                showAlert({
+                                    title: 'Class completed!',
+                                    detail: 'No place is available at this session. Request a new session from your teacher.',
+                                    className: 'alert-info'
+                                });
+                            }
                         }
                     });
 
@@ -295,12 +312,12 @@
                 <input type="text" class="form-control" id="txtName" placeholder="Name" name="Name">
             </div>
             <div class="form-group">
-                <select id ="charSelect">
+                <select id="charSelect">
                     <option value="boy">Boy</option>
                     <option value="girl">Pink Girl</option>
                     <option value="horn">Blue Girl</option>
                     <option value="pr">Princess</option>
-                     <option value="cat">Cat Girl</option>
+                    <option value="cat">Cat Girl</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Start</button>

@@ -48,7 +48,7 @@
                 <ul class="nav navbar-nav">
                     <li> <a href"#" id="userName"></a>
                     </li>
-                    <li> <a href="./student_view.html#/logout" id="logout">Logout</a>
+                    <li> <a id="logoutLink" href="./student_view.html#/logout" id="logout">Logout</a>
                     </li>
                 </ul>
             </nav>
@@ -69,6 +69,7 @@
         $(function () {
             var uuid = localStorage.getItem('currentUUID');
             var name = localStorage.getItem('currentName');
+            $('#logoutLink').attr("href","./student_view.html#/logout?session_id="+Session.id);
             if (uuid && name){
                 $('#userName').text(name);
             }else{

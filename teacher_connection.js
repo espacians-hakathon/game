@@ -1,10 +1,16 @@
 var firebase;
 var dataRef = "https://resplendent-torch-8357.firebaseio.com/Sessions";
 var studentData;
+var sessionID = "session12245";
 
 function fetchStudents() {
-    console.log(dataRef + '/' + QueryString.session_id + '/Students');
-    var studentRef = new Firebase(dataRef + '/' + QueryString.session_id + '/Students');
+    if (QueryString.session_id===undefined);
+    else
+    {
+        sessionID= QueryString.session_id;
+    }
+    // console.log(dataRef + '/' + sessionID + '/Students');
+    var studentRef = new Firebase(dataRef + '/' + sessionID + '/Students');
 
 
 
