@@ -26,7 +26,7 @@ Here provide couple screenshots of your project. You can use a tool like https:/
 ![Koding](https://koding.com/a/site.landing/images/slideshow/2x/ss-terminal.png "Koding")
 ![Koding](https://koding.com/a/site.landing/images/slideshow/2x/ss-ide.png "Koding")
 
-## APIs used
+## APIs, tools and open source libraries used
 
 * HTML5
 * Javascript
