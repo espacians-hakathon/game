@@ -20,8 +20,6 @@ if (questionIndex === 0 || questionIndex === null) {
     localStorage.setItem("questionIndex", questionIndex);
 }
 
-
-
 var initQuestions = function(stage) {
     questions = JSON.parse(localStorage.getItem("questions"));
     answersContainer = new createjs.Container();
@@ -37,10 +35,9 @@ function nextQuestion() {
     if (questionIndex >= questions.length) {
         answersContainer.removeAllChildren();
         questionText.text = "Good Luck";
+        players[currentPlayerID].jump()
         return;
     }
-    console.log("getting new q");
-    console.log(questionIndex);
     var q = new Question();
     questionText.text = q.question;
     questionText.x = stage.canvas.width / 2 - questionText.getBounds().width / 2;
@@ -68,11 +65,13 @@ function nextQuestion() {
         answersContainer.addChild(text);
 
         function handleClick(event) {
+            var blockType;
             if (q.answers[q.correct] == event.target.text) {
-                advanceOneStep(currentPlayerID, "g");
+                blockType = "g";
             } else {
-                advanceOneStep(currentPlayerID, "s");
+                blockType = "s";
             }
+            advanceOneStep(currentPlayerID, blockType, event.target.text);
             nextQuestion();
         }
         text.addEventListener("click", handleClick);

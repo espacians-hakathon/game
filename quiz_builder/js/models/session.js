@@ -7,7 +7,6 @@ var Session = {
         userUUID = localStorage.getItem('currentUUID');
         var userRef = myDataRef.child(userUUID);
 
-
         userRef.on("value", function(snapshot) {
            currentPlayerID=snapshot.val().ID;
            console.log(snapshot.val().currentRow+1);
@@ -23,16 +22,13 @@ var Session = {
         // Attach an asynchronous callback to read the data at our posts reference
         dataRef.on("value", function(snapshot) {
             questions = snapshot.val();
-            console.log("QUESSHANZ");
-            console.log(questions);
             localStorage.setItem("questions", JSON.stringify(questions));
             localStorage.setItem("questionIndex",1);
-            //console.log(questions);
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
     },
-    updateUserAnswer: function(pathId, blockType, callback) {
+    updateUserAnswer: function(pathId, blockType, answer_string, callback) {
         var myDataRef = new Firebase(this.dataRef + '/' + this.id + '/Students');
         userUUID = localStorage.getItem('currentUUID');
         var userRef = myDataRef.child(userUUID);
@@ -47,7 +43,7 @@ var Session = {
         }
 
         var obj = {
-            "State": answer
+            "State": answer, "choosen_answer": answer_string
         };
         questionRef.update(obj, callback);
         var currentRow = pathId;
