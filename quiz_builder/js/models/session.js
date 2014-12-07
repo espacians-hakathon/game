@@ -50,7 +50,7 @@ var Session = {
             "State": answer
         };
         questionRef.update(obj, callback);
-        var currentRow = pathId + 1;
+        var currentRow = pathId;
         userRef.update({
             "currentRow": currentRow
         }, callback);
@@ -74,9 +74,33 @@ var Session = {
                // console.log(studentsList[c].ID);
                 players[studentsList[c].ID].row = studentsList[c].currentRow;
                 players[studentsList[c].ID].targetBlock = studentsList[c].currentRow;
+                players[studentsList[c].ID].Path = studentsList[c].Path;
+                 for (var p in players[studentsList[c].ID].Path)
+                 {
+                  // console.log("p="+p+", p length ");
+                  // console.log(players[studentsList[c].ID].Path);
+                  // console.log(players[studentsList[c].ID].Path[p].QuestionID-1);
+                
+                  //if (grid.getBlock(studentsList[c].ID,players[studentsList[c].ID].Path[p].QuestionID-1))
+                  var typeOfCurrentBlock =grid.getBlock(studentsList[c].ID,players[studentsList[c].ID].Path[p].QuestionID-1).type;
+
+                  if (getAnswerForBlockType(typeOfCurrentBlock)!=players[studentsList[c].ID].Path[p].State)
+                  {
+                   grid.setBlock(studentsList[c].ID,
+                   players[studentsList[c].ID].Path[p].QuestionID-1,
+                   getBlockTypeForAnswer(players[studentsList[c].ID].Path[p].State)); 
+                  }
+
+                  // console.log(grid.getBlock(studentsList[c].ID,players[studentsList[c].ID].Path[p].QuestionID-1));
+                  //console.log("getting: " +studentsList[c].ID+","+players[studentsList[c].ID].Path[p].QuestionID-1 );
+                    //console.log(players[studentsList[c].ID].Path[p].QuestionID-1);
+                  //console.log(studentsList[c].ID+":"+grid.getBlock(studentsList[c].ID,players[studentsList[c].ID].Path[p].QuestionID-1).type);
+                 }
 
 
             }
+
+
 
 
            
