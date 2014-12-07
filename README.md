@@ -35,13 +35,13 @@ Teacher view: (REAL TIME)
 
 ## Demo
 Play around with SchoolFarm with a random team here:
-http://uskk3bd5229a.she7ta.koding.io/game/student_view.html
+http://uskk3bd5229a.she7ta.koding.io:8000/game/student_view.html
 
 View scores and adminstrate the teacher console here:
-http://uskk3bd5229a.she7ta.koding.io/game/teacher_view.html
+http://uskk3bd5229a.she7ta.koding.io:8000/game/teacher_view.html
 
 Create your own quiz and share with friends:
-http://uskk3bd5229a.she7ta.koding.io/game/quiz_builder/index.html
+http://uskk3bd5229a.she7ta.koding.io:8000/game/quiz_builder/index.html
 ## APIs, tools and open source libraries used
 
 * [HTML5](http://www.w3schools.com/html/html5_intro.asp)
