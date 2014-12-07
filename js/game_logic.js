@@ -98,10 +98,10 @@ var drawGradient = function() {
 };
 
 var formatContainers = function() {
-    var stageWidth = stage.getBounds().width / 2;
-    gridContainer.x = stageWidth - gridContainer.getBounds().width / 4;
-    characterContainer.x = stageWidth - gridContainer.getBounds().width / 4;
-    answersContainer.x = stageWidth - gridContainer.getBounds().width / 4;
+    var stageWidth = stage.getBounds().width / 3;
+    gridContainer.x += stageWidth;
+    characterContainer.x += stageWidth;
+    answersContainer.x += stageWidth;
     characterContainer.y += mapTopMargin;
     gridContainer.y += mapTopMargin;
     stage.addChild(characterContainer);
