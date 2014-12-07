@@ -1,5 +1,5 @@
 var Session = {
-    dataRef: 'https://resplendent-torch-8357.firebaseio.com/Sessions',
+    dataRef: 'https://glowing-torch-485.firebaseio.com/Sessions',
     id: 'session12245',
     createQuiz: function(quiz_obj, callback) {
         var myDataRef = new Firebase(this.dataRef);
@@ -124,10 +124,23 @@ var Session = {
                 //console.log(v.ID);
             }
         });
-        userObj.Path = path;
-        userObj.Character = userChar;
-        userObj.TotalScore = 0;
-        userObj.currentRow = 0;
-        userRef.set(userObj, callback);
+        var studentCount =0;
+        var allRef = new Firebase(this.dataRef + '/' + this.id );
+
+        allRef.once('value', function(dataSnapshot) {
+            studentCount = dataSnapshot.val().StudentCount;
+            userObj.ID = studentCount;
+            userObj.Path = path;
+            userObj.Character = userChar;
+            userObj.TotalScore = 0;
+            userObj.currentRow = 0;
+            userRef.set(userObj, function(error) {
+              if (error) {
+                console.log("Data could not be saved." + error);
+              } else {
+                allRef.update({"StudentCount": studentCount + 1}, callback);
+              }
+            });                
+        });
     }
 };
