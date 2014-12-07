@@ -1,288 +1,293 @@
 <html>
 
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title> Student Login</title>  
-  <script type="text/javascript" src="https://cdn.firebase.com/js/client/1.1.1/firebase.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-  <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.0.0/jquery.serialize-object.compiled.js"></script>
-  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/path.js/0.8.4/path.min.js"></script>
-  <script src="quiz_builder/js/models/session.js"></script>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title> Student Login</title>
+    <script type="text/javascript" src="https://cdn.firebase.com/js/client/1.1.1/firebase.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.0.0/jquery.serialize-object.compiled.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/path.js/0.8.4/path.min.js"></script>
+    <script src="quiz_builder/js/utils.js"></script>
+    <script src="quiz_builder/js/models/session.js"></script>
 
-  <style type="text/css">
+    <style type="text/css">
     form {
-      display: none;
+        display: none;
     }
-  </style>
-  
-  <script type="text/javascript">
-  window.onload=function(){
-    (function (jQuery, Firebase, Path) {
-      "use strict";
-      // the main firebase reference
-      var rootRef = new Firebase('https://glowing-torch-485.firebaseio.com/Sessions/session12245');
-      // pair our routes to our form elements and controller
-      var routeMap = {
-        '#/': {
-          form: 'frmProfile',
-          controller: 'profile',
-          authRequired: true 
-        },
-          '#/logout': {
-          form: 'frmLogout',
-          controller: 'logout'
-        },
-          '#/profile': {
-          form: 'frmProfile',
-          controller: 'profile',
-          authRequired: true 
-        },
-      };
+    </style>
 
-      // create the object to store our controllers
-      var controllers = {};
-      // store the active form shown on the page
-      var activeForm = null;
-      var alertBox = $('#alert');
+    <script type="text/javascript">
+    window.onload = function() {
+        (function(jQuery, Firebase, Path) {
+            "use strict";
+            // the main firebase reference
+            var rootRef = new Firebase('https://glowing-torch-485.firebaseio.com/Sessions/session12245');
+            // pair our routes to our form elements and controller
+            var routeMap = {
+                '#/': {
+                    form: 'frmProfile',
+                    controller: 'profile',
+                    authRequired: true
+                },
+                '#/logout': {
+                    form: 'frmLogout',
+                    controller: 'logout'
+                },
+                '#/profile': {
+                    form: 'frmProfile',
+                    controller: 'profile',
+                    authRequired: true
+                },
+            };
 
-      function routeTo(route) {
-        window.location.href = '#/' + route;
-      }
+            // create the object to store our controllers
+            var controllers = {};
+            // store the active form shown on the page
+            var activeForm = null;
+            var alertBox = $('#alert');
 
-      // authenticate anonymously
-      // returns a promise
-      function authAnonymously() {
-        var deferred = $.Deferred();
-        rootRef.authAnonymously(function (err, authData) {
+            function routeTo(route) {
+                window.location.href = '#/' + route;
+            }
 
-          if (authData) {
-              deferred.resolve(authData);
-          }
+            // authenticate anonymously
+            // returns a promise
+            function authAnonymously() {
+                var deferred = $.Deferred();
+                rootRef.authAnonymously(function(err, authData) {
 
-          if (err) {
-              deferred.reject(err);
-          }
+                    if (authData) {
+                        deferred.resolve(authData);
+                    }
 
-        });
+                    if (err) {
+                        deferred.reject(err);
+                    }
 
-        return deferred.promise();
-      }
+                });
 
-      // route to the specified route if sucessful
-      // if there is an error, show the alert
-      function handleAuthResponse(promise, route) {
-        $.when(promise)
-            .then(function (authData) {
-            // route
-            routeTo(route);
+                return deferred.promise();
+            }
 
-        }, function (err) {
-            console.log(err);
-            // pop up error
-            showAlert({
-                title: err.code,
-                detail: err.message,
-                className: 'alert-danger'
+            // route to the specified route if sucessful
+            // if there is an error, show the alert
+            function handleAuthResponse(promise, route) {
+                $.when(promise)
+                    .then(function(authData) {
+                        // route
+                        routeTo(route);
+
+                    }, function(err) {
+                        console.log(err);
+                        // pop up error
+                        showAlert({
+                            title: err.code,
+                            detail: err.message,
+                            className: 'alert-danger'
+                        });
+
+                    });
+            }
+
+            // options for showing the alert box
+            function showAlert(opts) {
+                var title = opts.title;
+                var detail = opts.detail;
+                var className = 'alert ' + opts.className;
+
+                alertBox.removeClass().addClass(className);
+                alertBox.children('#alert-title').text(title);
+                alertBox.children('#alert-detail').text(detail);
+            }
+
+            /// Controllers
+            ////////////////////////////////////////
+
+            // logout immediately when the controller is invoked
+            controllers.logout = function(form) {
+                $('#txtTitle').text('');
+                localStorage.setItem('currentUUID', '');
+                localStorage.setItem('currentName', '');
+                rootRef.unauth();
+            };
+
+            controllers.profile = function(form) {
+                // Check the current user
+                var user = rootRef.getAuth();
+                var userRef;
+
+                // If no current user send to register page
+                if (!user) {
+                    handleAuthResponse(authAnonymously(), 'profile');
+                    // routeTo('profile');
+                    return;
+                }
+
+                // Load user info
+                userRef = rootRef.child('Students').child(user.uid);
+                userRef.once('value', function(snap) {
+                    var user = snap.val();
+                    if (!user) {
+                        return;
+                    }
+
+                    // set the fields
+                    form.find('#txtName').val(user.name);
+                    form.find('#txtID').val(user.id);
+
+                    $('#txtTitle').text('Welcome! ' + user.name)
+                    localStorage.setItem('currentUUID', user.uid);
+                    localStorage.setItem('currentName', user.name);
+                });
+
+                // Save user's info to Firebase
+                form.on('submit', function(e) {
+                    e.preventDefault();
+                    var userInfo = $(this).serializeObject();
+                    var userChar = $( "#charSelect" ).val();
+                    localStorage.setItem('currentUUID', user.uid);
+                    localStorage.setItem('currentName', userInfo.Name);
+                    localStorage.setItem('currentId', userInfo.ID);
+                    Session.createUser(user.uid,userChar, userInfo, function onComplete() {
+                        window.location.href = "test_tiles.html?session_id="+Session.id;
+                    });
+
+
+                });
+
+            };
+
+            // Handle transitions between routes
+            function transitionRoute(path) {
+                // grab the config object to get the form element and controller
+                var formRoute = routeMap[path];
+                var currentUser = rootRef.getAuth();
+
+                // if authentication is required and there is no
+                // current user then go to the register page and
+                // stop executing
+                // if (formRoute.authRequired && !currentUser) {
+                //     routeTo('register');
+                //     return;
+                // }
+
+                // wrap the upcoming form in jQuery
+                var upcomingForm = $('#' + formRoute.form);
+
+                // if there is no active form then make the current one active
+                if (!activeForm) {
+                    activeForm = upcomingForm;
+                }
+
+                // hide old form and show new form
+                activeForm.hide();
+                upcomingForm.show().hide().fadeIn(750);
+
+                // remove any listeners on the soon to be switched form
+                activeForm.off();
+
+                // set the new form as the active form
+                activeForm = upcomingForm;
+
+                // invoke the controller
+                controllers[formRoute.controller](activeForm);
+            }
+
+            // Set up the transitioning of the route
+            function prepRoute() {
+                transitionRoute(this.path);
+            }
+
+
+            /// Routes
+            ///  #/         - Login
+            //   #/logout   - Logut
+            //   #/register - Register
+            //   #/profile  - Profile
+
+            Path.map("#/").to(prepRoute);
+            Path.map("#/logout").to(prepRoute);
+            // Path.map("#/register").to(prepRoute);
+            Path.map("#/profile").to(prepRoute);
+
+            Path.root("#/");
+
+            /// Initialize
+            ////////////////////////////////////////
+
+            $(function() {
+
+                // Start the router
+                Path.listen();
+
+                handleAuthResponse(authAnonymously(), 'profile');
+
+                // whenever authentication happens send a popup
+                rootRef.onAuth(function globalOnAuth(authData) {
+
+                    if (authData) {
+                        Session.fetchSessionQuestions();
+                        showAlert({
+                            title: 'Logged in!',
+                            detail: 'Using ' + authData.provider,
+                            className: 'alert-success'
+                        });
+                    } else {
+                        showAlert({
+                            title: 'You are not logged in',
+                            detail: '',
+                            className: 'alert-info'
+                        });
+                    }
+
+                });
+
             });
 
-        });
-      }
-
-      // options for showing the alert box
-      function showAlert(opts) {
-        var title = opts.title;
-        var detail = opts.detail;
-        var className = 'alert ' + opts.className;
-
-        alertBox.removeClass().addClass(className);
-        alertBox.children('#alert-title').text(title);
-        alertBox.children('#alert-detail').text(detail);
-      }
-
-      /// Controllers
-      ////////////////////////////////////////
-
-      // logout immediately when the controller is invoked
-      controllers.logout = function (form) {
-        $('#txtTitle').text('');
-        localStorage.setItem('currentUUID', '');
-        localStorage.setItem('currentName', '');
-        rootRef.unauth();
-      };
-
-      controllers.profile = function (form) {
-        // Check the current user
-        var user = rootRef.getAuth();
-        var userRef;
-
-        // If no current user send to register page
-        if (!user) {
-          handleAuthResponse(authAnonymously(), 'profile');
-          // routeTo('profile');
-          return;
-        }
-
-        // Load user info
-        userRef = rootRef.child('Students').child(user.uid);
-        userRef.once('value', function (snap) {
-          var user = snap.val();
-          if (!user) {
-              return;
-          }
-
-          // set the fields
-          form.find('#txtName').val(user.name);
-          form.find('#txtID').val(user.id);
-          $('#txtTitle').text('Welcome! '+ user.name)
-          localStorage.setItem('currentUUID', user.uid);
-          localStorage.setItem('currentName', user.name);
-        });
-
-        // Save user's info to Firebase
-        form.on('submit', function (e) {
-          e.preventDefault();
-          var userInfo = $(this).serializeObject();
-          localStorage.setItem('currentUUID', user.uid);
-          localStorage.setItem('currentName', userInfo.Name);
-          localStorage.setItem('currentId', userInfo.ID);
-          Session.createUser(user.uid, userInfo, function onComplete() {
-            window.location.href = "test_tiles.html";
-          });
-
-          
-        });
-
-      };
-
-      // Handle transitions between routes
-      function transitionRoute(path) {
-        // grab the config object to get the form element and controller
-        var formRoute = routeMap[path];
-        var currentUser = rootRef.getAuth();
-
-        // if authentication is required and there is no
-        // current user then go to the register page and
-        // stop executing
-        // if (formRoute.authRequired && !currentUser) {
-        //     routeTo('register');
-        //     return;
-        // }
-
-        // wrap the upcoming form in jQuery
-        var upcomingForm = $('#' + formRoute.form);
-
-        // if there is no active form then make the current one active
-        if (!activeForm) {
-            activeForm = upcomingForm;
-        }
-
-        // hide old form and show new form
-        activeForm.hide();
-        upcomingForm.show().hide().fadeIn(750);
-
-        // remove any listeners on the soon to be switched form
-        activeForm.off();
-
-        // set the new form as the active form
-        activeForm = upcomingForm;
-
-        // invoke the controller
-        controllers[formRoute.controller](activeForm);
-      }
-
-      // Set up the transitioning of the route
-      function prepRoute() {
-        transitionRoute(this.path);
-      }
-
-
-      /// Routes
-      ///  #/         - Login
-      //   #/logout   - Logut
-      //   #/register - Register
-      //   #/profile  - Profile
-
-      Path.map("#/").to(prepRoute);
-      Path.map("#/logout").to(prepRoute);
-      // Path.map("#/register").to(prepRoute);
-      Path.map("#/profile").to(prepRoute);
-
-      Path.root("#/");
-
-    /// Initialize
-    ////////////////////////////////////////
-
-      $(function () {
-
-        // Start the router
-        Path.listen();
-
-        handleAuthResponse(authAnonymously(), 'profile');
-        
-        // whenever authentication happens send a popup
-        rootRef.onAuth(function globalOnAuth(authData) {
-          
-          if (authData) {
-            Session.fetchSessionQuestions();
-              showAlert({
-                  title: 'Logged in!',
-                  detail: 'Using ' + authData.provider,
-                  className: 'alert-success'
-              });
-          } else {
-              showAlert({
-                  title: 'You are not logged in',
-                  detail: '',
-                  className: 'alert-info'
-              });
-          }
-
-        });
-
-      });
-
-    }(window.jQuery, window.Firebase, window.Path))
-  }
-
-  </script>
+        }(window.jQuery, window.Firebase, window.Path))
+    }
+    </script>
 
 
 </head>
+
 <body>
-  <header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
-    <div class="container">
-        <div class="navbar-header">
-            <!-- <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse"> <span class="sr-only">Toggle navigation</span> -->
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+    <header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <!-- <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse"> <span class="sr-only">Toggle navigation</span> -->
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
 
-            <!-- </button>  -->
-            <a href="#" class="navbar-brand">School Game</a>
+                <!-- </button>  -->
+                <a href="#" class="navbar-brand">School Game</a>
 
-        </div>
-        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-            <ul class="nav navbar-nav">
-                <li> <a href="#/">Login</a>
-                </li>
-                <li> <a href="#/logout">Logout</a>
-                </li>
-               <!--  <li> <a href="#/register">Register</a>
+            </div>
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+                <ul class="nav navbar-nav">
+                    <li> <a href="#/">Login</a>
+                    </li>
+                    <li> <a href="#/logout">Logout</a>
+                    </li>
+                    <!--  <li> <a href="#/register">Register</a>
 
                 </li>
                 <li> <a href="#/profile">Profile</a>
 
                 </li> -->
-                <li><a href"#" id="txtTitle"></a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-<div id="container" class="container">
-    <!-- LOGIN -->
-    <!-- <form id="frmLogin" role="form" style="display: block;">
+                    <li>
+                        <a href "#" id="txtTitle"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div id="container" class="container">
+        <!-- LOGIN -->
+        <!-- <form id="frmLogin" role="form" style="display: block;">
          <h2>Login</h2>
 
         <div class="form-group">
@@ -300,19 +305,19 @@
  <a href="#" class="btn btn-primary bt-social" data-provider="facebook">Facebook</a>
  <a href="#" class="btn btn-info bt-social" data-provider="twitter">Twitter</a> -->
 
-        <!-- <a href="#" class="btn btn-danger bt-social" data-provider="google">Google+</a> <a href="#" class="btn btn-default bt-social" data-provider="github">GitHub</a>--> 
- <!-- <a href="#" class="btn btn-warning" id="btAnon">Anon</a>
+        <!-- <a href="#" class="btn btn-danger bt-social" data-provider="google">Google+</a> <a href="#" class="btn btn-default bt-social" data-provider="github">GitHub</a>-->
+        <!-- <a href="#" class="btn btn-warning" id="btAnon">Anon</a>
 
     </form>-->
-    <!-- / LOGIN -->
-    <!-- LOGOUT -->
-    <form id="frmLogout" role="form">
-         <h2>You are logged out!</h2>
+        <!-- / LOGIN -->
+        <!-- LOGOUT -->
+        <form id="frmLogout" role="form">
+            <h2>You are logged out!</h2>
 
-    </form>
-    <!-- / LOGOUT -->
-    <!-- REGISTER -->
-    <!-- <form id="frmRegister" role="form">
+        </form>
+        <!-- / LOGOUT -->
+        <!-- REGISTER -->
+        <!-- <form id="frmRegister" role="form">
          <h2>Register</h2>
 
         <div class="form-group">
@@ -325,36 +330,47 @@
         </div>
         <button type="submit" class="btn btn-default">Register</button>
     </form> -->
-    <!-- / REGISTER -->
-    <!-- PROFILE -->
-    <form id="frmProfile" role="form">
-         <h2>Profile</h2>
+        <!-- / REGISTER -->
+        <!-- PROFILE -->
+        <form id="frmProfile" role="form">
+            <h2>Profile</h2>
 
-        <br>
-        <div class="form-group">
-            <label for="txtID">ID</label>
-            <input type="text" class="form-control" id="txtID" placeholder="ID" name="ID">
-        </div>
-        <div class="form-group">
-            <label for="txtName">Name</label>
-            <input type="text" class="form-control" id="txtName" placeholder="Name" name="Name">
-        </div>
-        <button type="submit" class="btn btn-primary">Start</button>
-    </form>
-    <!-- / PROFILE -->
-    <hr>
-    <!-- ALERT BOX -->
-    <div id="alert" class="alert alert-success" role="alert">
-         <h4 id="alert-title">Logged in!</h4>
+            <br>
+            <div class="form-group">
+                <label for="txtID">ID</label>
+                <input type="text" class="form-control" id="txtID" placeholder="ID" name="ID">
+            </div>
+            <div class="form-group">
+                <label for="txtName">Name</label>
+                <input type="text" class="form-control" id="txtName" placeholder="Name" name="Name">
+            </div>
+            <div class="form-group">
+                <select id ="charSelect">
+                    <option value="boy">Boy</option>
+                    <option value="girl">Pink Girl</option>
+                    <option value="horn">Blue Girl</option>
+                    <option value="pr">Princess</option>
+                     <option value="cat">Cat Girl</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Start</button>
+        </form>
+        <!-- / PROFILE -->
+        <hr>
+        <!-- ALERT BOX -->
+        <div id="alert" class="alert alert-success" role="alert">
+            <h4 id="alert-title">Logged in!</h4>
 
-        <p id="alert-detail">Using anonymous</p>
+            <p id="alert-detail">Using anonymous</p>
+        </div>
+        <!-- / ALERT BOX -->
     </div>
-    <!-- / ALERT BOX -->
-</div>
-  
 
 
 
 
 
-</body></html>
+
+</body>
+
+</html>
