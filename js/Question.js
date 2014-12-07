@@ -35,7 +35,7 @@ function nextQuestion() {
     if (questionIndex >= questions.length) {
         answersContainer.removeAllChildren();
         questionText.text = "Good Luck";
-        players[currentPlayerID].jump()
+        if (typeof players[currentPlayerID] !== "undefined") players[currentPlayerID].jump()
         return;
     }
     var q = new Question();
@@ -68,6 +68,7 @@ function nextQuestion() {
             var blockType;
             if (q.answers[q.correct] == event.target.text) {
                 blockType = "g";
+                currentPlayerSCORE += 100;
             } else {
                 blockType = "s";
             }

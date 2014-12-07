@@ -48,7 +48,8 @@ var Session = {
         questionRef.update(obj, callback);
         var currentRow = pathId;
         userRef.update({
-            "currentRow": currentRow
+            "currentRow": currentRow,
+            "TotalScore": currentPlayerSCORE
         }, callback);
     },
 

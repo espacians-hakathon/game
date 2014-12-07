@@ -6,7 +6,7 @@ var characterContainer = new createjs.Container();
 var studentsList;
 
 var currentPlayerID;
-var currentPlayerSCORE;
+var currentPlayerSCORE = 0;
 
 function getImageFactory(image_type) {
     switch (image_type) {
