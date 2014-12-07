@@ -23,7 +23,7 @@
         (function(jQuery, Firebase, Path) {
             "use strict";
             // the main firebase reference
-            var rootRef = new Firebase('https://glowing-torch-485.firebaseio.com/Sessions/session12245');
+            var rootRef = new Firebase('https://resplendent-torch-8357.firebaseio.com/Sessions/'+Session.id);
             // pair our routes to our form elements and controller
             var routeMap = {
                 '#/': {
@@ -135,8 +135,8 @@
 
                     // set the fields
                     form.find('#txtName').val(user.name);
-                    
-                    $('#txtTitle').text('Welcome! ' + user.name)
+
+                    $('#txtTitle').text('Welcome! ' + user.name);
                     localStorage.setItem('currentUUID', user.uid);
                     localStorage.setItem('currentName', user.name);
                 });
@@ -144,13 +144,21 @@
                 // Save user's info to Firebase
                 form.on('submit', function(e) {
                     e.preventDefault();
+                    var studentCount = 1;
                     var userInfo = $(this).serializeObject();
                     var userChar = $( "#charSelect" ).val();
-                    localStorage.setItem('currentUUID', user.uid);
-                    localStorage.setItem('currentName', userInfo.Name);
-                    localStorage.setItem('currentId', userInfo.ID);
-                    Session.createUser(user.uid,userChar, userInfo, function onComplete() {
-                        window.location.href = "test_tiles.html?session_id="+Session.id;
+                    rootRef.once('value', function(dataSnapshot) {
+                        studentCount = dataSnapshot.val().StudentCount;
+                        if (studentCount < 10){
+                            localStorage.setItem('currentUUID', user.uid);
+                            localStorage.setItem('currentName', userInfo.Name);
+                            localStorage.setItem('currentId', userInfo.ID);
+                            Session.createUser(user.uid,userChar, userInfo, function onComplete() {
+                                window.location.href = "test_tiles.html?session_id="+Session.id;
+                            });
+                        }else{
+                            $('#container').html("<div>No place is available at this session. Request a new session from your teacher.</div>");
+                        }
                     });
 
 
@@ -227,7 +235,7 @@
                 rootRef.onAuth(function globalOnAuth(authData) {
 
                     if (authData) {
-                       
+                        Session.fetchSessionQuestions();
                         showAlert({
                             title: 'Logged in!',
                             detail: 'Using ' + authData.provider,
