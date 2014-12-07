@@ -1,5 +1,5 @@
 var Session = {
-    dataRef: 'https://glowing-torch-485.firebaseio.com/Sessions',
+    dataRef: 'https://resplendent-torch-8357.firebaseio.com/Sessions',
     id: 'session12245',
     createQuiz: function(quiz_obj, callback) {
         var myDataRef = new Firebase(this.dataRef);
