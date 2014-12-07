@@ -1,11 +1,17 @@
+var firebase_ref = null;
 var Session = {
-    dataRef: 'https://resplendent-torch-8357.firebaseio.com/Sessions',
-    id: 'session12245',
+    dataRef: 'https://luminous-inferno-1274.firebaseio.com/Sessions',
+    id: function(){
+      if(window.location.href.match(/session_id=(.*?)#/) != null)
+        window.location.href.match(/session_id=(.*?)#/)[1];
+      else
+        "default";
+    },
     createQuiz: function(quiz_obj, callback) {
         var myDataRef = new Firebase(this.dataRef);
         var obj = {};
         obj["Questions"] = quiz_obj["questions"];
-        myDataRef.push(obj, callback);
+        firebase_ref = myDataRef.push(obj, callback);
     },
     getCurrentPlayerID: function()
     {
@@ -79,7 +85,7 @@ var Session = {
             }
 
 
-           
+
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });

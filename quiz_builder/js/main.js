@@ -18,11 +18,11 @@ $(function(){
   $("#questions").prepend(question_html);
   $("form").submit(function(){
     if (!$(this).validate())
-      return false; 
+      return false;
     console.log($(this).serializeJSON());
     quiz_obj = $(this).serializeJSON();
     Session.createQuiz(quiz_obj,function(error){
-      window.location.href="/quiz/success.html";
+      window.location.href="/quiz/success.html?session_id="+ firebase_ref.path.toString().split("/")[2];
     });
   });
 });
