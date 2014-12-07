@@ -34,11 +34,10 @@ var swapSprite = function(block, type, z) {
     createjs.Tween.get(block.sprite).to({
         y: -1000
     }, 500, createjs.Ease.getElasticInOut(1000, 1000)).call(function() {
-        console.log("removing");
         gridContainer.removeChild(block.sprite);
+        image.y = -1000;
         block.sprite = image;
         block.type=type;
-        image.y = -1000;
         gridContainer.addChild(block.sprite);
         gridContainer.setChildIndex(block.sprite, z);
 
