@@ -22,9 +22,8 @@
     window.onload = function() {
         (function(jQuery, Firebase, Path) {
             "use strict";
-            // the main firebase reference
             var rootRef = new Firebase('https://resplendent-torch-8357.firebaseio.com/Sessions/' + Session.id);
-            // pair our routes to our form elements and controller
+            
             var routeMap = {
                 '#/': {
                     form: 'frmProfile',
@@ -42,9 +41,7 @@
                 },
             };
 
-            // create the object to store our controllers
             var controllers = {};
-            // store the active form shown on the page
             var activeForm = null;
             var alertBox = $('#alert');
 
@@ -52,8 +49,6 @@
                 window.location.href = '#/' + route;
             }
 
-            // authenticate anonymously
-            // returns a promise
             function authAnonymously() {
                 var deferred = $.Deferred();
                 rootRef.authAnonymously(function(err, authData) {
@@ -71,17 +66,13 @@
                 return deferred.promise();
             }
 
-            // route to the specified route if sucessful
-            // if there is an error, show the alert
             function handleAuthResponse(promise, route) {
                 $.when(promise)
                     .then(function(authData) {
-                        // route
                         routeTo(route);
 
                     }, function(err) {
                         console.log(err);
-                        // pop up error
                         showAlert({
                             title: err.code,
                             detail: err.message,
@@ -91,7 +82,6 @@
                     });
             }
 
-            // options for showing the alert box
             function showAlert(opts) {
                 var title = opts.title;
                 var detail = opts.detail;
@@ -102,30 +92,21 @@
                 alertBox.children('#alert-detail').text(detail);
             }
 
-            /// Controllers
-            ////////////////////////////////////////
-
-            // logout immediately when the controller is invoked
             controllers.logout = function(form) {
-                // $('#txtTitle').text('');
                 localStorage.setItem('currentUUID', '');
                 localStorage.setItem('currentName', '');
                 rootRef.unauth();
             };
 
             controllers.profile = function(form) {
-                // Check the current user
                 var user = rootRef.getAuth();
                 var userRef;
 
-                // If no current user send to register page
                 if (!user) {
                     handleAuthResponse(authAnonymously(), 'profile');
-                    // routeTo('profile');
                     return;
                 }
 
-                // Load user info
                 userRef = rootRef.child('Students').child(user.uid);
                 userRef.once('value', function(snap) {
                     var user = snap.val();
@@ -133,15 +114,12 @@
                         return;
                     }
 
-                    // set the fields
                     form.find('#txtName').val(user.name);
 
-                    // $('#txtTitle').text('Welcome! ' + user.name);
                     localStorage.setItem('currentUUID', user.uid);
                     localStorage.setItem('currentName', user.name);
                 });
 
-                // Save user's info to Firebase
                 form.on('submit', function(e) {
                     e.preventDefault();
                     var studentCount = 1;
@@ -187,63 +165,35 @@
 
             };
 
-            // Handle transitions between routes
             function transitionRoute(path) {
-                // grab the config object to get the form element and controller
                 var formRoute = routeMap[path];
                 var currentUser = rootRef.getAuth();
-
-                // if authentication is required and there is no
-                // current user then go to the register page and
-                // stop executing
-                // if (formRoute.authRequired && !currentUser) {
-                //     routeTo('register');
-                //     return;
-                // }
-
-                // wrap the upcoming form in jQuery
+                
                 var upcomingForm = $('#' + formRoute.form);
 
-                // if there is no active form then make the current one active
                 if (!activeForm) {
                     activeForm = upcomingForm;
                 }
 
-                // hide old form and show new form
                 activeForm.hide();
                 upcomingForm.show().hide().fadeIn(750);
 
-                // remove any listeners on the soon to be switched form
                 activeForm.off();
 
-                // set the new form as the active form
                 activeForm = upcomingForm;
 
-                // invoke the controller
                 controllers[formRoute.controller](activeForm);
             }
 
-            // Set up the transitioning of the route
             function prepRoute() {
                 transitionRoute(this.path);
             }
 
-
-            /// Routes
-            ///  #/         - Login
-            //   #/logout   - Logut
-            //   #/register - Register
-            //   #/profile  - Profile
-
             Path.map("#/").to(prepRoute);
             Path.map("#/logout").to(prepRoute);
-            // Path.map("#/register").to(prepRoute);
             Path.map("#/profile").to(prepRoute);
 
             Path.root("#/");
-
-            /// Initialize
-            ////////////////////////////////////////
 
             $(function() {
                 Path.listen();
@@ -283,17 +233,6 @@
                 <ul class="nav navbar-nav">
                     <li> <a href="quiz_builder/index.html">New Quiz!</a>
                     </li>
-                    <!-- <li> <a href="#/logout">Logout</a>
-                    </li>
-                     <li> <a href="#/register">Register</a>
-
-                </li>
-                <li> <a href="#/profile">Profile</a>
-
-                </li> 
-                    <li>
-                        <a href "#" id="txtTitle"></a>
-                    </li>-->
                 </ul>
             </nav>
         </div>
