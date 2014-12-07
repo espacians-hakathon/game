@@ -12,7 +12,10 @@ function Question() {
 var questionText,
     answersContainer,
     questions,
-    questionIndex=1
+    questionIndex;
+
+questionIndex = localStorage.getItem("questionIndex");
+if(questionIndex == null) questionIndex=1;
 
 var initQuestions = function(stage) {
     questions = JSON.parse(localStorage.getItem("questions"));
@@ -24,6 +27,7 @@ var initQuestions = function(stage) {
 };
 
 function nextQuestion() {
+    localStorage.setItem("questionIndex",questionIndex)
     if (questionIndex >= questions.length) {
         answersContainer.removeAllChildren();
         questionText.text = "Good Luck";
