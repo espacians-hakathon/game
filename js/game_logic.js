@@ -101,7 +101,6 @@ var formatContainers = function() {
     var stageWidth = stage.getBounds().width / 3;
     gridContainer.x += stageWidth;
     characterContainer.x += stageWidth;
-    answersContainer.x += stageWidth;
     characterContainer.y += mapTopMargin;
     gridContainer.y += mapTopMargin;
     stage.addChild(characterContainer);
@@ -147,7 +146,6 @@ function handleTick(event) {
             player.nameText.y = target_y + player.nameText.getBounds().height * 2;
             image.y = target_y;
         }
-      
     }
     stage.update();
 }
