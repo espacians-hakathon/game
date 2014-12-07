@@ -68,7 +68,7 @@ var Session = {
             for (var c in studentsList) {
                // console.log(studentsList[c]);
                 if (players[studentsList[c].ID] === undefined) {
-                    addCharacter(studentsList[c].Name,studentsList[c].ID, "boy");
+                    addCharacter(studentsList[c].Name,studentsList[c].ID, studentsList[c].Character);
                 }
                 //console.log(players[studentsList[c].ID]);
                // console.log(studentsList[c].ID);
