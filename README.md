@@ -24,10 +24,14 @@ There is currently a limit on the students number (10) for demo purposes. Howeve
 
 ## Screenshots
 
-Here provide couple screenshots of your project. You can use a tool like https://monosnap.com/welcome or https://droplr.com to take a screenshot. Animated gifs are also welcome.
+[![SchoolFarm](/images/mockup.jpg "SchoolFarm")]
+[![SchoolFarm](/images/sc1.png "SchoolFarm")]
+[![SchoolFarm](/images/sc2.png "SchoolFarm")]
 
-![Koding](https://koding.com/a/site.landing/images/slideshow/2x/ss-terminal.png "Koding")
-![Koding](https://koding.com/a/site.landing/images/slideshow/2x/ss-ide.png "Koding")
+Teacher view: (REAL TIME)
+[![SchoolFarm](/images/progress.png "SchoolFarm")]
+
+
 
 ## Demo
 Play around with SchoolFarm with a random team here:
