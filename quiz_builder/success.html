@@ -9,13 +9,15 @@
     <div class="container">
       <h3>Quiz Created Successfully (Y)</h3>
       <p>Share the game link with your students: <a id="game-link" href="">Go to Game</a></p>
+      <p>View your students progress here: <a id="progress-link" href="">LIVE Progress Report</a></p>
       <a href="/game/quiz_builder/index.html" class="btn btn-lg btn-primary">Create New Quiz</a>
     </div>
     <script src="lib/jquery.js"></script>
     <script src="js/utils.js"></script>
     <script type="text/javascript">
       $(function(){
-        $("#game-link").attr("href", "/game/student_view.html?session_id=" + QueryString.session_id)
+        $("#game-link").attr("href", "/game/student_view.html?session_id=" + QueryString.session_id);
+         $("#progress-link").attr("href", "/game/teacher_view.html?session_id=" + QueryString.session_id);
       });
     </script>
   </body>
