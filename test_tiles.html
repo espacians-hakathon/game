@@ -67,7 +67,7 @@
             if (uuid && name){
                 $('#userName').text('Welcome! '+ name);
             }else{
-                window.location.href = "student_view.html";
+                window.location.href = "student_view.html?session_id="+Session.id;
             }
         });
     </script>
