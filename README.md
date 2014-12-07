@@ -9,11 +9,11 @@ This is our submission repository for the [Koding Hackathon](https://koding.com/
 
 
 SchoolFarm is a multiplayer quiz game that simulates a regular classroom quiz.
-It is not just a regular quiz game, but a real-time online multiplayer one where students can race to the end of the quiz and compete together!
+It is not just a regular quiz game, but a real-time online multiplayer one, where students can race to the end of the quiz and compete together!
 
-A teacher will create a group of questions (through here: http://uskk3bd5229a.she7ta.koding.io/game/quiz_builder/index.html) tests the students knowledge. They then share the QUIZ URL with the students where they can login with their name and choose their favourite character to play with.
+A teacher will create a group of questions to test the students' knowledge. Then, he will share the QUIZ URL with the students where they can login with their name and choose their favourite character to play with.
 
-Each correct question will add “10” points to the users score, the first one (with the correct answers) to reach the goal WINS!
+Each correct question will add “10” points to the user score, the first one (with the correct answers) to reach the goal WINS!
 
 Throughout the quiz, the teacher is able to view all students results (in real time).
 
