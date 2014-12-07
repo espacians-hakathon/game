@@ -6,6 +6,8 @@ function getBlockFactory(image_type) {
             return new createjs.Bitmap("sprites/DirtBlock.png");
         case "b":
             return new createjs.Bitmap("sprites/GrassBlock.png");
+        case "end":
+            return new createjs.Bitmap("sprites/WallBlock.png");
         default:
             return new createjs.Bitmap("sprites/GrassBlock.png");
     }
