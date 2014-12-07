@@ -25,8 +25,8 @@ There is currently a limit on the students number (10) for demo purposes. Howeve
 ## Screenshots
 
 ![SchoolFarm](/images/mockup.jpg "SchoolFarm")
-![SchoolFarm](/images/sc1.png "SchoolFarm")
-![SchoolFarm](/images/sc2.png "SchoolFarm")
+![SchoolFarm](/images/sc1.jpg "SchoolFarm")
+![SchoolFarm](/images/sc2.jpg "SchoolFarm")
 
 Teacher view: (REAL TIME)
 ![SchoolFarm](/images/progress.png "SchoolFarm")
