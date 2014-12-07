@@ -13,7 +13,7 @@
   </select>
   <% for(i in [0,1,2,3] ) { %>
     <div class="radio">
-      <input checked type="radio" value="<%= i %>" name="questions[<%= qid %>][Answers][Correct]" />
+      <input checked type="radio" value="<%= i %>" name="questions[<%= qid %>][Answers][correct]" />
       <input required style="width: 40%" type="text" name="questions[<%= qid %>][Answers][<%= i %>]" class="input-block-level" placeholder="Option <%= parseInt(i)+1  %>" />
     </div>
   <% } %>
