@@ -20,7 +20,6 @@ function getImageFactory(image_type) {
             return new createjs.Bitmap("sprites/CharacterPrincessGirl.png");
         case "cat":
             return new createjs.Bitmap("sprites/CharacterCatGirl.png");
-
         default:
             return new createjs.Bitmap("sprites/BrownBlock.png");
     }
@@ -59,11 +58,6 @@ var drawCharacters = function() {
         characterContainer.addChild(player.nameText);
         stage.addChild(characterContainer);
     }
-};
-
-
-var refreshCharacters = function() {
-
 };
 
 var addCharacter = function(name, ID, img) {
