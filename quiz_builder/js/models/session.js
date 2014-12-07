@@ -7,6 +7,19 @@ var Session = {
         obj["Questions"] = quiz_obj["questions"];
         myDataRef.push(obj, callback);
     },
+    getCurrentPlayerID: function()
+    {
+        var myDataRef = new Firebase(this.dataRef + '/' + this.id + '/Students');
+        userUUID = localStorage.getItem('currentUUID');
+        var userRef = myDataRef.child(userUUID);
+
+
+        userRef.on("value", function(snapshot) {
+           currentPlayerID=snapshot.val().ID;
+        }, function(errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+    },
     fetchSessionQuestions: function() {
         var dataRef = new Firebase(this.dataRef + '/' + this.id + '/Questions'),
             questions;
@@ -14,7 +27,7 @@ var Session = {
         dataRef.on("value", function(snapshot) {
             questions = snapshot.val();
             localStorage.setItem("questions", JSON.stringify(questions));
-            console.log(questions);
+            //console.log(questions);
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
@@ -53,11 +66,12 @@ var Session = {
             //console.log(studentsList);
 
             for (var c in studentsList) {
-                console.log(studentsList[c]);
+               // console.log(studentsList[c]);
                 if (players[studentsList[c].ID] === undefined) {
-                    addCharacter(studentsList[c].Name, "boy");
+                    addCharacter(studentsList[c].Name,studentsList[c].ID, "boy");
                 }
                 //console.log(players[studentsList[c].ID]);
+               // console.log(studentsList[c].ID);
                 players[studentsList[c].ID].row = studentsList[c].currentRow;
                 players[studentsList[c].ID].targetBlock = studentsList[c].currentRow;
 
@@ -65,7 +79,7 @@ var Session = {
             }
 
 
-            console.log(players[2]);
+           
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
@@ -83,13 +97,13 @@ var Session = {
                 element.QuestionID = v.ID;
                 element.State = "notyet";
                 path[k] = element;
-                console.log(v.ID);
+                //console.log(v.ID);
             }
         });
         userObj.Path = path;
-        userObj.Character = 'boy';
+        userObj.Character = 'girl';
         userObj.TotalScore = 0;
-        userObj.currentRow = 1;
+        userObj.currentRow = 0;
         userRef.set(userObj, callback);
     }
 };

@@ -1,9 +1,12 @@
 var blockSize = getImageFactory("1");
-var players =[];// [new Character("Ahmed", 0, 'boy'), new Character("Mohamed", 1, 'boy'), new Character("Basayel", 2, 'girl')];
+var players ={};// [new Character("Ahmed", 0, 'boy'), new Character("Mohamed", 1, 'boy'), new Character("Basayel", 2, 'girl')];
 var grid;
 var gridContainer = new createjs.Container();
 var characterContainer = new createjs.Container();
 var studentsList;
+
+
+var currentPlayerID = 3;
 
 function getImageFactory(image_type) {
     switch (image_type) {
@@ -70,11 +73,11 @@ var refreshCharacters = function ()
 
 };
 
-var addCharacter = function(name, img) {
-	console.log("adding char");
-    var character = new Character(name, players.length, img);
-    players.push(character);
-    console.log(players);
+var addCharacter = function(name,ID, img) {
+	//console.log("adding char");
+    var character = new Character(name, ID , img);
+    players[ID] = character;
+    //console.log(players);
     characterContainer.addChild(character.image);
     characterContainer.addChild(character.nameText);
 
@@ -108,13 +111,14 @@ var formatContainers = function() {
 };
 
 var init = function() {
+	Session.getCurrentPlayerID();
     drawGradient();
     drawMap();
     drawCharacters();
     initQuestions(stage);
     nextQuestion();
 	formatContainers();
-
+	
 
 	Session.getCurrentPlayers();
 
@@ -126,8 +130,8 @@ var init = function() {
 createjs.Ticker.addEventListener("tick", handleTick);
 
 function handleTick(event) {
-    for (var i = players.length - 1; i >= 0; i--) {
-        var player = players[i];
+    for (var id in players) {
+       	var player = players[id];
         var image = player.getImage();
         var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50;
         image.y += 10;
@@ -141,9 +145,10 @@ function handleTick(event) {
 }
 
 var advanceOneStep = function(player, block_type) {
-    var character = players[player];
+	console.log(players);
+    var character = players[currentPlayerID];
     grid.setBlock(character.getColumn(), character.getRow(), block_type);
-    character.setTargetBlock(character.getTargetBlock() + 1);
+    //character.setTargetBlock(character.getTargetBlock() + 1);
     Session.updateUserAnswer(character.getRow(), block_type, function(error) {
         console.log(error);
     });
