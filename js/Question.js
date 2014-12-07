@@ -48,13 +48,20 @@ function nextQuestion() {
         //console.log(bounds.width);
         text.x = i*200 + bounds.width;
         text.y = 120;
+
         bounds = text.getBounds();
 
+        var rect = new createjs.Rectangle(0, 0, text.getMeasuredWidth(), text.getMeasuredHeight());
+        var shape = new createjs.Shape(rect);
+
+        var border = new createjs.Shape();
+        border.graphics.beginFill("#ccc").drawRect(text.x - 10, text.y -10, text.getMeasuredWidth() +20, text.getMeasuredHeight()+20);
+        border.shadow = new createjs.Shadow("#000000", 5, 5, 10);
+        answersContainer.addChild(border);
 
         var hit = new createjs.Shape();
         hit.graphics.beginFill("#000").drawRect(0, 0, text.getMeasuredWidth(), text.getMeasuredHeight());
         text.hitArea = hit;
-
         answersContainer.addChild(text);
         text.addEventListener("click", handleClick);
 
