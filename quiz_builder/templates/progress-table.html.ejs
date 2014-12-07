@@ -19,7 +19,7 @@
 
           <% for (var d in data[c].Path) { %>
               <% if (data[c].Path[d]!==null) { %>
-            <td><%= data[c].Path[d].State %></td>
+            <td class =<%= data[c].Path[d].State %> ><%= data[c].Path[d].choosen_answer %></td>
             <% } %>
              <% } %>
         </tr>
