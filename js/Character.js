@@ -1,6 +1,7 @@
 function Character (name, column,img) {
     this.name = name;
     this.nameText = new createjs.Text(name, "bold 15px pixelFont" ,"#000");
+    this.nameTextStroke = new createjs.Text(name, "bold 17px pixelFont" ,"#FFF");
     this.column = column;
     this.row = 0;
     this.targetBlock = this.row;
@@ -8,6 +9,9 @@ function Character (name, column,img) {
     this.image.setTransform(column * 100,-50 );
     this.nameText.x = this.image.x + this.nameText.getBounds().width / 4;
     this.nameText.y = this.image.y + this.nameText.getBounds().height * 2;
+    this.nameTextStroke.x = this.nameText.x;
+    this.nameTextStroke.y = this.nameText.y;
+
 }
 
 Character.prototype.getImage = function() {
