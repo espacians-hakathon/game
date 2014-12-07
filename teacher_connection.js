@@ -1,7 +1,7 @@
 var firebase;
 var dataRef = "https://resplendent-torch-8357.firebaseio.com/Sessions";
 var studentData;
-var sessionID = "12245";
+var sessionID = "session12245";
 
 function fetchStudents() {
     if (QueryString.session_id===undefined);
