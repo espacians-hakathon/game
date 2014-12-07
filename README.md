@@ -28,12 +28,12 @@ Here provide couple screenshots of your project. You can use a tool like https:/
 
 ## APIs, tools and open source libraries used
 
-* HTML5
-* Javascript
-* EJS ( Embedded Javascript template library )
-* jQuery
-* CreateJS
-* FireBase
-* CSS
-* Bootstrap
+* [HTML5](http://www.w3schools.com/html/html5_intro.asp)
+* [Javascript](http://www.w3schools.com/js/)
+* [EJS ( Embedded Javascript template library )](https://github.com/tj/ejs)
+* [jQuery](http://jquery.com/)
+* [CreateJS](http://www.createjs.com/)
+* [FireBase](https://www.firebase.com/)
+* [CSS](http://www.w3schools.com/css/)
+* [Bootstrap3](http://getbootstrap.com/)
 
