@@ -22,7 +22,7 @@
     window.onload = function() {
         (function(jQuery, Firebase, Path) {
             "use strict";
-            var rootRef = new Firebase('https://resplendent-torch-8357.firebaseio.com/Sessions/' + Session.id);
+            var rootRef = new Firebase(Session.dataRef + '/' + Session.id);
             
             var routeMap = {
                 '#/': {
