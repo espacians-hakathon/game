@@ -8,23 +8,18 @@ function Question() {
     this.question = a + " + " + b;
     this.question = questions[questionIndex].Question;
     this.answers = questions[questionIndex].Answers;
+    delete this.answers['correct'];
     this.correct= questions[questionIndex].Answers['correct'];
-    //console.log("here:");
-    //console.log(questions[questionIndex].Answers);
     questionIndex++;
-    //this.answers = [a + b, rnd() + rnd(), rnd() + rnd(), rnd() + rnd()];
 }
 
 var questionText,
     answersContainer,
     questions,
-    questionIndex=1,
-    bounds={width:0,height:0};
-    bounds.width=0;
-    bounds.height=0;
+    questionIndex=1
+
 var initQuestions = function(stage) {
     questions = JSON.parse(localStorage.getItem("questions"));
-    //console.log(questions);
     answersContainer = new createjs.Container();
     questionText = new createjs.Text("", "bold 75px questionFont", "#000");
     questionText.y = 20;
@@ -37,16 +32,11 @@ function nextQuestion() {
     questionText.text = q.question;
     questionText.x = stage.canvas.width / 2 - questionText.getBounds().width / 2;
     answersContainer.removeAllChildren();
-    bounds.width=0;
-    bounds.height=0;
-    //console.log(q.answers.size());
     var answersWidth = 0;
-    for (i = 1; i <= 4; i++) {
-        var answer = q.answers[i];
-        //console.log(q.correct);
+    for (ans in q.answers) {
+        var answer = q.answers[ans];
         var text = new createjs.Text(answer, "bold 55px answerFont", "#000");
         bounds = text.getBounds();
-        //console.log(bounds.width);
         text.x = bounds.width + answersWidth;
         answersWidth = text.x + bounds.width;
         text.y = 120;
