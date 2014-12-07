@@ -37,10 +37,9 @@ function nextQuestion() {
     if (questionIndex >= questions.length) {
         answersContainer.removeAllChildren();
         questionText.text = "Good Luck";
+        players[currentPlayerID].jump()
         return;
     }
-    console.log("getting new q");
-    console.log(questionIndex);
     var q = new Question();
     questionText.text = q.question;
     questionText.x = stage.canvas.width / 2 - questionText.getBounds().width / 2;

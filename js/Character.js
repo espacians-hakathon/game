@@ -34,3 +34,14 @@ Character.prototype.setTargetBlock = function(_targetBlock) {
     this.row = _targetBlock;
     this.targetBlock = _targetBlock;
 };
+
+Character.prototype.jump = function() {
+    console.log("s")
+    var that = this;
+    setInterval(function(){
+        that.targetBlock = that.targetBlock - 0.1;
+        setTimeout(function(){
+            that.targetBlock = that.targetBlock + 0.1;
+        }, 400);
+    }, 1000);
+};
