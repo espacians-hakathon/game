@@ -22,7 +22,7 @@ $(function(){
     console.log($(this).serializeJSON());
     quiz_obj = $(this).serializeJSON();
     Quiz.createQuiz(quiz_obj,function(error){
-      window.location.href="/quiz/success.html?session_id="+ firebase_ref.path.toString().split("/")[2];
+      window.location.href="/game/quiz_builder/success.html?session_id="+ firebase_ref.path.toString().split("/")[2];
     });
   });
 });
