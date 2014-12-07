@@ -135,7 +135,7 @@
 
                     // set the fields
                     form.find('#txtName').val(user.name);
-                    
+
                     $('#txtTitle').text('Welcome! ' + user.name)
                     localStorage.setItem('currentUUID', user.uid);
                     localStorage.setItem('currentName', user.name);
@@ -151,10 +151,10 @@
                         studentCount = dataSnapshot.val().StudentCount;
                         if (studentCount < 10){
                             localStorage.setItem('currentUUID', user.uid);
-                            localStorage.setItem('currentName', userInfo.Name);
+                            localStorage.setItem('currentName', userInfo.Na);
                             localStorage.setItem('currentId', userInfo.ID);
                             Session.createUser(user.uid,userChar, userInfo, function onComplete() {
-                                window.location.href = "test_tiles.html";
+                                window.location.href = "test_tiles.html?session_id="+Session.id;
                             });
                         }else{
                             $('#container').html("<div>No place is available at this session. Request a new session from your teacher.</div>");
