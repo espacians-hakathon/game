@@ -15,7 +15,7 @@ var questionText,
     questionIndex;
 
 questionIndex = localStorage.getItem("questionIndex");
-if (questionIndex == 0 || questionIndex === null) {
+if (questionIndex === 0 || questionIndex === null) {
     questionIndex = 1;
     localStorage.setItem("questionIndex", questionIndex);
 }
