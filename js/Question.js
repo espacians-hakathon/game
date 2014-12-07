@@ -35,7 +35,7 @@ function nextQuestion() {
     if (questionIndex >= questions.length) {
         answersContainer.removeAllChildren();
         questionText.text = "Good Luck";
-        players[currentPlayerID].jump()
+        if (typeof players[currentPlayerID] !== "undefined") players[currentPlayerID].jump()
         return;
     }
     var q = new Question();
