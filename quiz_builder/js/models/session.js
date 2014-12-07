@@ -1,5 +1,5 @@
 var Session = {
-    dataRef: 'https://luminous-inferno-1274.firebaseio.com/Sessions',
+    dataRef: 'https://resplendent-torch-8357.firebaseio.com/Sessions',
     id: QueryString.session_id,
     getCurrentPlayerID: function()
     {
@@ -131,7 +131,7 @@ var Session = {
               } else {
                 allRef.update({"StudentCount": studentCount + 1}, callback);
               }
-            });                
+            });
         });
     }
 };
