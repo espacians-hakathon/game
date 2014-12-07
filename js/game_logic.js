@@ -27,8 +27,8 @@ function getImageFactory(image_type) {
 }
 
 var stage = new createjs.Stage("game");
-stage.scaleX = 0.5;
-stage.scaleY = 0.5;
+stage.scaleX = 0.75;
+stage.scaleY = 0.75;
 var mapTopMargin = 200; // Margin to push map to view sky
 var mapLeftMargin = 150;
 var map = [
@@ -166,7 +166,7 @@ function handleTick(event) {
 var advanceOneStep = function(player, block_type) {
 	console.log(players);
     var character = players[currentPlayerID];
-    grid.setBlock(character.getColumn(), character.getRow(), block_type);
+    //grid.setBlock(character.getColumn(), character.getRow(), block_type);
     //character.setTargetBlock(character.getTargetBlock() + 1);
     Session.updateUserAnswer(character.getRow()+1, block_type, function(error) {
         console.log(error);

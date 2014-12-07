@@ -77,9 +77,9 @@ var Session = {
                 players[studentsList[c].ID].Path = studentsList[c].Path;
                  for (var p in players[studentsList[c].ID].Path)
                  {
-                  console.log("p="+p+", p length ");
-                  console.log(players[studentsList[c].ID].Path);
-                  console.log(players[studentsList[c].ID].Path[p].QuestionID-1);
+                  // console.log("p="+p+", p length ");
+                  // console.log(players[studentsList[c].ID].Path);
+                  // console.log(players[studentsList[c].ID].Path[p].QuestionID-1);
                 
                   //if (grid.getBlock(studentsList[c].ID,players[studentsList[c].ID].Path[p].QuestionID-1))
                   var typeOfCurrentBlock =grid.getBlock(studentsList[c].ID,players[studentsList[c].ID].Path[p].QuestionID-1).type;
@@ -91,7 +91,7 @@ var Session = {
                    getBlockTypeForAnswer(players[studentsList[c].ID].Path[p].State)); 
                   }
 
-                  console.log(grid.getBlock(studentsList[c].ID,players[studentsList[c].ID].Path[p].QuestionID-1));
+                  // console.log(grid.getBlock(studentsList[c].ID,players[studentsList[c].ID].Path[p].QuestionID-1));
                   //console.log("getting: " +studentsList[c].ID+","+players[studentsList[c].ID].Path[p].QuestionID-1 );
                     //console.log(players[studentsList[c].ID].Path[p].QuestionID-1);
                   //console.log(studentsList[c].ID+":"+grid.getBlock(studentsList[c].ID,players[studentsList[c].ID].Path[p].QuestionID-1).type);
