@@ -42,7 +42,7 @@ function nextQuestion() {
         var shape = new createjs.Shape(rect);
 
         var border = new createjs.Shape();
-        border.graphics.beginFill("#ccc").drawRect(text.x - 10, text.y -10, text.getMeasuredWidth() +20, text.getMeasuredHeight()+20);
+        border.graphics.beginFill("#f90").drawRect(text.x - 10, text.y -10, text.getMeasuredWidth() +20, text.getMeasuredHeight()+20);
         border.shadow = new createjs.Shadow("#000000", 5, 5, 10);
         answersContainer.addChild(border);
 
