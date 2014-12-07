@@ -9,6 +9,7 @@
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.0.0/jquery.serialize-object.compiled.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/path.js/0.8.4/path.min.js"></script>
+    <script src="quiz_builder/js/utils.js"></script>
     <script src="quiz_builder/js/models/session.js"></script>
 
     <style type="text/css">
@@ -149,7 +150,7 @@
                     localStorage.setItem('currentName', userInfo.Name);
                     localStorage.setItem('currentId', userInfo.ID);
                     Session.createUser(user.uid,userChar, userInfo, function onComplete() {
-                        window.location.href = "test_tiles.html";
+                        window.location.href = "test_tiles.html?session_id="+Session.id;
                     });
 
 
