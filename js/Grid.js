@@ -19,6 +19,8 @@ Grid.prototype.getBlock = function(col,row) {
 Grid.prototype.setBlock = function(col,row,type) {
 	var z = gridContainer.getChildIndex(this.getBlock(col,row).getSprite());
 	var block =  this.getBlock(col,row);
+
+
 	swapSprite(block, type, z);
 };
 
@@ -35,6 +37,7 @@ var swapSprite = function(block, type, z) {
         console.log("removing");
         stage.removeChild(block.sprite);
         block.sprite = image;
+        block.type=type;
         image.y = -1000;
         gridContainer.addChild(block.sprite);
         gridContainer.setChildIndex(block.sprite, z);
