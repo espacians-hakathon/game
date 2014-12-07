@@ -28,12 +28,12 @@ Here provide couple screenshots of your project. You can use a tool like https:/
 
 ## APIs used
 
-###HTML5
-###Javascript
-###EJS ( Embedded Javascript template library )
-###jQuery
-###CreateJS
-###FireBase
-###CSS
-###Bootstrap
+* HTML5
+* Javascript
+* EJS ( Embedded Javascript template library )
+* jQuery
+* CreateJS
+* FireBase
+* CSS
+* Bootstrap
 
