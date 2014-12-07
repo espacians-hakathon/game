@@ -34,7 +34,10 @@ function nextQuestion() {
     localStorage.setItem("questionIndex", questionIndex);
     if (questionIndex >= questions.length) {
         answersContainer.removeAllChildren();
+        if (currentPlayerSCORE>0)
         questionText.text = "Good Luck, you scored " + currentPlayerSCORE + " points!";
+    else 
+    	 questionText.text = "Good Luck!";
         if (typeof players[currentPlayerID] !== "undefined") players[currentPlayerID].jump();
         return;
     }
