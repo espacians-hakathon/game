@@ -1,8 +1,9 @@
 var blockSize = getImageFactory("1");
-var players = [new Character("Ahmed", 0,'boy'), new Character("Mohamed", 1,'boy'), new Character("Basayel", 2,'girl')];
+var players =[];// [new Character("Ahmed", 0, 'boy'), new Character("Mohamed", 1, 'boy'), new Character("Basayel", 2, 'girl')];
 var grid;
 var gridContainer = new createjs.Container();
 var characterContainer = new createjs.Container();
+var studentsList;
 
 function getImageFactory(image_type) {
     switch (image_type) {
@@ -26,22 +27,22 @@ var stage = new createjs.Stage("game");
 var mapTopMargin = 200; // Margin to push map to view sky
 var mapLeftMargin = 150;
 var map = [
-    ["b", "s", "b", "b", "b", "b", "b", "b"],
-    ["b", "s", "b", "b", "s", "b", "b", "b"],
-    ["b", "s", "b", "b", "b", "b", "b", "b"],
-    ["b", "s", "b", "b", "s", "b", "b", "b"],
-    ["b", "s", "b", "b", "b", "b", "b", "b"],
-    ["b", "s", "b", "b", "s", "b", "b", "b"],
-    ["b", "s", "b", "b", "b", "b", "b", "b"],
-    ["b", "s", "b", "b", "s", "b", "b", "b"],
-    ["b", "s", "b", "b", "b", "b", "b", "b"],
-    ["b", "s", "b", "b", "s", "b", "b", "b"],
-    ["b", "s", "b", "b", "b", "b", "b", "b"],
-    ["b", "s", "b", "b", "s", "b", "b", "b"],
-    ["b", "s", "b", "b", "b", "b", "b", "b"],
-    ["b", "s", "b", "b", "s", "b", "b", "b"],
-    ["b", "s", "b", "b", "b", "b", "b", "b"],
-    ["b", "s", "b", "b", "s", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "b", "b", "b", "b"],
 ];
 
 var drawMap = function() {
@@ -63,12 +64,18 @@ var drawCharacters = function() {
     }
 };
 
-var addCharacter = function (name,img)
+
+var refreshCharacters = function ()
 {
 
-	var character = new Character(name,players.length,img);
-	players.push(character);
-	characterContainer.addChild(character.image);
+};
+
+var addCharacter = function(name, img) {
+	console.log("adding char");
+    var character = new Character(name, players.length, img);
+    players.push(character);
+    console.log(players);
+    characterContainer.addChild(character.image);
     characterContainer.addChild(character.nameText);
 
 
@@ -91,22 +98,29 @@ var drawGradient = function() {
     stage.addChild(s);
 };
 
+var formatContainers = function() {
+    characterContainer.x += mapLeftMargin;
+    gridContainer.x += mapLeftMargin;
+    characterContainer.y += mapTopMargin;
+    gridContainer.y += mapTopMargin;
+    stage.addChild(characterContainer);
+
+};
+
 var init = function() {
     drawGradient();
     drawMap();
     drawCharacters();
     initQuestions(stage);
     nextQuestion();
-
-    characterContainer.x+= mapLeftMargin;
-    gridContainer.x+= mapLeftMargin;
+	formatContainers();
 
 
-    characterContainer.y+= mapTopMargin;
-    gridContainer.y+= mapTopMargin;
+	Session.getCurrentPlayers();
 
-    addCharacter("Hossam","boy");
-    addCharacter("Yasmine","horn");
+
+   // addCharacter("Hossam", "boy");
+   // addCharacter("Yasmine", "horn");
 };
 
 createjs.Ticker.addEventListener("tick", handleTick);
@@ -115,7 +129,7 @@ function handleTick(event) {
     for (var i = players.length - 1; i >= 0; i--) {
         var player = players[i];
         var image = player.getImage();
-        var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50 ;
+        var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50;
         image.y += 10;
         player.nameText.y += 10;
         if (image.y >= target_y) {
