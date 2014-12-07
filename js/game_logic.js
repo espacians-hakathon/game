@@ -5,8 +5,8 @@ var gridContainer = new createjs.Container();
 var characterContainer = new createjs.Container();
 var studentsList;
 
-
-var currentPlayerID = 3;
+var currentPlayerID;
+var currentPlayerSCORE;
 
 function getImageFactory(image_type) {
     switch (image_type) {
@@ -136,10 +136,9 @@ function handleTick(event) {
     stage.update();
 }
 
-var advanceOneStep = function(player, block_type) {
-    console.log(players);
+var advanceOneStep = function(player, block_type, answer) {
     var character = players[currentPlayerID];
-    Session.updateUserAnswer(character.getRow() + 1, block_type, function(error) {
+    Session.updateUserAnswer(character.getRow() + 1, block_type, answer, function(error) {
         console.log(error);
     });
 };

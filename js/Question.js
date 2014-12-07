@@ -20,8 +20,6 @@ if (questionIndex === 0 || questionIndex === null) {
     localStorage.setItem("questionIndex", questionIndex);
 }
 
-
-
 var initQuestions = function(stage) {
     questions = JSON.parse(localStorage.getItem("questions"));
     answersContainer = new createjs.Container();
@@ -67,11 +65,13 @@ function nextQuestion() {
         answersContainer.addChild(text);
 
         function handleClick(event) {
+            var blockType;
             if (q.answers[q.correct] == event.target.text) {
-                advanceOneStep(currentPlayerID, "g");
+                blockType = "g";
             } else {
-                advanceOneStep(currentPlayerID, "s");
+                blockType = "s";
             }
+            advanceOneStep(currentPlayerID, blockType, event.target.text);
             nextQuestion();
         }
         text.addEventListener("click", handleClick);
