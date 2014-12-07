@@ -1,6 +1,6 @@
 var Session = {
     dataRef: 'https://resplendent-torch-8357.firebaseio.com/Sessions',
-    id: QueryString.session_id,
+    id: QueryString.session_id || "session12245",
     getCurrentPlayerID: function()
     {
         var myDataRef = new Firebase(this.dataRef + '/' + this.id + '/Students');
@@ -23,8 +23,10 @@ var Session = {
         // Attach an asynchronous callback to read the data at our posts reference
         dataRef.on("value", function(snapshot) {
             questions = snapshot.val();
+            console.log("QUESSHANZ");
+            console.log(questions);
             localStorage.setItem("questions", JSON.stringify(questions));
-            localStorage.setItem("questionIndex",1)
+            localStorage.setItem("questionIndex",1);
             //console.log(questions);
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
@@ -108,6 +110,7 @@ var Session = {
         var myDataRef = new Firebase(this.dataRef + '/' + this.id + '/Students');
         var userRef = myDataRef.child(userUuid);
         questions = JSON.parse(localStorage.getItem("questions"));
+        console.log(questions);
         path = {};
         $.each(questions, function(k, v) {
             element = {};

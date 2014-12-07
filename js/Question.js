@@ -5,7 +5,7 @@ function rnd() {
 function Question() {
     this.question = questions[questionIndex].Question;
     this.answers = questions[questionIndex].Answers;
-    this.correct= questions[questionIndex].Answers['correct'];
+    this.correct = questions[questionIndex].Answers['correct'];
     delete this.answers['correct'];
 }
 
@@ -15,10 +15,10 @@ var questionText,
     questionIndex;
 
 questionIndex = localStorage.getItem("questionIndex");
-if(questionIndex == null) questionIndex=1;
-if(questionIndex == 0)
-{ questionIndex=1;
-localStorage.setItem("questionIndex",questionIndex);}
+if (questionIndex == 0 || questionIndex === null) {
+    questionIndex = 1;
+    localStorage.setItem("questionIndex", questionIndex);
+}
 
 
 
@@ -33,7 +33,7 @@ var initQuestions = function(stage) {
 };
 
 function nextQuestion() {
-    localStorage.setItem("questionIndex",questionIndex);
+    localStorage.setItem("questionIndex", questionIndex);
     if (questionIndex >= questions.length) {
         answersContainer.removeAllChildren();
         questionText.text = "Good Luck";
@@ -58,7 +58,7 @@ function nextQuestion() {
         var shape = new createjs.Shape(rect);
 
         var border = new createjs.Shape();
-        border.graphics.beginFill("#f90").drawRect(text.x - 10, text.y -10, text.getMeasuredWidth() +20, text.getMeasuredHeight()+20);
+        border.graphics.beginFill("#f90").drawRect(text.x - 10, text.y - 10, text.getMeasuredWidth() + 20, text.getMeasuredHeight() + 20);
         border.shadow = new createjs.Shadow("#000000", 5, 5, 10);
         answersContainer.addChild(border);
 
@@ -66,8 +66,9 @@ function nextQuestion() {
         hit.graphics.beginFill("#000").drawRect(0, 0, text.getMeasuredWidth(), text.getMeasuredHeight());
         text.hitArea = hit;
         answersContainer.addChild(text);
+
         function handleClick(event) {
-            if ( q.answers[q.correct] == event.target.text) {
+            if (q.answers[q.correct] == event.target.text) {
                 advanceOneStep(currentPlayerID, "g");
             } else {
                 advanceOneStep(currentPlayerID, "s");
