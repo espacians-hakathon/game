@@ -68,6 +68,7 @@ function nextQuestion() {
             var blockType;
             if (q.answers[q.correct] == event.target.text) {
                 blockType = "g";
+                currentPlayerSCORE += 100;
             } else {
                 blockType = "s";
             }
