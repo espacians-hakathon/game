@@ -29,7 +29,7 @@ function getImageFactory(image_type) {
 var stage = new createjs.Stage("game");
 stage.scaleX = 0.75;
 stage.scaleY = 0.75;
-var mapTopMargin = 200; // Margin to push map to view sky
+var mapTopMargin = 250; // Margin to push map to view sky
 var mapLeftMargin = 150;
 var map = []
 
@@ -57,7 +57,7 @@ var drawCharacters = function() {
 
         characterContainer.addChild(player.image);
         characterContainer.addChild(player.nameText);
-        characterContainer.addChild(player.nameTextStroke);
+        //characterContainer.addChild(player.nameTextStroke);
         stage.addChild(characterContainer);
     }
 };
@@ -73,7 +73,7 @@ var addCharacter = function(name, ID, img) {
     players[ID] = character;
     //console.log(players);
     characterContainer.addChild(character.image);
-     characterContainer.addChild(character.nameTextStroke);
+     //characterContainer.addChild(character.nameTextStroke);
     characterContainer.addChild(character.nameText);
 
 
@@ -84,7 +84,7 @@ var addCharacter = function(name, ID, img) {
 var drawGradient = function() {
     var canvas = document.getElementById('game');
     var context = new createjs.Rectangle(0, 0, canvas.width, canvas.height);
-    var graphicsShape = new createjs.Graphics().beginLinearGradientFill(["rgba(25,225,255,1)", "rgba(255,255,255,1)"], [0.4, 1], 0, 0, 0, 130).drawRoundRect(0, 0, window.innerWidth * 2, canvas.height, 5);
+    var graphicsShape = new createjs.Graphics().beginLinearGradientFill(["rgba(25,225,255,1)", "rgba(255,255,255,1)"], [0.4, 1], 0, 0, 0, 230).drawRoundRect(0, 0, window.innerWidth * 2, canvas.height, 5);
     var g = new createjs.Graphics();
     g.setStrokeStyle(1);
     g.beginStroke(createjs.Graphics.getRGB(0, 0, 0));
@@ -152,8 +152,7 @@ function handleTick(event) {
             player.nameText.y = target_y + player.nameText.getBounds().height * 2;
             image.y = target_y;
         }
-        player.nameTextStroke.x = player.nameText.x;
-        player.nameTextStroke.y = player.nameText.y;
+      
     }
     stage.update();
 }
