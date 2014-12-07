@@ -40,16 +40,16 @@ function nextQuestion() {
     bounds.width=0;
     bounds.height=0;
     //console.log(q.answers.size());
+    var answersWidth = 0;
     for (i = 1; i <= 4; i++) {
         var answer = q.answers[i];
         //console.log(q.correct);
         var text = new createjs.Text(answer, "bold 55px answerFont", "#000");
-         if (i==1)   bounds = text.getBounds();
-        //console.log(bounds.width);
-        text.x = i*200 + bounds.width;
-        text.y = 120;
-
         bounds = text.getBounds();
+        //console.log(bounds.width);
+        text.x = bounds.width + answersWidth;
+        answersWidth = text.x + bounds.width;
+        text.y = 120;
 
         var rect = new createjs.Rectangle(0, 0, text.getMeasuredWidth(), text.getMeasuredHeight());
         var shape = new createjs.Shape(rect);
