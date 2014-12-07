@@ -59,8 +59,6 @@ function nextQuestion() {
         hit.graphics.beginFill("#000").drawRect(0, 0, text.getMeasuredWidth(), text.getMeasuredHeight());
         text.hitArea = hit;
         answersContainer.addChild(text);
-        text.addEventListener("click", handleClick);
-
         function handleClick(event) {
             if ( q.answers[q.correct] == event.target.text) {
                 advanceOneStep(currentPlayerID, "g");
@@ -69,6 +67,7 @@ function nextQuestion() {
             }
             nextQuestion();
         }
+        text.addEventListener("click", handleClick);
     }
     questionIndex++;
 }
