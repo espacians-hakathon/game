@@ -107,7 +107,7 @@
 
             // logout immediately when the controller is invoked
             controllers.logout = function(form) {
-                $('#txtTitle').text('');
+                // $('#txtTitle').text('');
                 localStorage.setItem('currentUUID', '');
                 localStorage.setItem('currentName', '');
                 rootRef.unauth();
@@ -136,7 +136,7 @@
                     // set the fields
                     form.find('#txtName').val(user.name);
 
-                    $('#txtTitle').text('Welcome! ' + user.name);
+                    // $('#txtTitle').text('Welcome! ' + user.name);
                     localStorage.setItem('currentUUID', user.uid);
                     localStorage.setItem('currentName', user.name);
                 });
@@ -157,7 +157,11 @@
                                 window.location.href = "test_tiles.html?session_id="+Session.id;
                             });
                         }else{
-                            $('#container').html("<div>No place is available at this session. Request a new session from your teacher.</div>");
+                            showAlert({
+                                title: 'Class completed!',
+                                detail: 'No place is available at this session. Request a new session from your teacher.',
+                                className: 'alert-info'
+                            });
                         }
                     });
 
@@ -225,123 +229,66 @@
             ////////////////////////////////////////
 
             $(function() {
-
-                // Start the router
                 Path.listen();
-
                 handleAuthResponse(authAnonymously(), 'profile');
-
-                // whenever authentication happens send a popup
                 rootRef.onAuth(function globalOnAuth(authData) {
-
                     if (authData) {
                         Session.fetchSessionQuestions();
                         showAlert({
-                            title: 'Logged in!',
-                            detail: 'Using ' + authData.provider,
+                            title: 'Join class!',
+                            detail: 'Enter your name and hit start to join class',
                             className: 'alert-success'
                         });
                     } else {
                         showAlert({
-                            title: 'You are not logged in',
-                            detail: '',
+                            title: 'Left class',
+                            detail: 'You have left class. Click "SchoolFarm" to join class again',
                             className: 'alert-info'
                         });
                     }
-
                 });
-
             });
-
         }(window.jQuery, window.Firebase, window.Path))
     }
     </script>
-
-
 </head>
 
 <body>
     <header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
         <div class="container">
             <div class="navbar-header">
-                <!-- <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse"> <span class="sr-only">Toggle navigation</span> -->
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-
-                <!-- </button>  -->
                 <a href="#" class="navbar-brand">SchoolFarm</a>
-
             </div>
             <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
                 <ul class="nav navbar-nav">
-                    <li> <a href="#/">Login</a>
+                    <li> <a href="quiz_builder/index.html">New Quiz!</a>
                     </li>
-                    <li> <a href="#/logout">Logout</a>
+                    <!-- <li> <a href="#/logout">Logout</a>
                     </li>
-                    <!--  <li> <a href="#/register">Register</a>
+                     <li> <a href="#/register">Register</a>
 
                 </li>
                 <li> <a href="#/profile">Profile</a>
 
-                </li> -->
+                </li> 
                     <li>
                         <a href "#" id="txtTitle"></a>
-                    </li>
+                    </li>-->
                 </ul>
             </nav>
         </div>
+         
     </header>
     <div id="container" class="container">
-        <!-- LOGIN -->
-        <!-- <form id="frmLogin" role="form" style="display: block;">
-         <h2>Login</h2>
-
-        <div class="form-group">
-            <label for="txtEmail">Email address</label>
-            <input type="email" class="form-control" id="txtEmail" placeholder="Enter email" name="email">
-        </div>
-        <div class="form-group">
-            <label for="txtPass">Password</label>
-            <input type="password" class="form-control" id="txtPass" placeholder="Password" name="password">
-        </div>
-        <button type="submit" class="btn btn-default btn-block">Login</button>
-        <br>
-        <br>
-         <h4>Login with</h4>
- <a href="#" class="btn btn-primary bt-social" data-provider="facebook">Facebook</a>
- <a href="#" class="btn btn-info bt-social" data-provider="twitter">Twitter</a> -->
-
-        <!-- <a href="#" class="btn btn-danger bt-social" data-provider="google">Google+</a> <a href="#" class="btn btn-default bt-social" data-provider="github">GitHub</a>-->
-        <!-- <a href="#" class="btn btn-warning" id="btAnon">Anon</a>
-
-    </form>-->
-        <!-- / LOGIN -->
-        <!-- LOGOUT -->
         <form id="frmLogout" role="form">
             <h2>You are logged out!</h2>
-
         </form>
-        <!-- / LOGOUT -->
-        <!-- REGISTER -->
-        <!-- <form id="frmRegister" role="form">
-         <h2>Register</h2>
-
-        <div class="form-group">
-            <label for="txtRegEmail">Email address</label>
-            <input type="email" class="form-control" id="txtEmail" placeholder="Enter email" name="email">
-        </div>
-        <div class="form-group">
-            <label for="txtRegPass">Password</label>
-            <input type="password" class="form-control" id="txtPass" placeholder="Password" name="password">
-        </div>
-        <button type="submit" class="btn btn-default">Register</button>
-    </form> -->
-        <!-- / REGISTER -->
-        <!-- PROFILE -->
+        
         <form id="frmProfile" role="form">
             <h2>Please type in your name</h2>
-
             <br>
             <div class="form-group">
                 <label for="txtName">Name</label>
@@ -358,22 +305,12 @@
             </div>
             <button type="submit" class="btn btn-primary">Start</button>
         </form>
-        <!-- / PROFILE -->
         <hr>
-        <!-- ALERT BOX -->
         <div id="alert" class="alert alert-success" role="alert">
             <h4 id="alert-title">Logged in!</h4>
-
             <p id="alert-detail">Using anonymous</p>
         </div>
-        <!-- / ALERT BOX -->
     </div>
-
-
-
-
-
-
 </body>
 
 </html>
