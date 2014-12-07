@@ -134,8 +134,7 @@
 
                     // set the fields
                     form.find('#txtName').val(user.name);
-                    form.find('#txtID').val(user.id);
-
+                    
                     $('#txtTitle').text('Welcome! ' + user.name)
                     localStorage.setItem('currentUUID', user.uid);
                     localStorage.setItem('currentName', user.name);
@@ -335,10 +334,6 @@
             <h2>Profile</h2>
 
             <br>
-            <div class="form-group">
-                <label for="txtID">ID</label>
-                <input type="text" class="form-control" id="txtID" placeholder="ID" name="ID">
-            </div>
             <div class="form-group">
                 <label for="txtName">Name</label>
                 <input type="text" class="form-control" id="txtName" placeholder="Name" name="Name">
