@@ -1,11 +1,11 @@
-function Character (name, column) {
+function Character (name, column,img) {
     this.name = name;
     this.nameText = new createjs.Text(name, "bold 15px pixelFont" ,"#000");
     this.column = column;
     this.row = 0;
     this.targetBlock = this.row;
-    this.image = new createjs.Bitmap("sprites/CharacterPinkGirl.png");
-    this.image.setTransform(column * 100,-50 + mapTopMargin);
+    this.image = getImageFactory(img);
+    this.image.setTransform(column * 100,-50 );
     this.nameText.x = this.image.x + this.nameText.getBounds().width / 4;
     this.nameText.y = this.image.y + this.nameText.getBounds().height * 2;
 }

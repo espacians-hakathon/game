@@ -24,27 +24,27 @@ var Session = {
     var questionRef = myDataRef.child(userUUID).child("Path").child(pathId);
     answer = true;
     if(blockType == "g"){
-        answer = true
+        answer = true;
     }else if(blockType == "s"){
-        answer = false
+        answer = false;
     }else{
-        answer = "notyet"
+        answer = "notyet";
     }
     var obj = {"State": answer};
     questionRef.update(obj, callback); 
   },
   createUser: function(userUuid, userObj, callback){
     var myDataRef = new Firebase(this.dataRef+'/'+this.id+'/Students');
-    var userRef = myDataRef.child(userUuid)
-    questions = JSON.parse(localStorage.getItem("questions"))
-    path = {}
+    var userRef = myDataRef.child(userUuid);
+    questions = JSON.parse(localStorage.getItem("questions"));
+    path = {};
     $.each(questions, function(k,v){
       element = {};
       if(v){
         element.QuestionID = v.ID;
         element.State = "notyet";
         path[k] = element;
-        console.log(v.ID)
+        console.log(v.ID);
       }
     });
     userObj.Path = path;

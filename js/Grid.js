@@ -6,9 +6,9 @@ function Grid (stage) {
 Grid.prototype.addColumn = function(path) {
 	blocks_column =[];
 	for (var i = 0;i < path.length; i++) {
-		var block = new Block(path[i], this.columnsCount * 100, i * 85 + mapTopMargin);
+		var block = new Block(path[i], this.columnsCount * 100 , i * 85 );
 		blocks_column.push(block);
-		this.stage.addChild(block.getSprite());
+		gridContainer.addChild(block.getSprite());
 	}
 	this.blocks.push(blocks_column);
 	return ++this.columnsCount;
@@ -17,7 +17,7 @@ Grid.prototype.getBlock = function(col,row) {
 	return this.blocks[col][row];
 };
 Grid.prototype.setBlock = function(col,row,type) {
-	var z = this.stage.getChildIndex(this.getBlock(col,row).getSprite());
+	var z = gridContainer.getChildIndex(this.getBlock(col,row).getSprite());
 	var block =  this.getBlock(col,row);
 	swapSprite(block, type, z);
 };
@@ -36,8 +36,8 @@ var swapSprite = function(block, type, z) {
         stage.removeChild(block.sprite);
         block.sprite = image;
         image.y = -1000;
-        stage.addChild(block.sprite);
-        stage.setChildIndex(block.sprite, z);
+        gridContainer.addChild(block.sprite);
+        gridContainer.setChildIndex(block.sprite, z);
 
         createjs.Tween.get(image).to({
             y: originalY

@@ -1,18 +1,30 @@
 var blockSize = getImageFactory("1");
-var players = [new Character("Ahmed", 0), new Character("Mohamed", 1), new Character("Basayel", 3)];
+var players = [new Character("Ahmed", 0,'boy'), new Character("Mohamed", 1,'boy'), new Character("Basayel", 3,'girl')];
 var grid;
+var gridContainer = new createjs.Container();
+var characterContainer = new createjs.Container();
 
 function getImageFactory(image_type) {
     switch (image_type) {
         case "boy":
             return new createjs.Bitmap("sprites/CharacterBoy.png");
+        case "girl":
+            return new createjs.Bitmap("sprites/CharacterPinkGirl.png");
+        case "horn":
+            return new createjs.Bitmap("sprites/CharacterHornGirl.png");
+        case "pr":
+            return new createjs.Bitmap("sprites/CharacterPrincessGirl.png");
+        case "cat":
+            return new createjs.Bitmap("sprites/CharacterCatGirl.png");
+
         default:
             return new createjs.Bitmap("sprites/BrownBlock.png");
     }
 }
 
 var stage = new createjs.Stage("game");
-var mapTopMargin = 150; // Margin to push map to view sky
+var mapTopMargin = 200; // Margin to push map to view sky
+var mapLeftMargin = 150;
 var map = [
     ["b", "s", "b", "b", "b", "b", "b", "b"],
     ["b", "s", "b", "b", "s", "b", "b", "b"],
@@ -38,13 +50,16 @@ var drawMap = function() {
     _(map).each(function(row, i) {
         grid.addColumn(row);
     });
+    stage.addChild(gridContainer);
 };
 
 var drawCharacters = function() {
     for (var i = players.length - 1; i >= 0; i--) {
         var player = players[i];
-        stage.addChild(player.image);
-        stage.addChild(player.nameText);
+
+        characterContainer.addChild(player.image);
+        characterContainer.addChild(player.nameText);
+        stage.addChild(characterContainer);
     }
 };
 
@@ -70,6 +85,13 @@ var init = function() {
     drawCharacters();
     initQuestions(stage);
     nextQuestion();
+
+    characterContainer.x+= mapLeftMargin;
+    gridContainer.x+= mapLeftMargin;
+
+
+    characterContainer.y+= mapTopMargin;
+    gridContainer.y+= mapTopMargin;
 };
 
 createjs.Ticker.addEventListener("tick", handleTick);
@@ -78,11 +100,11 @@ function handleTick(event) {
     for (var i = players.length - 1; i >= 0; i--) {
         var player = players[i];
         var image = player.getImage();
-        var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50 + mapTopMargin;
+        var target_y = player.getTargetBlock() * blockSize.getBounds().height / 2 - 50 ;
         image.y += 10;
-        player.nameText.y += 10 ;
+        player.nameText.y += 10;
         if (image.y >= target_y) {
-            player.nameText.y = target_y + player.nameText.getBounds().height*2;
+            player.nameText.y = target_y + player.nameText.getBounds().height * 2;
             image.y = target_y;
         }
     }
@@ -91,9 +113,9 @@ function handleTick(event) {
 
 var advanceOneStep = function(player, block_type) {
     var character = players[player];
-    grid.setBlock(character.getColumn(),character.getRow(),block_type);
+    grid.setBlock(character.getColumn(), character.getRow(), block_type);
     character.setTargetBlock(character.getTargetBlock() + 1);
-    Session.updateUserAnswer(character.getRow(), block_type, function(error){
+    Session.updateUserAnswer(character.getRow(), block_type, function(error) {
         console.log(error);
     });
 };
