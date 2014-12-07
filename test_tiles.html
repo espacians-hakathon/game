@@ -70,7 +70,7 @@
             var uuid = localStorage.getItem('currentUUID');
             var name = localStorage.getItem('currentName');
             if (uuid && name){
-                $('#userName').text('Welcome! '+ name);
+                $('#userName').text(name);
             }else{
                 window.location.href = "student_view.html?session_id="+Session.id;
             }
