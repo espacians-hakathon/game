@@ -8,6 +8,7 @@ var Session = {
         var userRef = myDataRef.child(userUUID);
 
         userRef.on("value", function(snapshot) {
+
            currentPlayerID=snapshot.val().ID;
            console.log(snapshot.val().currentRow+1);
            localStorage.setItem("questionIndex",snapshot.val().currentRow+1);
@@ -59,6 +60,7 @@ var Session = {
             students;
         myDataRef.on("value", function(snapshot) {
             studentsList = snapshot.val();
+            console.log("GOT VALUE");
             // localStorage.setItem("questions",JSON.stringify(questions));
             //console.log(studentsList);
 

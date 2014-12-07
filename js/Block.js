@@ -17,6 +17,7 @@ function Block (type,x,y) {
     this.x = x;
     this.y = y;
     this.setSprite(type);
+    this.currentlyAnimating = false;
 }
 Block.prototype.setType = function(type) {
     this.type = type;

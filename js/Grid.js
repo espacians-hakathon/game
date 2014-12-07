@@ -20,8 +20,12 @@ Grid.prototype.setBlock = function(col,row,type) {
 	var z = gridContainer.getChildIndex(this.getBlock(col,row).getSprite());
 	var block =  this.getBlock(col,row);
 
+if (!block.currentlyAnimating)
+{
+ 	block.currentlyAnimating = true;
 
 	swapSprite(block, type, z);
+}
 };
 
 var swapSprite = function(block, type, z) {
@@ -44,6 +48,8 @@ var swapSprite = function(block, type, z) {
 
         createjs.Tween.get(image).to({
             y: originalY
-        }, 500, createjs.Ease.getElasticInOut(100, 5000));
+        }, 500, createjs.Ease.getElasticInOut(100, 5000)).call(function(){
+        	block.currentlyAnimating = false;
+        });
     });
 };
