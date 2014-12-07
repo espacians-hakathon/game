@@ -12,18 +12,23 @@ function Question() {
 var questionText,
     answersContainer,
     questions,
-    questionIndex=1
+    questionIndex;
+
+questionIndex = localStorage.getItem("questionIndex");
+if(questionIndex == null) questionIndex=1;
 
 var initQuestions = function(stage) {
     questions = JSON.parse(localStorage.getItem("questions"));
     answersContainer = new createjs.Container();
     questionText = new createjs.Text("", "bold 75px questionFont", "#000");
     questionText.y = 20;
+    questionText.x = 20;
     stage.addChild(answersContainer);
     stage.addChild(questionText);
 };
 
 function nextQuestion() {
+    localStorage.setItem("questionIndex",questionIndex)
     if (questionIndex >= questions.length) {
         answersContainer.removeAllChildren();
         questionText.text = "Good Luck";
@@ -54,8 +59,6 @@ function nextQuestion() {
         hit.graphics.beginFill("#000").drawRect(0, 0, text.getMeasuredWidth(), text.getMeasuredHeight());
         text.hitArea = hit;
         answersContainer.addChild(text);
-        text.addEventListener("click", handleClick);
-
         function handleClick(event) {
             if ( q.answers[q.correct] == event.target.text) {
                 advanceOneStep(currentPlayerID, "g");
@@ -64,6 +67,7 @@ function nextQuestion() {
             }
             nextQuestion();
         }
+        text.addEventListener("click", handleClick);
     }
     questionIndex++;
 }

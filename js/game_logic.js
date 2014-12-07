@@ -32,22 +32,22 @@ stage.scaleY = 0.75;
 var mapTopMargin = 200; // Margin to push map to view sky
 var mapLeftMargin = 150;
 var map = [
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
-    ["b", "b", "b", "b", "b", "b", "b", "b"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
+    ["b", "b", "b", "b", "end"],
 ];
 
 var drawMap = function() {
