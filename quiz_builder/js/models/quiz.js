@@ -5,6 +5,7 @@ var Quiz = {
     var myDataRef = new Firebase(this.dataRef);
     var obj = {};
     obj["Questions"] = quiz_obj["questions"];
+    obj["StudentCount"] = 0;
     firebase_ref = myDataRef.push(obj, callback);
   }
 };
