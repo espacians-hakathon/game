@@ -1,5 +1,5 @@
 var blockSize = getImageFactory("1");
-var players = {}; // [new Character("Ahmed", 0, 'boy'), new Character("Mohamed", 1, 'boy'), new Character("Basayel", 2, 'girl')];
+var players = {};
 var grid;
 var gridContainer = new createjs.Container();
 var characterContainer = new createjs.Container();
@@ -57,7 +57,6 @@ var drawCharacters = function() {
 
         characterContainer.addChild(player.image);
         characterContainer.addChild(player.nameText);
-        //characterContainer.addChild(player.nameTextStroke);
         stage.addChild(characterContainer);
     }
 };
@@ -68,17 +67,10 @@ var refreshCharacters = function() {
 };
 
 var addCharacter = function(name, ID, img) {
-    //console.log("adding char");
     var character = new Character(name, ID, img);
     players[ID] = character;
-    //console.log(players);
     characterContainer.addChild(character.image);
-     //characterContainer.addChild(character.nameTextStroke);
     characterContainer.addChild(character.nameText);
-
-
-
-
 };
 
 var drawGradient = function() {
@@ -153,8 +145,6 @@ function handleTick(event) {
 var advanceOneStep = function(player, block_type) {
     console.log(players);
     var character = players[currentPlayerID];
-    //grid.setBlock(character.getColumn(), character.getRow(), block_type);
-    //character.setTargetBlock(character.getTargetBlock() + 1);
     Session.updateUserAnswer(character.getRow() + 1, block_type, function(error) {
         console.log(error);
     });
