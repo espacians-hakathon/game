@@ -52,4 +52,4 @@ http://uskk3bd5229a.she7ta.koding.io/game/quiz_builder/index.html
 * [FireBase](https://www.firebase.com/)
 * [CSS](http://www.w3schools.com/css/)
 * [Bootstrap3](http://getbootstrap.com/)
-
+* [nginx](http://nginx.org/)
