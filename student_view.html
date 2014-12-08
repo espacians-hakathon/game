@@ -17,12 +17,22 @@
         display: none;
     }
     </style>
-
+<script type="text/javascript">
+   var currentChar = 'boy';
+      function changeChar(charc) {
+                currentChar = charc;
+                
+                $( "#charTable" ).children().css( "background-color", "white" );
+                 $( "#"+charc ).css( "background-color", "#D1D1E0" );
+            }
+</script>
     <script type="text/javascript">
     window.onload = function() {
         (function(jQuery, Firebase, Path) {
             "use strict";
             var rootRef = new Firebase(Session.dataRef + '/' + Session.id);
+           
+
             
             var routeMap = {
                 '#/': {
@@ -82,6 +92,8 @@
                     });
             }
 
+
+
             function showAlert(opts) {
                 var title = opts.title;
                 var detail = opts.detail;
@@ -124,7 +136,9 @@
                     e.preventDefault();
                     var studentCount = 1;
                     var userInfo = $(this).serializeObject();
-                    var userChar = $("#charSelect").val();
+                    //var userChar = $("#charSelect").val();
+                    var userChar = currentChar;
+                    console.log(userChar);
                     rootRef.once('value', function(dataSnapshot) {
                         studentCount = dataSnapshot.val().StudentCount;
                         if (studentCount < 10) {
@@ -134,10 +148,10 @@
                             Session.createUser(user.uid, userChar, userInfo, function onComplete() {
                                 window.location.href = "test_tiles.html?session_id=" + Session.id;
                             });
-                        }else{
+                        } else {
                             if (Session.id == 'session12245') {
-                              console.log("RESERING");
-                              console.log(userRef);
+                                console.log("RESERING");
+                                console.log(userRef);
                                 rootRef.update({
                                     "Students": {},
                                     "StudentCount": 0
@@ -149,8 +163,7 @@
                                     window.location.href = "test_tiles.html?session_id=" + Session.id;
                                 });
 
-                            }
-                            else {
+                            } else {
                                 showAlert({
                                     title: 'Class completed!',
                                     detail: 'No place is available at this session. Request a new session from your teacher.',
@@ -168,7 +181,7 @@
             function transitionRoute(path) {
                 var formRoute = routeMap[path];
                 var currentUser = rootRef.getAuth();
-                
+
                 var upcomingForm = $('#' + formRoute.form);
 
                 if (!activeForm) {
@@ -236,13 +249,13 @@
                 </ul>
             </nav>
         </div>
-         
+
     </header>
     <div id="container" class="container">
         <form id="frmLogout" role="form">
             <h2>You are logged out!</h2>
         </form>
-        
+
         <form id="frmProfile" role="form">
             <h2>Please type in your name</h2>
             <br>
@@ -250,7 +263,8 @@
                 <label for="txtName">Name</label>
                 <input type="text" class="form-control" id="txtName" placeholder="Name" name="Name">
             </div>
-            <div class="form-group">
+            <h2>Choose your player:</h2>
+            <!--  <div class="form-group">
                 <select id="charSelect">
                     <option value="boy">Boy</option>
                     <option value="girl">Pink Girl</option>
@@ -258,7 +272,23 @@
                     <option value="pr">Princess</option>
                     <option value="cat">Cat Girl</option>
                 </select>
-            </div>
+            </div> -->
+            <table class="table  ">
+                <tr id ="charTable" >
+                    <td id='boy' style="background:#D1D1E0;" ><img src="sprites/CharacterBoy.png" onclick="changeChar('boy')" />
+                    </td>
+                    <td id='cat'><img src="sprites/CharacterCatGirl.png" onclick="changeChar('cat')" />
+                    </td>
+                    <td id='horn'><img src="sprites/CharacterHornGirl.png" onclick="changeChar('horn')" />
+                    </td>
+                    <td id='girl'><img src="sprites/CharacterPinkGirl.png" onclick="changeChar('girl')" />
+                    </td>
+                    <td id='pr'><img src="sprites/CharacterPrincessGirl.png" onclick="changeChar('pr')" />
+                    </td>
+
+                </tr>
+
+            </table>
             <button type="submit" class="btn btn-primary">Start</button>
         </form>
         <hr>
