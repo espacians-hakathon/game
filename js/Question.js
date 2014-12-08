@@ -23,7 +23,7 @@ if (questionIndex === 0 || questionIndex === null) {
 var initQuestions = function(stage) {
     questions = JSON.parse(localStorage.getItem("questions"));
     answersContainer = new createjs.Container();
-    questionText = new createjs.Text("", "bold 75px questionFont", "#000");
+    questionText = new createjs.Text("", "bold 65px questionFont", "#000");
     questionText.y = 20;
     questionText.x = 20;
     stage.addChild(answersContainer);
