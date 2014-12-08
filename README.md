@@ -12,7 +12,7 @@ This is our submission repository for the [Koding Hackathon](https://koding.com/
 
 Each player is responsible for their own land and to plant as much grass as they can! The more grass, the more win! 
 
-Simple rules, correct answer grows grass, wrong answer ruins the land!
+**Simple rules, correct answer grows grass, wrong answer ruins the land!**
 
 A teacher will create a group of questions to test the students' knowledge. Then, he will share the QUIZ URL with the students where they can login with their name and choose their favourite character to play with.
 
