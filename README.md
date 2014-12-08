@@ -1,6 +1,6 @@
 # School Farm
 
-We are a group of Egyptian youth developers. We share the same hobbies, interests and career.
+We are a group of **Egyptian** youth developers. We share the same hobbies, interests and career.
 This is our submission repository for the [Koding Hackathon](https://koding.com/Hackathon).
 
 ## Description
@@ -8,7 +8,7 @@ This is our submission repository for the [Koding Hackathon](https://koding.com/
 [![Koding Hackathon](/images/badge.png?raw=true "Koding Hackathon")](https://koding.com/Hackathon)
 
 
-SchoolFarm is a multiplayer quiz game that simulates a regular classroom quiz. It is not just a regular quiz game, but a real-time online multiplayer one, where students race to the end of the quiz and compete together!
+**SchoolFarm** is a **multiplayer** quiz game that simulates a regular classroom quiz. It is not just a regular quiz game, but a **real-time online** multiplayer one, where students race to the end of the quiz and compete together!
 
 Each player is responsible for their own land and to plant as much grass as they can! The more grass, the more win! 
 
@@ -28,13 +28,15 @@ There is currently a limit on the students number (10) for demo purposes. Howeve
 ![SchoolFarm](/images/sc1.jpg "SchoolFarm")
 ![SchoolFarm](/images/sc2.jpg "SchoolFarm")
 
-Teacher view: (REAL TIME)
+**Teacher view: (REAL TIME)**
 ![SchoolFarm](/images/progress.png "SchoolFarm")
 
+**Character select:**
+![SchoolFarm](/images/select.png "SchoolFarm")
 
 
 ## Demo
-Play around with SchoolFarm with a random team here:
+Play around with **SchoolFarm** with a random team here:
 http://uskk3bd5229a.she7ta.koding.io/game/student_view.html
 
 View scores and adminstrate the teacher console here:
