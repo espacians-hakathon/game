@@ -28,7 +28,7 @@ Our kids play tons of games every day, it's their thing!
 
 ## Screenshots
 
-![SchoolFarm](/images/mockup.jpg "SchoolFarm")
+![SchoolFarm](/images/mockup2.jpg "SchoolFarm")
 ![SchoolFarm](/images/sc1.jpg "SchoolFarm")
 ![SchoolFarm](/images/sc2.jpg "SchoolFarm")
 
