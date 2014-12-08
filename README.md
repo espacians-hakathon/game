@@ -22,6 +22,9 @@ Throughout the quiz, the teacher is able to view all students results (in real t
 
 There is currently a limit on the students number (10) for demo purposes. However, there is no limit on questions’ number in any quiz.
 
+## Our goal
+Our kids play tons of games every day, it's their thing! Our goal is to combine this fun they get from daily video games with actual knowledge and create fun, competitive yet useful games for our children, so that they can learn while enjoying themselves! 
+
 ## Screenshots
 
 ![SchoolFarm](/images/mockup.jpg "SchoolFarm")
