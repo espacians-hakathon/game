@@ -31,6 +31,8 @@ There is currently a limit on the students number (10) for demo purposes. Howeve
 Teacher view: (REAL TIME)
 ![SchoolFarm](/images/progress.png "SchoolFarm")
 
+Character select:
+![SchoolFarm](/images/select.png "SchoolFarm")
 
 
 ## Demo
